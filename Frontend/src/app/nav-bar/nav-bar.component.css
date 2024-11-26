@@ -1,0 +1,139 @@
+
+.nav-bar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2f2626;
+    padding: 0.5rem 1rem;
+    color: white;
+  }
+  
+.navhome{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  
+.navhome li a {
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+  }
+
+.navcenter {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    gap: 1.5rem;
+  }
+  
+  .navcenter li a {
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+  }
+  
+  .navright {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    gap: 1rem;
+  }
+  
+  .navright li a {
+    text-decoration: none;
+    font-weight: bold;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+  }
+  
+  .nav-bar a:hover {
+    color: white;
+    opacity: 0.5;
+  }
+  
+.loginForm-container{
+    position: absolute;
+    top:0;
+    right:0;
+    bottom:0;
+    left:0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: darkgrey;
+    transition: all 0.4s;
+    display: none;
+}
+
+.loginForm-content{
+    border-radius: 4px;
+    position: relative;
+    background: #fff;
+    padding: 1em 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+form{
+    width: 450px;
+    padding: 2em;
+}
+h2{
+    text-align: center;
+    margin: 20px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.loginForm-control{
+    display: flex;
+    flex-direction: column;
+    padding: 10px 10px 8px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    transform: 0.3s;
+}
+
+.loginForm-control label{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.7px;
+    transition: 0.3s;
+}
+
+.loginForm-control input{
+    outline: none;
+    border-radius: 20px;
+    padding: 4px 0 0;
+    font-size: 14px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.loginForm-control:focus-within{
+    border-color: #2f2626;
+}
+
+.loginForm-control-others{
+    margin: 5% auto;
+    text-align: center;
+}
+.loginForm-control-others button{
+    color: black;
+}
+
+.loginForm-container.open{
+    visibility: visible;
+    opacity: 1;
+}
+
+.closeLogin {
+    cursor: pointer;
+    position: absolute;
+    right: 5px;
+    top: 5px;
+}
