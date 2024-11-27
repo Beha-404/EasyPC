@@ -8,7 +8,7 @@
     <ul class="navhome">
         <li><a mat-button routerLink="/home">EasyPCLogoPlaceHolder</a></li>
     </ul>
-    @if (loggedIn) {
+    @if (accountService.currentUser()) {
     <ul class="navcenter">
         <li><a mat-button routerLink="/products">Products</a></li>
         <li><a mat-button routerLink="/orders">Orders</a></li>
@@ -16,13 +16,13 @@
     </ul>
     }
     <ul class="navright">
-        @if (!loggedIn) {
+        @if (!accountService.currentUser()) {
         <li><a mat-button id="loginButton" (click)="openForm()">Login</a></li>
         <li><a mat-button routerLink="/register">Register</a></li>
         }
         @else {
         <li><a mat-button routerLink="/edit-profile">Edit profile</a></li>
-        <li><a mat-button>Logout</a></li>
+        <li><a mat-button (click)="accountService.logout()">Logout</a></li>
         }
     </ul>
 </nav>

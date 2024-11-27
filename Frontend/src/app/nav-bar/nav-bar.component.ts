@@ -2,9 +2,10 @@ import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
-import { AccountService } from '../services/account.service';
+import { AccountService } from '../_services/account.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { User } from '../_models/user';
 
 @Component({
   selector: 'app-nav-bar',
@@ -13,14 +14,10 @@ import { CommonModule } from '@angular/common';
   styleUrl: './nav-bar.component.css'
 })
 export class NavBarComponent {
-  loggedIn = false;
-  private accountService = inject(AccountService);
+  accountService = inject(AccountService);
   body: any = {};
   isLoginFormVisible: boolean = false;
   errorMessage: string = "";
-
-
-
 
   openForm(): void {
     console.log("Opening login form...");
@@ -35,15 +32,19 @@ export class NavBarComponent {
     this.accountService.login(this.body).subscribe({
       next: response => {
         console.log(response);
-        this.loggedIn = true;
         this.errorMessage = "";
         this.closeForm();
       },
-      error: error => {console.log(error);
-      this.errorMessage = "Login failed. Please check your inputs";
+      error: error => {
+        console.log(error);
+        this.errorMessage = "Login failed. Please check your inputs";
       }
     });
   };
+
+  logout(){
+    this.accountService.logout();
+  }
 }
 /*
 const loginFormContainer = document.querySelector(".loginForm-container"),
