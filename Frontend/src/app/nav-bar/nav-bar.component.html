@@ -1,22 +1,53 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="nav-bar.component.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
 
-
-@if(loggedIn){
-    <p>logged in!</p>
+<nav class="nav-bar">
+    <ul class="navhome">
+        <li><a mat-button routerLink="/home">EasyPCLogoPlaceHolder</a></li>
+    </ul>
+    @if (loggedIn) {
+    <ul class="navcenter">
+        <li><a mat-button routerLink="/products">Products</a></li>
+        <li><a mat-button routerLink="/orders">Orders</a></li>
+        <li><a mat-button routerLink="/support">Support</a></li>
+    </ul>
     }
-    @else {
-    <p>not logged in!</p>
-    
-    <form #loginForm="ngForm" (ngSubmit)="login()" class="login&Register">
-        <input name="username" [(ngModel)]="body.username" placeholder="Username">
-    
-        <input name="password" [(ngModel)]="body.password" placeholder="Password" type="password">
-        <button type="submit">Login</button>
-    </form>
-    }
+    <ul class="navright">
+        @if (!loggedIn) {
+        <li><a mat-button id="loginButton" (click)="openForm()">Login</a></li>
+        <li><a mat-button routerLink="/register">Register</a></li>
+        }
+        @else {
+        <li><a mat-button routerLink="/edit-profile">Edit profile</a></li>
+        <li><a mat-button>Logout</a></li>
+        }
+    </ul>
+</nav>
 
-    <br>
-
-<button  mat-raised-button routerLink="/register">Register</button>
-<button  mat-raised-button routerLink="/orders">Orders</button>
-<button  mat-raised-button routerLink="/support">Support</button>
-<button  mat-raised-button routerLink="/products">Products</button>
+<div class="loginForm-container" *ngIf="isLoginFormVisible">
+    <div class="loginForm-content">
+        <button class="close-button" aria-label="Close alert" type="button" data-close (click)="closeForm()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        <form #loginForm class="login" (ngSubmit)="login()">
+            <h2>EasyPC</h2>
+            <div class="loginForm-control">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" [(ngModel)]="body.username" required />
+            </div>
+            <div class="loginForm-control">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" [(ngModel)]="body.password" required />
+            </div>
+            <div *ngIf="errorMessage" class="error-message">
+                {{errorMessage}}
+            </div>
+            <div class="loginForm-control-others">
+                <button mat-button id="login" type="submit">Login</button>
+            </div>
+        </form>
+    </div>
+</div>
