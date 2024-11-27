@@ -219,6 +219,8 @@ opacity: 1;
 }
 .registerform-control-others button{
   color: black;
+  background-color: aliceblue;
+  margin: 0px 5px;
 }
 
 .registerform-container.open{

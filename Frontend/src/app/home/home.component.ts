@@ -33,6 +33,7 @@ cpuoptions: string[] = ['Intel', 'AMD'];
 gpuoptions: string[] = ['Intel', 'AMD', 'Nvidia'];
 filteredCPUOptions: Observable<string[]>;
 filteredGPUOptions: Observable<string[]>
+  registerMode = false;
 
 
   ngOnInit(): void {
@@ -49,6 +50,16 @@ filteredGPUOptions: Observable<string[]>
       map(value => this._gpufilter(value || '')),
     );
   }
+
+
+registerToggle(){
+  this.registerMode = !this.registerMode;
+}
+
+
+cancelRegisterMode(event: boolean){
+  this.registerMode = event;
+}
 
   getUsers(){
     this.http.get("http://localhost:5271/api/users")
