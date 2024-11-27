@@ -10,9 +10,9 @@
     </ul>
     @if (accountService.currentUser()) {
     <ul class="navcenter">
-        <li><a mat-button routerLink="/products">Products</a></li>
-        <li><a mat-button routerLink="/orders">Orders</a></li>
-        <li><a mat-button routerLink="/support">Support</a></li>
+        <li><a mat-button routerLink="/products" routerLinkActive="active">Products</a></li>
+        <li><a mat-button routerLink="/orders" routerLinkActive="active">Orders</a></li>
+        <li><a mat-button routerLink="/support" routerLinkActive="active">Support</a></li>
     </ul>
     }
     <ul class="navright">
@@ -22,7 +22,7 @@
         }
         @else {
         <li><a mat-button routerLink="/edit-profile">Edit profile</a></li>
-        <li><a mat-button (click)="accountService.logout()">Logout</a></li>
+        <li><a mat-button routerLink="/" (click)="accountService.logout()">Logout</a></li>
         }
     </ul>
 </nav>
@@ -84,6 +84,9 @@
             <div class="registerform-control">
                 <label for="address">Address</label>
                 <input type="text" id="address" name="address" required />
+            </div>
+            <div *ngIf="errorMessage" class="error-message">
+                {{errorMessage}}
             </div>
             <div class="registerform-control-others">
                 <button mat-button id="register" type="submit">Register</button>

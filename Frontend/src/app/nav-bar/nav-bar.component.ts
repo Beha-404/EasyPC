@@ -1,21 +1,22 @@
 import { Component, inject, input, output} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterModule } from '@angular/router';
+import { Router, RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
 import { AccountService } from '../_services/account.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { M } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-nav-bar',
-  imports: [RouterModule, MatIconModule, MatButtonModule, FormsModule, CommonModule],
+  imports: [RouterModule, MatIconModule, MatButtonModule, FormsModule, CommonModule,RouterLinkActive,RouterLink],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css'
 })
 export class NavBarComponent {
 
   cancelRegister = output<boolean>();
-  usersFromHomeComponent = input.required<any>()
+  usersFromHomeComponent = input<any>()
   accountService = inject(AccountService);
 
   model: any = {};
@@ -36,7 +37,7 @@ export class NavBarComponent {
         },
         error:error => {
           console.log(error);
-          
+          this.errorMessage = error.error
         }
       }
     )
@@ -60,7 +61,7 @@ export class NavBarComponent {
   }
   login() {
     this.accountService.login(this.model).subscribe({
-      next: response => {
+      next: response =>{
         console.log(response);
         this.errorMessage = "";
         this.closeLoginForm();
@@ -75,5 +76,4 @@ export class NavBarComponent {
   logout(){
     this.accountService.logout();
   }
-
 }
