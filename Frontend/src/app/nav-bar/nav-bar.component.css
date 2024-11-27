@@ -55,7 +55,7 @@
     opacity: 0.5;
   }
   
-.loginForm-container{
+.loginform-container{
     position: absolute;
     top:0;
     right:0;
@@ -68,12 +68,12 @@
     transition: all 0.4s;
 }
 
-.loginForm-container.open{
+.loginform-container.open{
   visibility: visible;
   opacity: 1;
 }
 
-.loginForm-content{
+.loginform-content{
     border-radius: 4px;
     position: relative;
     background: #fff;
@@ -83,7 +83,7 @@
     justify-content: center;
     overflow: hidden;
 }
-form{
+.login{
     width: 450px;
     padding: 2em;
 }
@@ -93,7 +93,7 @@ h2{
     font-family: 'Open Sans', sans-serif;
 }
 
-.loginForm-control{
+.loginform-control{
     display: flex;
     flex-direction: column;
     padding: 10px 10px 8px;
@@ -102,7 +102,7 @@ h2{
     transform: 0.3s;
 }
 
-.loginForm-control label{
+.loginform-control label{
     font-family: 'Open Sans', sans-serif;
     font-size: 11px;
     font-weight: 600;
@@ -110,7 +110,7 @@ h2{
     transition: 0.3s;
 }
 
-.loginForm-control input{
+.loginform-control input{
     outline: none;
     border-radius: 20px;
     padding: 4px 0 0;
@@ -118,19 +118,16 @@ h2{
     font-family: 'Open Sans', sans-serif;
 }
 
-.loginForm-control:focus-within{
-    border-color: #2f2626;
-}
 
-.loginForm-control-others{
+.loginform-control-others{
     margin: 5% auto;
     text-align: center;
 }
-.loginForm-control-others button{
+.loginform-control-others button{
     color: black;
 }
 
-.loginForm-container.open{
+.loginform-container.open{
     visibility: visible;
     opacity: 1;
 }
@@ -150,4 +147,76 @@ h2{
   margin-top: 10px;
   margin-left: 10px;
   font-size: 14px;
+}
+
+
+.registerform-container{
+  position: absolute;
+  top:0;
+  right:0;
+  bottom:0;
+  left:0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.7);
+  transition: all 0.4s;
+}
+
+.registerform-container.open{
+visibility: visible;
+opacity: 1;
+}
+
+.registerform-content{
+  border-radius: 4px;
+  position: relative;
+  background: #fff;
+  padding: 1em 2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.register{
+  width: 450px;
+  padding: 2em;
+}
+
+.registerform-control{
+  display: flex;
+  flex-direction: column;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  transform: 0.3s;
+}
+
+.registerform-control label{
+  font-family: 'Open Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.7px;
+  transition: 0.3s;
+}
+
+.registerform-control input{
+  outline: none;
+  border-radius: 20px;
+  padding: 4px 0 0;
+  font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+
+.registerform-control-others{
+  margin: 5% auto;
+  text-align: center;
+}
+.registerform-control-others button{
+  color: black;
+}
+
+.registerform-container.open{
+  visibility: visible;
+  opacity: 1;
 }

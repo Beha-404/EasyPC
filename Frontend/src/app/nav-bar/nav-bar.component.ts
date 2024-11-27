@@ -20,13 +20,12 @@ export class NavBarComponent {
   errorMessage: string = "";
   isLoginFormVisible: boolean = false;
   isRegisterFormVisible: boolean = false;
+  model: any = {};
 
   openRegisterForm(): void {
-    console.log("Opening register form...");
     this.isRegisterFormVisible = true;
   }
   closeRegisterForm(): void {
-    console.log("Closing register form...");
     this.isRegisterFormVisible = false;
   }
 
@@ -56,13 +55,13 @@ export class NavBarComponent {
   logout(){
     this.accountService.logout();
   }
-}
-/*
-const loginFormContainer = document.querySelector(".loginForm-container"),
-loginFormLogin = document.getElementById("loginButton"),
-login = document.getElementById("login"),
-loginForm = document.querySelector(".login");
 
-function closeLoginFormContainer(){
-  loginFormContainer?.classList.remove("open");
-}*/
+  register() {
+    console.log(this.model);
+  }
+
+  cancel() {
+    console.log('cancelled');
+
+  }
+}
