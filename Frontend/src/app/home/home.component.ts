@@ -5,10 +5,12 @@ import {MatButtonModule} from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { NavBarComponent } from "../nav-bar/nav-bar.component";
 import { RouterModule } from '@angular/router';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatSelectModule} from '@angular/material/select';
 
 @Component({
   selector: 'app-home',
-  imports: [MatSlideToggleModule, MatButtonModule, MatIconModule, NavBarComponent,RouterModule],
+  imports: [MatSlideToggleModule, MatButtonModule, MatSelectModule, MatSliderModule, MatIconModule, NavBarComponent,RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
