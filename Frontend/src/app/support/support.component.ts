@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-support',
-  imports: [ NavBarComponent,RouterModule],
+  imports: [RouterModule, NavBarComponent],
   templateUrl: './support.component.html',
   styleUrl: './support.component.css'
 })

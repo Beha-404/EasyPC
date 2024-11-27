@@ -32,7 +32,7 @@ public class AccountController(DataContext context,ITokenService tokenService) :
             PasswordSalt = hmac.Key
         };
 
-        if (user.Username.Length < 3)
+        if (user.Username.Length < 5)
             return BadRequest("Username too short");
 
         context.Users.Add(user);
