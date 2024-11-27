@@ -1,11 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input, output} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { AccountService } from '../_services/account.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { User } from '../_models/user';
 
 @Component({
   selector: 'app-nav-bar',
@@ -14,26 +13,57 @@ import { User } from '../_models/user';
   styleUrl: './nav-bar.component.css'
 })
 export class NavBarComponent {
-  accountService = inject(AccountService);
-  body: any = {};
-  isLoginFormVisible: boolean = false;
-  errorMessage: string = "";
 
-  openForm(): void {
+  cancelRegister = output<boolean>();
+  usersFromHomeComponent = input.required<any>()
+  accountService = inject(AccountService);
+
+  model: any = {};
+  errorMessage: string = "";
+  isLoginFormVisible: boolean = false;
+  isRegisterFormVisible: boolean = false;
+
+  cancel(){
+    this.cancelRegister.emit(false);
+  }
+
+  register() {
+    this.accountService.register(this.model).subscribe(
+      {
+        next: response=> {
+          console.log(response);
+          this.closeRegisterForm();
+        },
+        error:error => {
+          console.log(error);
+          
+        }
+      }
+    )
+  }
+
+  openRegisterForm(): void {
+    this.isRegisterFormVisible = true;
+  }
+  closeRegisterForm(): void {
+    this.isRegisterFormVisible = false;
+  }
+
+  openLoginForm(): void {
     console.log("Opening login form...");
     this.isLoginFormVisible = true;
   }
   // Close the login form
-  closeForm(): void {
+  closeLoginForm(): void {
     console.log("Closing login form...");
     this.isLoginFormVisible = false;
   }
   login() {
-    this.accountService.login(this.body).subscribe({
+    this.accountService.login(this.model).subscribe({
       next: response => {
         console.log(response);
         this.errorMessage = "";
-        this.closeForm();
+        this.closeLoginForm();
       },
       error: error => {
         console.log(error);
@@ -45,13 +75,5 @@ export class NavBarComponent {
   logout(){
     this.accountService.logout();
   }
-}
-/*
-const loginFormContainer = document.querySelector(".loginForm-container"),
-loginFormLogin = document.getElementById("loginButton"),
-login = document.getElementById("login"),
-loginForm = document.querySelector(".login");
 
-function closeLoginFormContainer(){
-  loginFormContainer?.classList.remove("open");
-}*/
+}

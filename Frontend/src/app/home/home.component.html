@@ -1,23 +1,62 @@
-
-
-<app-nav-bar></app-nav-bar>
+<app-nav-bar [usersFromHomeComponent]="users" (cancelRegister)="cancelRegisterMode($event)"></app-nav-bar>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
 <link rel="stylesheet" href="home.component.css">
-<!--
-<ul>
-  @for (user of users; track user.id) {
-    <li>
-        {{user.id}} - {{user.username}}
-   </li>
-  }
-</ul>
+=======
+<link rel="stylesheet" href="home.component.css">
 
-<br>
+<div class="searchform-container">
+    <div class="searchform-content">
+        <form #searcform class="search">
+            <h2>Select Components</h2>
+            <div class="searchform-control">
+                <label for="budget">Budget</label>
+                <mat-slider min="0" max="2000" step="0.5" discrete showTickMarks>
+                    <input matSliderStartThumb>
+                    <input matSliderEndThumb>
+                </mat-slider>
+            </div>
+            <div class="searchform-control">
+                <label for="cpumanufacturer">CPU Manufacturer</label>
+                <mat-select placeholder="Select CPU Manufacturer">
+                    <mat-option>Any</mat-option>
+                    <mat-option>Intel</mat-option>
+                    <mat-option>AMD</mat-option>
+                </mat-select>
+            </div>
+            <div class="searchform-control">
+                <label for="gpumanufacturer">GPU Manufacturer</label>
+                <mat-select placeholder="Select GPU Manufacturer">
+                    <mat-option>Any</mat-option>
+                    <mat-option>Intel</mat-option>
+                    <mat-option>AMD</mat-option>
+                    <mat-option>Nvidia</mat-option>
+                </mat-select>
+            </div>
+            <div class="searchform-control">
+                <label for="performance">Performance</label>
+                <mat-select placeholder="Select Performance">
+                    <mat-option>Placeholder1</mat-option>
+                    <mat-option>Placeholder2</mat-option>
+                    <mat-option>Placeholder3</mat-option>
+                    <mat-option>Placeholder4</mat-option>
+                </mat-select>
+            </div>
+            <div class="searchform-control">
+                <label for="tags">Tags</label>
+                <mat-select placeholder="Select Tags">
+                    <mat-option>Placeholder1</mat-option>
+                    <mat-option>Placeholder2</mat-option>
+                    <mat-option>Placeholder3</mat-option>
+                    <mat-option>Placeholder4</mat-option>
+                </mat-select>
+            </div>
 
-<select name="" id="">
-  @for (user of users; track user.id) {
-    <option>{{user.username}}</option>
-  }
-</select>
-
--->
+            <div class="searchform-control-others">
+                <button mat-button id="Search" type="submit">Search</button>
+                <button mat-button id="Reset" type="submit">Reset</button>
+            </div>
+        </form>
+    </div>
+</div>
+>>>>>>> 72faf80dc598923940202a57d844bc8eb3fbd22b
