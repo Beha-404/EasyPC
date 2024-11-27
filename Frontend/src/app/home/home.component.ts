@@ -12,6 +12,23 @@ import { RouterModule } from '@angular/router';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent{
- 
+export class HomeComponent implements OnInit{
+  http = inject(HttpClient);
+  users:any;
+
+
+  ngOnInit(): void {
+    this.getUsers();
+  }
+
+  getUsers(){
+    this.http.get("http://localhost:5271/api/users")
+    .subscribe(
+      {
+        next: response => this.users = response,
+        error: error => console.log(error),
+        complete: () => console.log("Request has completed")
+      }
+    );
+}
 }

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
@@ -14,17 +14,28 @@ import { User } from '../_models/user';
   styleUrl: './nav-bar.component.css'
 })
 export class NavBarComponent {
+  @Input() usersFromHomeComponent: any;
   accountService = inject(AccountService);
   body: any = {};
-  isLoginFormVisible: boolean = false;
   errorMessage: string = "";
+  isLoginFormVisible: boolean = false;
+  isRegisterFormVisible: boolean = false;
 
-  openForm(): void {
+  openRegisterForm(): void {
+    console.log("Opening register form...");
+    this.isRegisterFormVisible = true;
+  }
+  closeRegisterForm(): void {
+    console.log("Closing register form...");
+    this.isRegisterFormVisible = false;
+  }
+
+  openLoginForm(): void {
     console.log("Opening login form...");
     this.isLoginFormVisible = true;
   }
   // Close the login form
-  closeForm(): void {
+  closeLoginForm(): void {
     console.log("Closing login form...");
     this.isLoginFormVisible = false;
   }
@@ -33,7 +44,7 @@ export class NavBarComponent {
       next: response => {
         console.log(response);
         this.errorMessage = "";
-        this.closeForm();
+        this.closeLoginForm();
       },
       error: error => {
         console.log(error);

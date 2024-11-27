@@ -1,33 +1,55 @@
-<button class="btnBack" routerLink="/home">Go back</button>
-<div class="mainDiv">
-    <h1>Register</h1>
-    <div>
-        <span>Username: </span>
-        <input type="text">
-    </div>
-    <div>
-        <span>Password: </span>
-        <input type="text">
-    </div>
-    <div>
-        <span>Email: </span>
-        <input type="text">
-    </div>
-    <div>
-        <span>Country: </span>
-        <input type="text">
-    </div>
-    <div>
-        <span>City: </span>
-        <input type="text">
-    </div>
-    <div>
-        <span>Address: </span>
-        <input type="text">
-    </div>
-    <div>
-        <button type="submit">Done</button>
-    </div>
-</div>
+<form #registerForm="ngForm" (ngSubmit)="register()" autocomplete="off">
+    <div class="mainDiv">
+        <div>
+            <h1>SIGN UP</h1>
+        </div>
+        <div>
+            <span>Username: </span>
+            <input 
+            type="text"
+            name="username"
+            [(ngModel)]="model.username"
+            >
+        </div>
+        <div>
+            <span>Password: </span>
+            <input
+            type="text"
+            name="password"
+            [(ngModel)]="model.password"
+            >
+        </div>
 
+
+        <div>
+            <label >who is your favourite user?</label>
+            <select>
+                @for (user of usersFromNavBarComponent; track $index) {
+                    <option [value]="user.username">{{user.username}}</option>
+                }
+            </select>
+        </div>
+
+        <div>
+            <span>Email: </span>
+            <input type="text">
+        </div>
+        <div>
+            <span>Country: </span>
+            <input type="text">
+        </div>
+        <div>
+            <span>City: </span>
+            <input type="text">
+        </div>
+        <div>
+            <span>Address: </span>
+            <input type="text">
+        </div>
+        <div class="btnSubmit">
+            <button type="submit">Register</button>
+            <button type="button" (click)="cancel()">Cancel</button>
+        </div>
+    </div>
+</form>
 

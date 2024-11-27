@@ -17,8 +17,8 @@
     }
     <ul class="navright">
         @if (!accountService.currentUser()) {
-        <li><a mat-button id="loginButton" (click)="openForm()">Login</a></li>
-        <li><a mat-button routerLink="/register">Register</a></li>
+        <li><a mat-button id="loginButton" (click)="openLoginForm()">Login</a></li>
+        <li><a mat-button>Register</a></li>
         }
         @else {
         <li><a mat-button routerLink="/edit-profile">Edit profile</a></li>
@@ -29,7 +29,7 @@
 
 <div class="loginForm-container" *ngIf="isLoginFormVisible">
     <div class="loginForm-content">
-        <button class="close-button" aria-label="Close alert" type="button" data-close (click)="closeForm()">
+        <button class="close-button" aria-label="Close alert" type="button" data-close (click)="closeLoginForm()">
             <span aria-hidden="true">&times;</span>
         </button>
         <form #loginForm class="login" (ngSubmit)="login()">
