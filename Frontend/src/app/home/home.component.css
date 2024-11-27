@@ -1,0 +1,92 @@
+
+.searchform-container{
+    position: absolute;
+    top:53%;
+    right:0%;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s;
+}
+
+.searchform-container.open{
+  visibility: visible;
+  opacity: 1;
+}
+
+.searchform-content{
+    border-radius: 4px;
+    position: relative;
+    background: #fff;
+    padding: 1em 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.search{
+    width: 450px;
+    padding: 2em;
+}
+h2{
+    text-align: center;
+    margin: 20px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.searchform-control{
+    display: flex;
+    flex-direction: column;
+    padding: 10px 10px 8px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    transform: 0.3s;
+}
+
+.searchform-control label{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.7px;
+    transition: 0.3s;
+    padding: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.searchform-control input{
+    outline: none;
+    border-radius: 20px;
+    padding: 4px 0 0;
+    font-size: 14px;
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+.searchform-control-others{
+    margin: 5% auto;
+    text-align: center;
+    display: flex;
+    justify-content: left;
+    gap: 10px;
+}
+.searchform-control-others button{
+    padding: 10px 20px; /* Add padding for better clickability */
+    font-size: 14px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #2f2626; /* Customize button color */
+    color: white; /* Button text color */
+    transition: background-color 0.3s ease;
+}
+
+.searchform-control-others button:hover {
+    background-color: #444040;
+}
+
+
+.searchform-container.open{
+    visibility: visible;
+    opacity: 1;
+}

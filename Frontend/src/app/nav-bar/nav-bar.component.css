@@ -6,6 +6,9 @@
     background-color: #2f2626;
     padding: 0.5rem 1rem;
     color: white;
+    width: 99%;
+    position: fixed;
+    z-index: 100;
   }
   
 .navhome{
@@ -66,6 +69,7 @@
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.7);
     transition: all 0.4s;
+    z-index: 10;
 }
 
 .loginform-container.open{
@@ -161,6 +165,7 @@ h2{
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.7);
   transition: all 0.4s;
+  z-index: 10;
 }
 
 .registerform-container.open{
