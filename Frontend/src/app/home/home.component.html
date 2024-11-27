@@ -14,40 +14,38 @@
                 </mat-slider>
             </div>
             <div class="searchform-control">
-                <label for="cpumanufacturer">CPU Manufacturer</label>
-                <mat-select placeholder="Select CPU Manufacturer">
-                    <mat-option>Any</mat-option>
-                    <mat-option>Intel</mat-option>
-                    <mat-option>AMD</mat-option>
-                </mat-select>
+                <label for="cpu">Select CPU</label>
+
+                <input type="text"
+                placeholder="Select CPU"
+                aria-label="CPU"
+                matInput
+                [formControl]="cpuAutoControl"
+                [matAutocomplete]="cpuAuto">
+         <mat-autocomplete #cpuAuto="matAutocomplete">
+           @for (cpuoption of filteredCPUOptions | async; track cpuoption) {
+             <mat-option [value]="cpuoption">{{cpuoption}}</mat-option>
+           }
+         </mat-autocomplete>
+
             </div>
             <div class="searchform-control">
-                <label for="gpumanufacturer">GPU Manufacturer</label>
-                <mat-select placeholder="Select GPU Manufacturer">
-                    <mat-option>Any</mat-option>
-                    <mat-option>Intel</mat-option>
-                    <mat-option>AMD</mat-option>
-                    <mat-option>Nvidia</mat-option>
-                </mat-select>
+                <label for="gpumanufacturer">Select GPU</label>
+               
+                <input type="text"
+                placeholder="Select GPU"
+                aria-label="GPU"
+                matInput
+                [formControl]="gpuAutoControl"
+                [matAutocomplete]="gpuAuto">
+         <mat-autocomplete #gpuAuto="matAutocomplete">
+           @for (gpuoption of filteredGPUOptions | async; track gpuoption) {
+             <mat-option [value]="gpuoption">{{gpuoption}}</mat-option>
+           }
+         </mat-autocomplete>
+
             </div>
-            <div class="searchform-control">
-                <label for="performance">Performance</label>
-                <mat-select placeholder="Select Performance">
-                    <mat-option>Placeholder1</mat-option>
-                    <mat-option>Placeholder2</mat-option>
-                    <mat-option>Placeholder3</mat-option>
-                    <mat-option>Placeholder4</mat-option>
-                </mat-select>
-            </div>
-            <div class="searchform-control">
-                <label for="tags">Tags</label>
-                <mat-select placeholder="Select Tags">
-                    <mat-option>Placeholder1</mat-option>
-                    <mat-option>Placeholder2</mat-option>
-                    <mat-option>Placeholder3</mat-option>
-                    <mat-option>Placeholder4</mat-option>
-                </mat-select>
-            </div>
+            
 
             <div class="searchform-control-others">
                 <button mat-button id="Search" type="submit">Search</button>
