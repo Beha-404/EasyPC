@@ -1,11 +1,10 @@
-import { Component, inject, Input } from '@angular/core';
+import { Component, inject, input, output} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterModule } from '@angular/router';
 import { AccountService } from '../_services/account.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { User } from '../_models/user';
 
 @Component({
   selector: 'app-nav-bar',
@@ -14,13 +13,34 @@ import { User } from '../_models/user';
   styleUrl: './nav-bar.component.css'
 })
 export class NavBarComponent {
-  @Input() usersFromHomeComponent: any;
+
+  cancelRegister = output<boolean>();
+  usersFromHomeComponent = input.required<any>()
   accountService = inject(AccountService);
-  body: any = {};
+
+  model: any = {};
   errorMessage: string = "";
   isLoginFormVisible: boolean = false;
   isRegisterFormVisible: boolean = false;
-  model: any = {};
+
+  cancel(){
+    this.cancelRegister.emit(false);
+  }
+
+  register() {
+    this.accountService.register(this.model).subscribe(
+      {
+        next: response=> {
+          console.log(response);
+          this.closeRegisterForm();
+        },
+        error:error => {
+          console.log(error);
+          
+        }
+      }
+    )
+  }
 
   openRegisterForm(): void {
     this.isRegisterFormVisible = true;
@@ -39,7 +59,7 @@ export class NavBarComponent {
     this.isLoginFormVisible = false;
   }
   login() {
-    this.accountService.login(this.body).subscribe({
+    this.accountService.login(this.model).subscribe({
       next: response => {
         console.log(response);
         this.errorMessage = "";
@@ -56,12 +76,4 @@ export class NavBarComponent {
     this.accountService.logout();
   }
 
-  register() {
-    console.log(this.model);
-  }
-
-  cancel() {
-    console.log('cancelled');
-
-  }
 }

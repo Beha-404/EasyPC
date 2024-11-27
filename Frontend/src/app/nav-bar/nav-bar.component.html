@@ -36,11 +36,11 @@
             <h2>EasyPC</h2>
             <div class="loginform-control">
                 <label for="username">Username</label>
-                <input type="text" id="username" name="username" [(ngModel)]="body.username" required />
+                <input type="text" id="username" name="username" [(ngModel)]="model.username" required />
             </div>
             <div class="loginform-control">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" [(ngModel)]="body.password" required />
+                <input type="password" id="password" name="password" [(ngModel)]="model.password" required />
             </div>
             <div *ngIf="errorMessage" class="error-message">
                 {{errorMessage}}
@@ -59,33 +59,35 @@
             <span aria-hidden="true">&times;</span>
         </button>
         <form #registerForm class="register" (ngSubmit)="register()">
-            <h2>Register</h2>
+            <h2 style="color: blue;">Sign up</h2>
+            <hr style="width: 50%;"> 
             <div class="registerform-control">
                 <label for="username">Username</label>
-                <input type="text" id="username" name="username"  [(ngModel)]="model.username" required/>
+                <input type="text" id="username" name="username" [(ngModel)]="model.username" required />
             </div>
             <div class="registerform-control">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" [(ngModel)]="model.password" required/>
+                <input type="password" id="password" name="password" [(ngModel)]="model.password" required />
             </div>
             <div class="registerform-control">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" required/>
+                <input type="email" id="email" name="email" required />
             </div>
             <div class="registerform-control">
                 <label for="country">Country</label>
-                <input type="text" id="country" name="country" required/>
+                <input type="text" id="country" name="country" required />
             </div>
             <div class="registerform-control">
                 <label for="city">City</label>
-                <input type="text" id="city" name="city" required/>
+                <input type="text" id="city" name="city" required />
             </div>
             <div class="registerform-control">
                 <label for="address">Address</label>
-                <input type="text" id="address" name="address" required/>
+                <input type="text" id="address" name="address" required />
             </div>
             <div class="registerform-control-others">
-                <button mat-button id="login" type="submit">Register</button>   
+                <button mat-button id="register" type="submit">Register</button>
+                <button mat-button id="cancelRegister" type="button" (click)="closeRegisterForm()">Cancel</button>
             </div>
         </form>
     </div>

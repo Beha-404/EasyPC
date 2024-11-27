@@ -8,15 +8,11 @@ import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-products',
-  imports: [MatSlideToggleModule, MatButtonModule, MatIconModule, NavBarComponent,RouterModule],
+  imports: [RouterModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
 export class ProductsComponent {
-    htpp = inject(HttpClient);
 
 
-    getProducts(){
-      this.htpp.get("http://localhost:5271/api/users")
-    }
 }

@@ -15,11 +15,22 @@ import { RouterModule } from '@angular/router';
 export class HomeComponent implements OnInit{
   http = inject(HttpClient);
   users:any;
+  registerMode = false;
 
 
   ngOnInit(): void {
     this.getUsers();
   }
+
+
+registerToggle(){
+  this.registerMode = !this.registerMode;
+}
+
+
+cancelRegisterMode(event: boolean){
+  this.registerMode = event;
+}
 
   getUsers(){
     this.http.get("http://localhost:5271/api/users")
