@@ -14,18 +14,17 @@
     <li><a mat-button routerLink="/support">Support</a></li>
 </ul>
 <ul class="navright">
-<<<<<<< HEAD
-    <li><a mat-button id="loginButton" onclick="openForm()">Login</a></li>
-=======
-    <li><a mat-button id="loginButton" onclick="openForm()">Login</a>
->>>>>>> test
+
+    <li><a mat-button id="loginButton" (click)="openForm()">Login</a></li>
     <li><a mat-button routerLink="/register">Register</a></li>
 </ul>
 </nav>
 
-<div class="loginForm-container">
+<div class="loginForm-container" *ngIf="isLoginFormVisible">
     <div class="loginForm-content">
-        <button mat-button id="closeLogin" onclick="closeForm()">Close</button>
+        <button class="close-button" aria-label="Close alert" type="button" data-close (click)="closeForm()">
+            <span aria-hidden="true">&times;</span>
+          </button>
         <form class="login">
         <h2>Login</h2>
         <div class="loginForm-control">
