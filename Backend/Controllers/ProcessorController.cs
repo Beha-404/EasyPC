@@ -2,11 +2,13 @@ using System;
 using Backend.Data;
 using Backend.Dtos;
 using Backend.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers;
 
+[Authorize]
 public class ProcessorController(DataContext context): BaseApiController
 {
    [HttpGet("all")]
@@ -33,12 +35,6 @@ public class ProcessorController(DataContext context): BaseApiController
             Name = processorDto.Name,
             Socket = processorDto.Socket
         };
-
-        if (processor.Name.Length < 3 )
-            return BadRequest("Name too short");
-
-        else if(processor.Socket.Length < 3)
-            return BadRequest("Socket name too short");
 
         context.Processors.Add(processor);
 
