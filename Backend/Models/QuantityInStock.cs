@@ -5,5 +5,5 @@ namespace Backend.Models;
 public class QuantityInStock
 {
     public int Id { get; set; }
-    public int Quantity { get; set; }
+    public required int Quantity { get; set; }
 }   
