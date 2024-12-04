@@ -17,11 +17,11 @@
     }
     <ul class="navright">
         @if (!accountService.currentUser()) {
-        <li><a mat-button id="loginButton" (click)="openLoginForm()">Login</a></li>
-        <li><a mat-button id="registerButton" (click)="openRegisterForm()">Register</a></li>
+        <li><a mat-button id="loginButton" (click)="openLoginForm()" routerLinkActive="active-link">Login</a></li>
+        <li><a mat-button id="registerButton" (click)="openRegisterForm()" routerLinkActive="active-link">Register</a></li>
         }
         @else {
-        <li><a mat-button routerLink="/edit-profile">Edit profile</a></li>
+        <li><a mat-button routerLink="/edit-profile" routerLinkActive="active-link">Edit profile</a></li>
         <li><a mat-button routerLink="/" (click)="accountService.logout()">Logout</a></li>
         }
     </ul>
