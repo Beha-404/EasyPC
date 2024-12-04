@@ -1,4 +1,6 @@
-button{
-    margin: 10px;
-    padding: 5px;
+
+.mainDiv{
+    background: linear-gradient(320deg, #2f2626, #3e3e3e);
+    height: 100%;
+    width: 100%;
 }

@@ -11,6 +11,8 @@ export class UserService {
   currentUser = signal<User | null>(null);
   URL = "http://localhost:5271/api/";
 
-  
+  getUser(model:any){
+    return this.http.get<User>(this.URL + "user/id")
+  }
 
 }
