@@ -1,5 +1,5 @@
 .mainDiv{
-    background: linear-gradient(135deg, #2f2626, #3e3e3e); /* Glatki prelaz tamnosmeđe u tamnosivu */
+    background: linear-gradient(2deg, #2f2626, #3e3e3e); /* Glatki prelaz tamnosmeđe u tamnosivu */
     min-height: 100vh;
 }
 .searchform-container{

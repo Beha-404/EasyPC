@@ -6,6 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { NavBarComponent } from "../nav-bar/nav-bar.component";
 import { HttpClient } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
+import { UserService } from '../_services/user.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -14,12 +15,10 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './edit-profile.component.css'
 })
 export class EditProfileComponent {
+
 http = inject(HttpClient);
 model:any[]=[];
+userService = inject(UserService);
 
-
-acceptChanges() {
-
-}
 
 }
