@@ -49,6 +49,8 @@ public class CaseController(DataContext context): BaseApiController
         return Case;
     }
 
+    
+    //TREBA FIX DA BRISE PO IMENU A NE PO ID-u
       [HttpDelete("{id}")]
     public async Task<ActionResult<Case>> Delete(int id)
     {
@@ -63,7 +65,7 @@ public class CaseController(DataContext context): BaseApiController
     }
 
 
-
+   //TREBA FIX DA UPDATEA PO IMENU A NE PO ID-u
    [HttpPut("{id}")] 
     public async Task<ActionResult<Case>> Update(int id,CaseDto dto)
     {

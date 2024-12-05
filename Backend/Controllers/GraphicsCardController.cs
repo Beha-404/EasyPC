@@ -11,16 +11,16 @@ namespace Backend.Controllers;
 
 public class GraphicsCardController(DataContext context) : BaseApiController
 {
-       [HttpGet("all")]
-      public async Task<ActionResult<IEnumerable<Graphics_Card>>> GetGraphicsCards()
+    [HttpGet("all")]
+    public async Task<ActionResult<IEnumerable<Graphics_Card>>> GetGraphicsCards()
     {
         var graphics_Cards = await context.Graphics_Cards.ToListAsync();
-        if(graphics_Cards.Count() == 0) return NotFound("No graphics cards found");
+        if (graphics_Cards.Count() == 0) return NotFound("No graphics cards found");
         return graphics_Cards;
     }
 
-[HttpPost("register")]
- public async Task<ActionResult<Graphics_Card>> Register(Graphics_Card graphics_CardDto)
+    [HttpPost("register")]
+    public async Task<ActionResult<Graphics_Card>> Register(Graphics_Card graphics_CardDto)
     {
 
         if (await Exists(graphics_CardDto.Name!))
@@ -36,10 +36,10 @@ public class GraphicsCardController(DataContext context) : BaseApiController
             VRAM = graphics_CardDto.VRAM
         };
 
-        if (graphicsCard.Name!.Length < 3 )
+        if (graphicsCard.Name!.Length < 3)
             return BadRequest("Name too short");
 
-        else if(graphicsCard.VRAM!.Length < 3)
+        else if (graphicsCard.VRAM!.Length < 3)
             return BadRequest("Input not valid");
 
         context.Graphics_Cards.Add(graphicsCard);
@@ -49,12 +49,13 @@ public class GraphicsCardController(DataContext context) : BaseApiController
         return graphicsCard;
     }
 
-      [HttpDelete("{id}")]
+ //TREBA FIX DA BRISE PO IMENU A NE PO ID-u
+    [HttpDelete("{id}")]
     public async Task<ActionResult<Graphics_Card>> Delete(int id)
     {
 
         var item = await context.Graphics_Cards.FindAsync(id);
-        if(item == null) return NotFound("Cant find product with this ID");
+        if (item == null) return NotFound("Cant find product with this ID");
 
         context.Graphics_Cards.Remove(item);
         await context.SaveChangesAsync();
@@ -62,16 +63,17 @@ public class GraphicsCardController(DataContext context) : BaseApiController
         return Ok(item);
     }
 
-
-
-   [HttpPut("{id}")] 
-    public async Task<ActionResult<Graphics_Card>> Update(int id,GraphicsCardDto dto)
+    
+   
+      //TREBA FIX DA UPDATEA PO IMENU A NE PO ID-u
+    [HttpPut("{id}")]
+    public async Task<ActionResult<Graphics_Card>> Update(int id, GraphicsCardDto dto)
     {
         var item = await context.Graphics_Cards.FindAsync(id);
-        if(item == null) return NotFound("Cant find product with this ID");
+        if (item == null) return NotFound("Cant find product with this ID");
 
-        item.Name = dto.Name?? item.Name;
-        item.VRAM = dto.VRAM?? item.VRAM;
+        item.Name = dto.Name ?? item.Name;
+        item.VRAM = dto.VRAM ?? item.VRAM;
 
         await context.SaveChangesAsync();
         return Ok();
@@ -82,5 +84,5 @@ public class GraphicsCardController(DataContext context) : BaseApiController
     {
         return await context.Graphics_Cards.AnyAsync(x => x.Name!.ToLower() == productName.ToLower());
     }
- 
+
 }

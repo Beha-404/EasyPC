@@ -1,4 +1,5 @@
 using System;
+using System.Text.RegularExpressions;
 using Backend.Data;
 using Backend.Dtos;
 using Backend.Models;
@@ -7,27 +8,32 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers;
-public class ProcessorController(DataContext context): BaseApiController
+public class ProcessorController(DataContext context) : BaseApiController
 {
-   [HttpGet("all")]
-      public async Task<ActionResult<IEnumerable<ProcessorDto>>> GetProcessors()
+    [HttpGet("all")]
+    public async Task<ActionResult<IEnumerable<ProcessorDto>>> GetProcessors()
     {
         var processors = await context.Processors.ToListAsync();
-        if(processors.Count() == 0) return NotFound("No processors found");
+        if (processors.Count() == 0) return NotFound("No processors found");
 
         var processorsDto = processors.Select(p =>
            new ProcessorDto
            {
-            Name = p.Name,
-            Socket = p.Socket
+               Name = p.Name,
+               Socket = p.Socket
            }).ToList();
-        
+
         return processorsDto;
     }
 
-[HttpPost("register")]
- public async Task<ActionResult<Processor>> Register(ProcessorDto processorDto)
+    [HttpPost("register")]
+    public async Task<ActionResult<Processor>> Register(ProcessorDto processorDto)
     {
+
+        if (string.IsNullOrWhiteSpace(processorDto.Name) || !Regex.IsMatch(processorDto.Name, @"^(?=.*[A-Za-z])[A-Za-z0-9\s]+$"))
+        {
+            return BadRequest("Invalid processor name. Name must contain at least one letter and may contain numbers and spaces.");
+        }
 
         if (await ProcessorExists(processorDto.Name))
         {
@@ -49,14 +55,17 @@ public class ProcessorController(DataContext context): BaseApiController
         return processor;
     }
 
-    [HttpDelete("{id}")]
-    public async Task<ActionResult<Processor>> Delete(int id)
+    [HttpDelete("{name}")]
+    public async Task<ActionResult<Processor>> Delete(string name)
     {
+        if (string.IsNullOrWhiteSpace(name) || !Regex.IsMatch(name, @"^(?=.*[A-Za-z])[A-Za-z0-9\s]+$"))
+        {
+            return BadRequest("Invalid processor name. Name must contain at least one letter and may contain numbers and spaces.");
+        }
 
-        var item = await context.Processors.FindAsync(id);
-        if(item == null) return NotFound("Cant find product with this ID");
+        var item = await context.Processors.FirstOrDefaultAsync(x => name.ToLower() == x.Name.ToLower());
+        if (item == null) return NotFound("Cant find product with this name");
 
-        
         context.Processors.Remove(item);
         await context.SaveChangesAsync();
 
@@ -64,15 +73,15 @@ public class ProcessorController(DataContext context): BaseApiController
     }
 
 
-
-   [HttpPut("{id}")] 
-    public async Task<ActionResult<Processor>> Update(int id,ProcessorDto dto)
+    //TREBA FIX DA UPDATEA PO IMENU A NE PO ID-u
+    [HttpPut("{id}")]
+    public async Task<ActionResult<Processor>> Update(int id, ProcessorDto dto)
     {
         var processor = await context.Processors.FindAsync(id);
-        if(processor == null) return NotFound("Cant find product with this ID");
+        if (processor == null) return NotFound("Cant find product with this ID");
 
-        processor.Name = dto.Name?? processor.Name;
-        processor.Socket = dto.Socket?? processor.Socket;
+        processor.Name = dto.Name ?? processor.Name;
+        processor.Socket = dto.Socket ?? processor.Socket;
 
         await context.SaveChangesAsync();
         return Ok();
@@ -83,5 +92,5 @@ public class ProcessorController(DataContext context): BaseApiController
     {
         return await context.Processors.AnyAsync(x => x.Name!.ToLower() == productName.ToLower());
     }
- 
+
 }

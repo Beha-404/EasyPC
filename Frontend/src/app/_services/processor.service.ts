@@ -14,4 +14,12 @@ export class ProcessorService {
   {
     return this.http.get<Processor[]>(this.baseURL + "processor/all");
   }
+
+  postItem(model:any){
+    return this.http.post<Processor>(this.baseURL + "processor/register",model);
+  }
+
+  deleteItem(name:string){
+    return this.http.delete<Processor>(this.baseURL + "processor/"+ name)
+  }
 }

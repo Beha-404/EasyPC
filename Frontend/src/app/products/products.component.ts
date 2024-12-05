@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, output } from '@angular/core';
 import { NavBarComponent } from "../nav-bar/nav-bar.component";
 import { RouterModule } from '@angular/router';
 import { ProcessorService } from '../_services/processor.service';
@@ -9,87 +9,77 @@ import { GraphicsCardService } from '../_services/graphics-card.service';
 import { CaseService } from '../_services/case.service';
 import { MotherBoardService } from '../_services/mother-board.service';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-products',
-  imports: [RouterModule, NavBarComponent,CommonModule],
+  imports: [RouterModule, NavBarComponent, CommonModule, FormsModule],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
 export class ProductsComponent implements OnInit {
 
-  psuService = inject(PSUService);
-  PSUs:any[]=[];
+  Output: any[] = [];
+  model: any = {};
+  selectedAction: string = "";
 
   processorService = inject(ProcessorService);
-  processors:any[]=[];
+  processors: any[] = [];
 
-  caseService = inject(CaseService);
-  cases:any[]=[];
 
-  ramService = inject(RAMService);
-  RAMs:any[]=[];
+  selectChanged(event: Event) {
+    switch ((event.target as HTMLSelectElement).value) {
+      case "GET":
+        this.getProcessors();
+        this.selectedAction = "GET";
+        break;
+      case "ADD":
+        this.selectedAction = "ADD";
+        break;
+      case "DELETE":
+        this.selectedAction = "DELETE";
+        break;
+      case "UPDATE":
+        this.selectedAction = "UPDATE";
+        break;
+    }
+  }
 
-  graphicsCardService = inject(GraphicsCardService);
-  graphicsCards:any[]=[];
-
-  motherBoardService = inject(MotherBoardService);
-  motherBoards:any[]=[];
-
-  getProcessors(){
+  getProcessors() {
     this.processorService.getItems().subscribe({
-      next: (processors) =>{
-        this.processors = processors;    
+      next: (output) => {
+        this.Output = output;
       }
     });
   }
 
-  getCase(){
-    this.caseService.getItems().subscribe({
-      next: (cases) =>{
-        this.cases = cases;    
+  addProcessor() {
+    this.processorService.postItem(this.model).subscribe({
+      next: _ => {
+        this.getProcessors();
+        this.selectedAction = "GET";
+      },
+      error: err =>{
+        alert(err.error)
       }
-    });
+    })
   }
 
-  getRAM(){
-    this.ramService.getItems().subscribe({
-      next: (RAMs) =>{
-        this.RAMs = RAMs;    
+  deleteProcessor() {
+    this.processorService.deleteItem(this.model.name).subscribe({
+      next: _ => {
+          this.getProcessors();
+        this.selectedAction = "GET";
+      },
+      error: (err) => {
+        alert(err.error)
       }
-    });
-  }
+    })
 
-  getGraphicsCard(){
-    this.graphicsCardService.getItems().subscribe({
-      next: (graphics) =>{
-        this.graphicsCards = graphics;    
-      }
-    });
-  }
-  
-  getPSUs(){
-    this.psuService.getItems().subscribe({
-      next: (PSUs) =>{
-        this.PSUs = PSUs;  
-      }
-    });
-  }
-
-  getMotherBoard() {
-    this.motherBoardService.getItems().subscribe({
-      next: (motherBoards) =>{
-        this.motherBoards = motherBoards;  
-      }
-    });
   }
 
   ngOnInit(): void {
     this.getProcessors();
-    this.getCase();
-    this.getGraphicsCard();
-    this.getMotherBoard();
-    this.getPSUs();
   }
 }
