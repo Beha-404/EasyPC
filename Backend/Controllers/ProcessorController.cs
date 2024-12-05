@@ -7,16 +7,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers;
-
-[Authorize]
 public class ProcessorController(DataContext context): BaseApiController
 {
    [HttpGet("all")]
-      public async Task<ActionResult<IEnumerable<Processor>>> GetProcessors()
+      public async Task<ActionResult<IEnumerable<ProcessorDto>>> GetProcessors()
     {
         var processors = await context.Processors.ToListAsync();
         if(processors.Count() == 0) return NotFound("No processors found");
-        return processors;
+
+        var processorsDto = processors.Select(p =>
+           new ProcessorDto
+           {
+            Name = p.Name,
+            Socket = p.Socket
+           }).ToList();
+        
+        return processorsDto;
     }
 
 [HttpPost("register")]

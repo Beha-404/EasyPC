@@ -2,6 +2,7 @@
     <div class="navBar">
         <app-nav-bar></app-nav-bar>
     </div>
+
     <div class="editProfile">
         <div>
             <h1>Edit Profile</h1>
@@ -10,56 +11,56 @@
             <table class="editNameTable">
                 <tr>
                     <td>
-                        <mat-form-field appearance="outline" class="example-full-width">
-                            <mat-label>First Name</mat-label>
-                            <input matInput placeholder="Ex. John">
-                        </mat-form-field>
+                        <div class="input-container">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" placeholder="Ex. John" />
+                        </div>
                     </td>
                     <td>
-                        <mat-form-field appearance="outline" class="example-full-width">
-                            <mat-label>Last Name</mat-label>
-                            <input matInput placeholder="Ex. Doe">
-                        </mat-form-field>
+                        <div class="input-container">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" placeholder="Ex. Doe" />
+                        </div>
                     </td>
                 </tr>
             </table>
+
             <table class="editResidenceTable">
                 <tr>
                     <td>
-                        <mat-form-field appearance="outline">
-                            <mat-label>City</mat-label>
-                            <input matInput placeholder="Ex. San Francisco">
-                        </mat-form-field>
+                        <div class="input-container">
+                            <label for="city">City</label>
+                            <input type="text" id="city" placeholder="Ex. San Francisco" />
+                        </div>
                     </td>
                     <td>
-                        <mat-form-field appearance="outline">
-                            <mat-label>State</mat-label>
-                            <input matInput placeholder="Ex. California">
-                        </mat-form-field>
+                        <div class="input-container">
+                            <label for="state">State</label>
+                            <input type="text" id="state" placeholder="Ex. California" />
+                        </div>
                     </td>
                     <td>
-                        <mat-form-field appearance="outline">
-                            <mat-label>Postal Code</mat-label>
-                            <input matInput maxlength="5" placeholder="Ex. 94105">
-                        </mat-form-field>
+                        <div class="input-container">
+                            <label for="postalCode">Postal Code</label>
+                            <input type="text" id="postalCode" maxlength="5" placeholder="Ex. 94105" />
+                        </div>
                     </td>
                 </tr>
             </table>
-            <p>
-                <mat-form-field appearance="outline" class="example-full-width">
-                    <mat-label>Country</mat-label>
-                    <textarea matInput placeholder="Ex. 100 Main St"></textarea>
-                </mat-form-field>
 
-                <mat-form-field appearance="outline" class="example-full-width">
-                    <mat-label>Address</mat-label>
-                    <textarea matInput placeholder="Ex. 100 Main St"></textarea>
-                </mat-form-field>
-            </p>
+            <div class="input-container">
+                <label for="country">Country</label>
+                <input class="country" id="country" placeholder="Ex. USA">
+            </div>
 
-            <div class="buttons"> 
-                 <button class="acceptBtn" color="primary" type="button">Accept Changes </button>
-                <button class="cancelBtn" color="primary" type="button">Cancel Changes </button>
+            <div class="input-container">
+                <label for="address">Address</label>
+                <input class="address" id="address" placeholder="Ex. 100 Main St">
+            </div>
+
+            <div class="buttons">
+                <button class="acceptBtn" type="submit">Accept Changes</button>
+                <button class="cancelBtn" type="reset">Cancel Changes</button>
             </div>
         </form>
     </div>
