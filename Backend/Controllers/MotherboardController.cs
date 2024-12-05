@@ -49,6 +49,8 @@ public class MotherboardController(DataContext context) : BaseApiController
         return motherBoard;
     }
 
+
+    //TREBA FIX DA BRISE PO IMENU A NE PO ID-u
     [HttpDelete("{id}")]
     public async Task<ActionResult<Motherboard>> Delete(int id)
     {

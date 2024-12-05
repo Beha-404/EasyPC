@@ -54,6 +54,8 @@ public class PSUController(DataContext context) : BaseApiController
         return PSU;
     }
 
+    
+    //TREBA FIX DA BRISE PO IMENU A NE PO ID-u
      [HttpDelete("{id}")]
     public async Task<ActionResult<PSU>> Delete(int id)
     {
@@ -69,7 +71,7 @@ public class PSUController(DataContext context) : BaseApiController
     }
 
 
-
+  //TREBA FIX DA UPDATEA PO IMENU A NE PO ID-u
    [HttpPut("{id}")] 
     public async Task<ActionResult<PSU>> Update(int id,PsuDto dto)
     {

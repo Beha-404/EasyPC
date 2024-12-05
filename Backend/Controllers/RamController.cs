@@ -48,6 +48,9 @@ public class RamController(DataContext context) : BaseApiController
         return ram;
     }
 
+
+    
+    //TREBA FIX DA BRISE PO IMENU A NE PO ID-u
       [HttpDelete("{id}")]
     public async Task<ActionResult<RAM>> Delete(int id)
     {
@@ -63,7 +66,7 @@ public class RamController(DataContext context) : BaseApiController
     }
 
 
-
+  //TREBA FIX DA UPDATEA PO IMENU A NE PO ID-u
    [HttpPut("{id}")] 
     public async Task<ActionResult<RAM>> Update(int id,RamDto dto)
     {
