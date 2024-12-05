@@ -1,5 +1,46 @@
 <div class="mainDiv">
-    <div>
+    <div class="navBar">
         <app-nav-bar></app-nav-bar>
+    </div>
+
+    <div class="products">
+        <h2 class="products-title">Select Your Components</h2>
+
+        <div class="select-container">
+            <div class="select-box">
+                <label for="CPUs">CPU</label>
+                <select name="CPUs" id="CPUs">
+                    <option *ngFor="let processor of processors;" [value]="processor.id">{{ processor.name }}</option>
+                </select>
+            </div>
+
+            <div class="select-box">
+                <label for="GPUs">GPU</label>
+                <select name="GPUs" id="GPUs">
+                    <option *ngFor="let graphicsCard of graphicsCards;" [value]="graphicsCard.id">{{ graphicsCard.name }}</option>
+                </select>
+            </div>
+
+            <div class="select-box">
+                <label for="PSUs">PSU</label>
+                <select name="PSUs" id="PSUs">
+                    <option *ngFor="let psu of PSUs;" [value]="psu.id">{{ psu.name }}</option>
+                </select>
+            </div>
+
+            <div class="select-box">
+                <label for="Cases">Case</label>
+                <select name="Cases" id="Cases">
+                    <option *ngFor="let caseItem of cases;" [value]="caseItem.id">{{ caseItem.name }}</option>
+                </select>
+            </div>
+
+            <div class="select-box">
+                <label for="MotherBoards">MotherBoard</label>
+                <select name="MotherBoards" id="MotherBoards">
+                    <option *ngFor="let motherBoard of motherBoards;" [value]="motherBoard.id">{{ motherBoard.name }}</option>
+                </select>
+            </div>
+        </div>
     </div>
 </div>

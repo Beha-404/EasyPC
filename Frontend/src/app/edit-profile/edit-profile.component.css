@@ -1,89 +1,111 @@
 .mainDiv {
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: linear-gradient(180deg, #2f2626, #3e3e3e);
-    color: brown;
-    min-height: 100vh;
+    background: linear-gradient(320deg, #2f2626, #3e3e3e);
+    height: 100vh;
+    width: 100%;
+    color: #fff;
+    font-family: Arial, sans-serif;
 }
 
 .navBar {
-    width: 100%;
     height: 56px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
-    background-color: #fff;
+    background-color: #1f1f1f;
+    color: #fff;
 }
 
-form {
-    background-color: #fff;
+.editProfile {
+    background-color: #4a4a4a;
     padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 600px;
-    color: #2f2626;
+    border-radius: 8px;
+    max-width: 800px;
+    margin: 30px auto;
 }
-
 
 h1 {
-    font-size: 24px;
-    color: #cccccc;
-    margin-bottom: 20px;
+    text-align: center;
+    font-size: 2rem;
+    color: #ffcc00;
 }
-
-
-mat-form-field {
-    width: 100%;
-    margin: 10px 0;
-}
-
 
 table {
     width: 100%;
-    margin-top: 10px;
-    border-spacing: 10px; 
-}
-button:hover{
-    background-color: #413c3c;
+    margin-bottom: 20px;
 }
 
-p{
+td {
+    padding: 10px;
+}
+
+.input-container {
+    margin-bottom: 15px;
+    margin-left: 15px;
+}
+
+label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+input{
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #333;
+    color: white;
+    border: 1px solid #555;
+    border-radius: 4px;
+}
+
+.country,.address{
+    height: 30px;
+    width: 98%;
+}
+
+textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+.buttons {
     display: flex;
-    gap: 10px;
+    justify-content: space-between;
+    margin-top: 20px;
 }
-.editProfileForm{
-    max-width: 100%;
-}
-.buttons{
-    display: flex;
-    flex-direction: row;
-}
-.acceptBtn{
-    color: rgb(132, 192, 140);
-}
-.cancelBtn{
-    color: rgb(221, 120, 120);
-}
-.acceptBtn,
-.cancelBtn {
-    background-color: #2f2626;
-    margin: 20px auto 0;
-    padding: 15px 30px;
+
+button {
+    padding: 10px 20px;
+    font-size: 20px;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.5s; 
 }
 
-.acceptBtn:hover {
-    background-color: #4caf50;
-    color: white;
+.acceptBtn {
+    background-color: #ffcc00;
+    color: #fff;
 }
 
-.cancelBtn:hover {
-    background-color: #e74c3c;
-    color: white;
+.cancelBtn {
+    background-color: #777;
+    color: #fff;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .editProfile {
+        padding: 15px;
+    }
+
+    .buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    button {
+        width: 100%;
+        margin-bottom: 10px;
+    }
 }

@@ -8,15 +8,20 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers;
 
-[Authorize]
+
 public class PSUController(DataContext context) : BaseApiController
 {
        [HttpGet("all")]
-      public async Task<ActionResult<IEnumerable<PSU>>> GetPSU()
+      public async Task<ActionResult<IEnumerable<PsuDto>>> GetPSU()
     {
         var PSUs= await context.PSUs.ToListAsync();
         if(PSUs.Count() == 0) return NotFound("No PSU found");
-        return PSUs;
+
+        var psuDTO = PSUs.Select(x => new PsuDto{
+            Name = x.Name,
+            Power = x.Power
+        }).ToList();
+        return psuDTO;
     }
 
 [HttpPost("register")]
