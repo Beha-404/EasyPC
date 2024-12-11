@@ -20,39 +20,55 @@ public class ProcessorController(DataContext context) : BaseApiController
            new ProcessorDto
            {
                Name = p.Name,
-               Socket = p.Socket
+               Socket = p.Socket,
+               Price = p.Price,
+               ThreadCount = p.ThreadCount,
+               CoreCount = p.CoreCount
            }).ToList();
 
         return processorsDto;
     }
 
+
+    [HttpGet("{name}")]
+    public async Task<ActionResult<Processor>> GetProcessorByName(string name)
+    {
+        var processor = await context.Processors.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
+        if (processor == null) return NotFound("No processors found");
+
+        return processor;
+    }
+
     [HttpPost("register")]
-    public async Task<ActionResult<Processor>> Register(ProcessorDto processorDto)
+    public async Task<ActionResult<Processor>> Register(Processor processor)
     {
 
-        if (string.IsNullOrWhiteSpace(processorDto.Name) || !Regex.IsMatch(processorDto.Name, @"^(?=.*[A-Za-z])[A-Za-z0-9\s]+$"))
+        if (string.IsNullOrWhiteSpace(processor.Name) || !Regex.IsMatch(processor.Name, @"^(?=.*[A-Za-z])[A-Za-z0-9\s]+$"))
         {
             return BadRequest("Invalid processor name. Name must contain at least one letter and may contain numbers and spaces.");
         }
 
-        if (await ProcessorExists(processorDto.Name))
+        if (await ProcessorExists(processor.Name))
         {
             return BadRequest("Name is taken");
         }
 
-        if (processorDto == null) return BadRequest("Empty data");
+        if (processor == null) return BadRequest("Empty data");
 
-        var processor = new Processor
+        var newProcessor = new Processor
         {
-            Name = processorDto.Name,
-            Socket = processorDto.Socket
+            Name = processor.Name,
+            Socket = processor.Socket,
+            Price = processor.Price,
+            ThreadCount = processor.ThreadCount,
+            CoreCount = processor.CoreCount
         };
 
         context.Processors.Add(processor);
 
         await context.SaveChangesAsync();
 
-        return processor;
+        return Ok();
     }
 
     [HttpDelete("{name}")]
@@ -72,16 +88,22 @@ public class ProcessorController(DataContext context) : BaseApiController
         return Ok(item);
     }
 
-
-    //TREBA FIX DA UPDATEA PO IMENU A NE PO ID-u
-    [HttpPut("{id}")]
-    public async Task<ActionResult<Processor>> Update(int id, ProcessorDto dto)
+    [HttpPut("{name}")]
+    public async Task<ActionResult<Processor>> Update(string name, ProcessorDto dto)
     {
-        var processor = await context.Processors.FindAsync(id);
-        if (processor == null) return NotFound("Cant find product with this ID");
+        var processor = await context.Processors.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
+        if (processor == null) return NotFound("Cant find product with this name");
+
+         if (await ProcessorExists(processor.Name))
+        {
+            return BadRequest("Name is taken");
+        }
 
         processor.Name = dto.Name ?? processor.Name;
         processor.Socket = dto.Socket ?? processor.Socket;
+        processor.Price = dto.Price ?? processor.Price;
+        processor.ThreadCount = dto.ThreadCount ?? processor.ThreadCount;
+        processor.CoreCount = dto.CoreCount ?? processor.CoreCount;
 
         await context.SaveChangesAsync();
         return Ok();

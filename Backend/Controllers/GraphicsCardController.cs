@@ -49,13 +49,12 @@ public class GraphicsCardController(DataContext context) : BaseApiController
         return graphicsCard;
     }
 
- //TREBA FIX DA BRISE PO IMENU A NE PO ID-u
-    [HttpDelete("{id}")]
-    public async Task<ActionResult<Graphics_Card>> Delete(int id)
+    [HttpDelete("{name}")]
+    public async Task<ActionResult<Graphics_Card>> Delete(string name)
     {
 
-        var item = await context.Graphics_Cards.FindAsync(id);
-        if (item == null) return NotFound("Cant find product with this ID");
+        var item = await context.Graphics_Cards.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
+        if (item == null) return NotFound("Cant find product with this name");
 
         context.Graphics_Cards.Remove(item);
         await context.SaveChangesAsync();
@@ -63,14 +62,11 @@ public class GraphicsCardController(DataContext context) : BaseApiController
         return Ok(item);
     }
 
-    
-   
-      //TREBA FIX DA UPDATEA PO IMENU A NE PO ID-u
-    [HttpPut("{id}")]
-    public async Task<ActionResult<Graphics_Card>> Update(int id, GraphicsCardDto dto)
+    [HttpPut("{name}")]
+    public async Task<ActionResult<Graphics_Card>> Update(string name, GraphicsCardDto dto)
     {
-        var item = await context.Graphics_Cards.FindAsync(id);
-        if (item == null) return NotFound("Cant find product with this ID");
+        var item = await context.Graphics_Cards.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
+        if (item == null) return NotFound("Cant find product with this name");
 
         item.Name = dto.Name ?? item.Name;
         item.VRAM = dto.VRAM ?? item.VRAM;

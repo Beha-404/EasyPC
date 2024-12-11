@@ -49,14 +49,12 @@ public class MotherboardController(DataContext context) : BaseApiController
         return motherBoard;
     }
 
-
-    //TREBA FIX DA BRISE PO IMENU A NE PO ID-u
-    [HttpDelete("{id}")]
-    public async Task<ActionResult<Motherboard>> Delete(int id)
+    [HttpDelete("{name}")]
+    public async Task<ActionResult<Motherboard>> Delete(string name)
     {
 
-        var item = await context.Motherboards.FindAsync(id);
-        if(item == null) return NotFound("Cant find product with this ID");
+        var item = await context.Motherboards.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
+        if(item == null) return NotFound("Cant find product with this name");
 
         context.Motherboards.Remove(item);
         await context.SaveChangesAsync();
@@ -66,11 +64,11 @@ public class MotherboardController(DataContext context) : BaseApiController
 
 
 
-   [HttpPut("{id}")] 
-    public async Task<ActionResult<Motherboard>> Update(int id,MotherBoardDto dto)
+   [HttpPut("{name}")] 
+    public async Task<ActionResult<Motherboard>> Update(string name,MotherBoardDto dto)
     {
-        var item = await context.Motherboards.FindAsync(id);
-        if(item == null) return NotFound("Cant find product with this ID");
+        var item = await context.Motherboards.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
+        if(item == null) return NotFound("Cant find product with this name");
 
         item.Name = dto.Name?? item.Name;
         item.Socket = dto.Socket?? item.Socket;

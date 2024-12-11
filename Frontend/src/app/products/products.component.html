@@ -1,40 +1,65 @@
 <div class="mainDiv">
-    <div class="navBar">
-        <app-nav-bar></app-nav-bar>
-    </div>
-
-    <div class="products">
-        <h2 class="products-title">Select Your Components</h2>
+    <div class="products" [class.animate-left]="selectedAction === 'UPDATE' || selectedAction === 'ADD'">
+        <h2 class="products-title">Select Your Component</h2>
+        <div class="arrow"></div>
         <div>
             <div>
-                <label>CPU</label>
+                <select (change)="onComponentTypeChange($event)">
+                    <option value="" hidden selected>Select Component</option>
+                    <option value="CPU">CPU</option>
+                    <option value="GPU">GPU</option>
+                    <option value="Power supply">Power supply</option>
+                    <option value="RAM">RAM</option>
+                    <option value="Storage">Storage</option>
+                    <option value="Motherboard">Motherboard</option>
+                </select>
             </div>
             <select (change)="selectChanged($event)">
-                <option value="GET">GET</option>
-                <option value="ADD">ADD</option>
-                <option value="DELETE">DELETE</option>
-                <option value="UPDATE">UPDATE</option>
+                <option value="GET">Available items</option>
+                <option value="ADD">Add new</option>
             </select>
         </div>
         <div class="info-box">
-            @for (item of Output; track $index) {
-            <p>{{item.name}} Socket:{{item.socket}}</p>
-            }
+            <div *ngFor="let item of items; let i = index">
+                <div class="processor-item">
+                    <p>{{item.name}} Price:{{item.price}}$</p>
+                    <button (click)="deleteProcessor(item.name)" class="btnDelete">Delete</button>
+                    <button (click)="selectedAction = 'UPDATE';model.name = item.name" class="btnUpdate">Update</button>
+                </div>
+            </div>
         </div>
     </div>
-    <div *ngIf="selectedAction === 'ADD'" class="form-box-add">
+    <div *ngIf="selectedAction === 'ADD'" class="form-box-add animate-right">
         <h1>Add new processor</h1>
-        <form (submit)="addProcessor()">
-            <input type="text" placeholder="Name" name="name" [(ngModel)]="model.name">
-            <input type="text" placeholder="Socket" name="socket" [(ngModel)]="model.socket">
-            <button type="submit">ADD</button>
+        <form (submit)="addProcessor()" class="formAddCPU">
+            <input type="text" placeholder="Name" name="name" [(ngModel)]="newModel.name">
+            <input type="text" placeholder="Socket" name="socket" [(ngModel)]="newModel.socket">
+            <input type="text" placeholder="Price" name="price" [(ngModel)]="newModel.price">
+            <input type="text" placeholder="Thread Count" name="threadCount" [(ngModel)]="newModel.threadCount">
+            <input type="text" placeholder="Core Count" name="coreCount" [(ngModel)]="newModel.coreCount">
+            <div class="formbtnAddCPU">
+                <button type="submit">ADD</button>
+                <button type="button" (click)="closeForm()">CLOSE</button>
+            </div>
         </form>
-</div>
-<div *ngIf="selectedAction === 'DELETE'" class="form-box-delete">
-    <h1>Delete processor</h1>
-    <form (submit)="deleteProcessor()">
-        <input type="text" placeholder="Name" name="name" [(ngModel)]="model.name">
-        <button type="submit">DELETE</button>
-    </form>
-</div>
+    </div>
+    <div *ngIf="selectedAction === 'UPDATE'" class="form-box-update animate-right">
+        <h1>Update {{model.name}}</h1>
+        <form (submit)="updateProcessor(model.name)">
+            <label>Name</label>
+            <input type="text" placeholder="New name" name="name" [(ngModel)]="newModel.name">
+            <label>Socket</label>
+            <input type="text" placeholder="New Socket" name="socket" [(ngModel)]="newModel.socket">
+            <label>Price</label>
+            <input type="text" placeholder="New Price" name="price" [(ngModel)]="newModel.price">
+            <label>Thread Count</label>
+            <input type="text" placeholder="New Thread Count" name="threadCount" [(ngModel)]="newModel.threadCount">
+            <label>Core Count</label>
+            <input type="text" placeholder="New Core Count" name="coreCount" [(ngModel)]="newModel.coreCount">
+            <div class="formBtnUpdateCPU">
+                <button type="submit">UPDATE</button>
+                <button type="button" (click)="closeForm()">CLOSE</button>
+            </div>
+        </form>
+    </div>
 </div>

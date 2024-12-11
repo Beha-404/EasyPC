@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers;
 
-public class AccountController(DataContext context,ITokenService tokenService) : BaseApiController
+public class AccountController(DataContext context, ITokenService tokenService) : BaseApiController
 {
 
     [HttpPost("Register")]
@@ -39,9 +39,10 @@ public class AccountController(DataContext context,ITokenService tokenService) :
         context.Users.Add(user);
         await context.SaveChangesAsync();
 
-        return new UserDto{
+        return new UserDto
+        {
             Username = user.Username,
-            Token = tokenService.CreateToken(user)
+            Token = tokenService.CreateToken(user),
         };
     }
 
@@ -50,21 +51,21 @@ public class AccountController(DataContext context,ITokenService tokenService) :
     {
         var user = await context.Users.FirstOrDefaultAsync(x => x.Username == loginDto.Username.ToLower());
 
-        if(user == null) return Unauthorized("User not found (invalid username)");
+        if (user == null) return Unauthorized("User not found (invalid username)");
 
-        using var hmac = new HMACSHA512(user.PasswordSalt);
+        using var hmac = new HMACSHA512(user.PasswordSalt!);
 
         var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
 
         for (int i = 0; i < computedHash.Length; i++)
         {
-            if(computedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password");
+            if (computedHash[i] != user.PasswordHash![i]) return Unauthorized("Invalid password");
         }
 
         return new UserDto
         {
             Username = user.Username,
-            Token = tokenService.CreateToken(user)
+            Token = tokenService.CreateToken(user),
         };
     }
 

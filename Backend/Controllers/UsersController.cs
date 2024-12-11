@@ -11,7 +11,6 @@ using Microsoft.EntityFrameworkCore.Storage.Json;
 using Microsoft.Extensions.ObjectPool;
 
 namespace Backend.Controllers;
-[Authorize]
 public class UsersController(DataContext context) : BaseApiController
 {
     [AllowAnonymous]
@@ -19,23 +18,23 @@ public class UsersController(DataContext context) : BaseApiController
     public async Task<ActionResult<IEnumerable<User>>> GetUsers()
     {
         var users = await context.Users.ToListAsync();
-        if(!users.Any()) return NotFound("No users found");
+        if (!users.Any()) return NotFound("No users found");
         return users;
     }
 
-    [HttpGet("{id}")]
-    public async Task<ActionResult<User>> GetUser(int id)
+    [HttpGet("{name}")]
+    public async Task<ActionResult<User>> GetUser(string name)
     {
-        var user = await context.Users.FindAsync(id);
-        if (user == null) return NotFound("No user with this ID");
+        var user = await context.Users.FirstOrDefaultAsync(x => x.Username.ToLower() == name.ToLower());
+        if (user == null) return NotFound("No user with this name");
         return user;
     }
 
-    [HttpDelete("{id}")]
-    public async Task<ActionResult<User>> DeleteUser(int id)
+    [HttpDelete("{name}")]
+    public async Task<ActionResult<User>> DeleteUser(string name)
     {
-        var user = await context.Users.FindAsync(id);
-        if (user == null) return NotFound("No user with this ID");
+        var user = await context.Users.FirstOrDefaultAsync(x => x.Username.ToLower() == name.ToLower());
+        if (user == null) return NotFound("No user with this name");
         context.Users.Remove(user);
         await context.SaveChangesAsync();
         return user;
@@ -45,20 +44,29 @@ public class UsersController(DataContext context) : BaseApiController
     public async Task<ActionResult<User>> DeleteAllUsers()
     {
         var users = await context.Users.ToListAsync();
-        if(!users.Any()) return NotFound("No users found");
+        if (!users.Any()) return NotFound("No users found");
         context.RemoveRange(users);
         await context.SaveChangesAsync();
         return Ok("Done");
     }
 
 
-    [HttpPut("{id}")]
-    public async Task<ActionResult> UpdateUser(int id, UserDto userDto)
+    [HttpPut("{name}")]
+    public async Task<ActionResult> UpdateUser(string name, User newUser)
     {
 
-        var user = await context.Users.FindAsync(id);
-        if (user == null) return NotFound("No user with this ID");
-        user.Username = userDto.Username ?? user.Username;
+        var User = await context.Users.FirstOrDefaultAsync(x => x.Username.ToLower() == name.ToLower());
+        if (User == null) return NotFound("No user with this name");
+        User.Username = newUser.Username ?? User.Username;
+        User.FirstName = newUser.FirstName ?? User.FirstName;
+        User.LastName = newUser.LastName ?? User.LastName;
+        User.Country = newUser.Country ?? User.Country;
+        User.Address = newUser.Address ?? User.Address;
+        User.PostalCode = newUser.PostalCode ?? User.PostalCode;
+        User.State = newUser.State ?? User.State;
+        User.City = newUser.City ?? User.City;
+        User.profilePicture = newUser.profilePicture ?? User.profilePicture;
+
         await context.SaveChangesAsync();
         return Ok();
     }

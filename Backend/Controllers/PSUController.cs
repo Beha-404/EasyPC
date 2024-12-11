@@ -55,36 +55,32 @@ public class PSUController(DataContext context) : BaseApiController
     }
 
     
-    //TREBA FIX DA BRISE PO IMENU A NE PO ID-u
-     [HttpDelete("{id}")]
-    public async Task<ActionResult<PSU>> Delete(int id)
+     [HttpDelete("{name}")]
+    public async Task<ActionResult<PSU>> Delete(string name)
     {
 
-        var item = await context.PSUs.FindAsync(id);
-        if(item == null) return NotFound("Cant find product with this ID");
+        var item = await context.PSUs.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
+        if (item == null) return NotFound("Cant find product with this name");
 
-        
+
         context.PSUs.Remove(item);
         await context.SaveChangesAsync();
 
         return Ok(item);
     }
 
-
-  //TREBA FIX DA UPDATEA PO IMENU A NE PO ID-u
-   [HttpPut("{id}")] 
-    public async Task<ActionResult<PSU>> Update(int id,PsuDto dto)
+    [HttpPut("{name}")]
+    public async Task<ActionResult<PSU>> Update(string name, PsuDto dto)
     {
-        var item = await context.PSUs.FindAsync(id);
-        if(item == null) return NotFound("Cant find product with this ID");
+        var item = await context.PSUs.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
+        if (item == null) return NotFound("Cant find product with this name");
 
-        item.Name = dto.Name?? item.Name;
-        item.Power = dto.Power?? item.Power;
+        item.Name = dto.Name ?? item.Name;
+        item.Power = dto.Power ?? item.Power;
 
         await context.SaveChangesAsync();
         return Ok();
     }
-
 
     private async Task<bool> Exists(string productName)
     {

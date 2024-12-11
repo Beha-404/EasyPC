@@ -9,18 +9,18 @@ using Microsoft.EntityFrameworkCore;
 namespace Backend.Controllers;
 
 
-public class CaseController(DataContext context): BaseApiController
+public class CaseController(DataContext context) : BaseApiController
 {
     [HttpGet("all")]
-      public async Task<ActionResult<IEnumerable<Case>>> GetCases()
+    public async Task<ActionResult<IEnumerable<Case>>> GetCases()
     {
         var Cases = await context.Cases.ToListAsync();
-        if(Cases.Count() == 0) return NotFound("No cases found");
+        if (Cases.Count() == 0) return NotFound("No cases found");
         return Cases;
     }
 
-[HttpPost("register")]
- public async Task<ActionResult<Case>> Register(CaseDto caseDto)
+    [HttpPost("register")]
+    public async Task<ActionResult<Case>> Register(CaseDto caseDto)
     {
 
         if (await Exists(caseDto.Name))
@@ -36,10 +36,10 @@ public class CaseController(DataContext context): BaseApiController
             Type = caseDto.Type
         };
 
-        if (Case.Name.Length < 3 )
+        if (Case.Name.Length < 3)
             return BadRequest("Name too short");
 
-        else if(Case.Type.Length < 3)
+        else if (Case.Type.Length < 3)
             return BadRequest("Input not valid");
 
         context.Cases.Add(Case);
@@ -49,14 +49,12 @@ public class CaseController(DataContext context): BaseApiController
         return Case;
     }
 
-    
-    //TREBA FIX DA BRISE PO IMENU A NE PO ID-u
-      [HttpDelete("{id}")]
-    public async Task<ActionResult<Case>> Delete(int id)
+    [HttpDelete("{name}")]
+    public async Task<ActionResult<Case>> Delete(string name)
     {
 
-        var item = await context.Cases.FindAsync(id);
-        if(item == null) return NotFound("Cant find product with this ID");
+        var item = await context.Cases.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
+        if (item == null) return NotFound("Cant find product with this name");
 
         context.Cases.Remove(item);
         await context.SaveChangesAsync();
@@ -64,16 +62,14 @@ public class CaseController(DataContext context): BaseApiController
         return Ok(item);
     }
 
-
-   //TREBA FIX DA UPDATEA PO IMENU A NE PO ID-u
-   [HttpPut("{id}")] 
-    public async Task<ActionResult<Case>> Update(int id,CaseDto dto)
+    [HttpPut("{name}")]
+    public async Task<ActionResult<Case>> Update(string name, CaseDto dto)
     {
-        var item = await context.Cases.FindAsync(id);
-        if(item == null) return NotFound("Cant find product with this ID");
+        var item = await context.Cases.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
+        if (item == null) return NotFound("Cant find product with this name");
 
-        item.Name = dto.Name?? item.Name;
-        item.Type = dto.Type?? item.Type;
+        item.Name = dto.Name ?? item.Name;
+        item.Type = dto.Type ?? item.Type;
 
         await context.SaveChangesAsync();
         return Ok();
