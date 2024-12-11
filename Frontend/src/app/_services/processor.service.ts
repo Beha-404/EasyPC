@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, model } from '@angular/core';
 import { Processor } from '../_models/Processor';
-import { FocusNext } from '@angular/cdk/menu';
 
 @Injectable({
   providedIn: 'root'
@@ -14,12 +13,14 @@ export class ProcessorService {
   {
     return this.http.get<Processor[]>(this.baseURL + "processor/all");
   }
-
-  postItem(model:any){
+  addItem(model:any){
     return this.http.post<Processor>(this.baseURL + "processor/register",model);
   }
 
   deleteItem(name:string){
     return this.http.delete<Processor>(this.baseURL + "processor/"+ name)
+  }
+  updateItem(model:string,newModel:Processor){
+    return this.http.put<Processor>(this.baseURL + "processor/"+ model,newModel)
   }
 }

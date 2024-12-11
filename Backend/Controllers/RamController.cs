@@ -9,16 +9,16 @@ using Microsoft.EntityFrameworkCore;
 namespace Backend.Controllers;
 public class RamController(DataContext context) : BaseApiController
 {
-       [HttpGet("all")]
-      public async Task<ActionResult<IEnumerable<RAM>>> GetRAMs()
+    [HttpGet("all")]
+    public async Task<ActionResult<IEnumerable<RAM>>> GetRAMs()
     {
         var RAMs = await context.RAMs.ToListAsync();
-        if(RAMs.Count() == 0) return NotFound("No RAMs found");
+        if (RAMs.Count() == 0) return NotFound("No RAMs found");
         return RAMs;
     }
 
-[HttpPost("register")]
- public async Task<ActionResult<RAM>> Register(RamDto ramDto)
+    [HttpPost("register")]
+    public async Task<ActionResult<RAM>> Register(RamDto ramDto)
     {
 
         if (await Exists(ramDto))
@@ -35,10 +35,10 @@ public class RamController(DataContext context) : BaseApiController
             Speed = ramDto.Speed
         };
 
-        if (ram.Name.Length < 3 )
+        if (ram.Name.Length < 3)
             return BadRequest("Name too short");
 
-        else if(ram.Type.Length < 3)
+        else if (ram.Type.Length < 3)
             return BadRequest("Type name too short");
 
         context.RAMs.Add(ram);
@@ -48,44 +48,38 @@ public class RamController(DataContext context) : BaseApiController
         return ram;
     }
 
-
-    
-    //TREBA FIX DA BRISE PO IMENU A NE PO ID-u
-      [HttpDelete("{id}")]
-    public async Task<ActionResult<RAM>> Delete(int id)
+    [HttpDelete("{name}")]
+    public async Task<ActionResult<RAM>> Delete(string name)
     {
 
-        var item = await context.RAMs.FindAsync(id);
-        if(item == null) return NotFound("Cant find product with this ID");
+        var item = await context.RAMs.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
+        if (item == null) return NotFound("Cant find product with this name");
 
-        
+
         context.RAMs.Remove(item);
         await context.SaveChangesAsync();
 
         return Ok(item);
     }
 
-
-  //TREBA FIX DA UPDATEA PO IMENU A NE PO ID-u
-   [HttpPut("{id}")] 
-    public async Task<ActionResult<RAM>> Update(int id,RamDto dto)
+    [HttpPut("{name}")]
+    public async Task<ActionResult<RAM>> Update(string name, RamDto dto)
     {
-        var item = await context.RAMs.FindAsync(id);
-        if(item == null) return NotFound("Cant find product with this ID");
+        var item = await context.RAMs.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
+        if (item == null) return NotFound("Cant find product with this name");
 
-        item.Name = dto.Name?? item.Name;
-        item.Type = dto.Type?? item.Type;
-        item.Speed = dto.Speed?? item.Speed;
-        
+        item.Name = dto.Name ?? item.Name;
+        item.Type = dto.Type ?? item.Type;
+        item.Speed = dto.Speed ?? item.Speed;
+
 
         await context.SaveChangesAsync();
         return Ok();
     }
 
-
     private async Task<bool> Exists(RamDto ram)
     {
         return await context.RAMs.AnyAsync(x => x.Name!.ToLower() == ram.Name.ToLower() && x.Type!.ToLower() == ram.Type.ToLower());
     }
- 
+
 }

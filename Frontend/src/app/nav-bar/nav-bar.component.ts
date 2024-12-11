@@ -31,8 +31,7 @@ export class NavBarComponent {
   register() {
     this.accountService.register(this.model).subscribe(
       {
-        next: response=> {
-          console.log(response);
+        next: ()=> {
           this.closeRegisterForm();
         },
         error:error => {
@@ -49,20 +48,15 @@ export class NavBarComponent {
   closeRegisterForm(): void {
     this.isRegisterFormVisible = false;
   }
-
   openLoginForm(): void {
-    console.log("Opening login form...");
     this.isLoginFormVisible = true;
   }
-  // Close the login form
   closeLoginForm(): void {
-    console.log("Closing login form...");
     this.isLoginFormVisible = false;
   }
   login() {
     this.accountService.login(this.model).subscribe({
-      next: response =>{
-        console.log(response);
+      next: _ =>{
         this.errorMessage = "";
         this.closeLoginForm();
       },

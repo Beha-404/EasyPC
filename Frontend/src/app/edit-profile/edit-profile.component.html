@@ -7,19 +7,19 @@
         <div>
             <h1>Edit Profile</h1>
         </div>
-        <form class="editProfileForm">
+        <form class="editProfileForm" (ngSubmit)="submitChanges()">
             <table class="editNameTable">
                 <tr>
                     <td>
                         <div class="input-container">
                             <label for="firstName">First Name</label>
-                            <input type="text" id="firstName" placeholder="Ex. John" />
+                            <input type="text" id="firstName" [(ngModel)]="user.firstName" name="firstName" placeholder="Ex. John" />
                         </div>
                     </td>
                     <td>
                         <div class="input-container">
                             <label for="lastName">Last Name</label>
-                            <input type="text" id="lastName" placeholder="Ex. Doe" />
+                            <input type="text" id="lastName" [(ngModel)]="user.lastName" name="lastName" placeholder="Ex. Doe" />
                         </div>
                     </td>
                 </tr>
@@ -30,19 +30,19 @@
                     <td>
                         <div class="input-container">
                             <label for="city">City</label>
-                            <input type="text" id="city" placeholder="Ex. San Francisco" />
+                            <input type="text" id="city" [(ngModel)]="user.city" name="city" placeholder="Ex. San Francisco" />
                         </div>
                     </td>
                     <td>
                         <div class="input-container">
                             <label for="state">State</label>
-                            <input type="text" id="state" placeholder="Ex. California" />
+                            <input type="text" id="state" [(ngModel)]="user.state" name="state" placeholder="Ex. California" />
                         </div>
                     </td>
                     <td>
                         <div class="input-container">
                             <label for="postalCode">Postal Code</label>
-                            <input type="text" id="postalCode" maxlength="5" placeholder="Ex. 94105" />
+                            <input type="text" id="postalCode" maxlength="5" [(ngModel)]="user.postalCode" name="postalCode" placeholder="Ex. 94105" />
                         </div>
                     </td>
                 </tr>
@@ -50,12 +50,34 @@
 
             <div class="input-container">
                 <label for="country">Country</label>
-                <input class="country" id="country" placeholder="Ex. USA">
+                <input class="country" [(ngModel)]="user.country" name="country" id="country" placeholder="Ex. USA">
             </div>
 
             <div class="input-container">
                 <label for="address">Address</label>
-                <input class="address" id="address" placeholder="Ex. 100 Main St">
+                <input class="address" id="address" [(ngModel)]="user.address" name="address" placeholder="Ex. 100 Main St">
+            </div>
+
+            <div class="input-container">
+                <label for="profilePicture">Profile Picture</label>
+                <div 
+                    id="dropArea" 
+                    class="drop-area" 
+                    (click)="triggerFileInput()"
+                    (dragover)="onDragOver($event)"
+                    (dragleave)="onDragLeave()"
+                    (drop)="onDrop($event)">
+                    @if (previewURL) {
+                        <div id="preview">
+                            <img *ngIf="previewURL" [src]="previewURL" alt="Preview" />
+                        </div>
+                    }
+                    @else {
+                        <p>Drag & Drop your image here or <span>click to upload</span></p>
+                        <input type="file" id="profilePicture" (change)="onSelectedFile($event)"  accept="image/*" hidden />
+                    }
+                </div>
+             
             </div>
 
             <div class="buttons">

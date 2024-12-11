@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { SignatureKind } from 'typescript';
-import { User } from '../_models/user';
+import { User } from '../_models/User';
 
 @Injectable({
   providedIn: 'root'
@@ -11,8 +11,8 @@ export class UserService {
   currentUser = signal<User | null>(null);
   URL = "http://localhost:5271/api/";
 
-  getUser(model:any){
-    return this.http.get<User>(this.URL + "user/id")
+  getUser(name:any){
+    return this.http.get<User>(this.URL + "user/" + name)
   }
 
 }

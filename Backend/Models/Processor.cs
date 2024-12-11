@@ -10,10 +10,7 @@ public class Processor
     public required string Name { get; set; }
     [MinLength(3)]
     public required string Socket { get; set; }
-    [MinLength(3)]
-    public int Price { get; set; }
-    [MinLength(1)]
-    public int CoreCount { get; set; }
-    [MinLength(1)]
-    public int ThreadCount { get; set; }
+    public required int Price { get; set; }
+    public required int CoreCount { get; set; }
+    public required int ThreadCount { get; set; }
 }
