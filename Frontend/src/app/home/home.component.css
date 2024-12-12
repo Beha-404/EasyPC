@@ -2,6 +2,9 @@
     background: linear-gradient(2deg, #2f2626, #3e3e3e); /* Glatki prelaz tamnosmeđe u tamnosivu */
     min-height: 100vh;
 }
+
+
+/*
 .searchform-container{
     position: absolute;
     top:53%;
@@ -12,6 +15,28 @@
     justify-content: center;
     transition: all 0.4s;
 }
+*/
+
+
+.grid-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); 
+    grid-template-rows: auto auto; 
+    grid-gap: 20px; 
+    padding: 20px; 
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .grid-item {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  h2 {
+    font-size: 15px;
+    margin-bottom: 8px; 
+  }
 
 .searchform-container.open{
   visibility: visible;
@@ -74,13 +99,13 @@ h2{
     gap: 10px;
 }
 .searchform-control-others button{
-    padding: 10px 20px; /* Add padding for better clickability */
+    padding: 10px 20px; 
     font-size: 14px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    background-color: #2f2626; /* Customize button color */
-    color: white; /* Button text color */
+    background-color: #2f2626; 
+    color: white;
     transition: background-color 0.3s ease;
 }
 
@@ -91,5 +116,50 @@ h2{
 
 .searchform-container.open{
     visibility: visible;
+    opacity: 1;
+}
+
+
+.main-page-container{
+    position: relative;
+    background:url(../images/PCPlaceHolder.jpg)no-repeat;
+    background-position: center;
+    background-size: cover;
+    z-index: 1;
+}
+
+/*.welcome-hero-txt*/
+.main-page-text{
+    text-align: center;padding:290px 0 372px;
+   
+}
+.main-page-text h2 {
+    font-size: 42px;
+    color: #fff;
+    font-weight: 700;
+    margin-bottom: 45px;
+}
+.main-page-text p {
+    font-size: 18px;
+    text-transform: initial;
+    color: #fff;
+    font-weight: 500;
+    max-width: 735px;
+    margin: 0 auto;
+}
+.contact-us-btn {
+    display: inline-block;
+    width: 230px;
+    height: 60px;
+    background: #2f2626;
+    opacity: 0.8;
+    color: #fff;
+    margin-top: 55px;
+
+    border-radius: 10px;
+    padding: 10px 20px;
+}
+.contact-us-btn:hover{
+    background: #1c1a1a;
     opacity: 1;
 }

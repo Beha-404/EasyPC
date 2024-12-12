@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
-import { User } from '../_models/User';
+import { User } from '../_models/user';
 import { map } from 'rxjs';
 
 @Injectable({

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable, signal } from '@angular/core';
 import { SignatureKind } from 'typescript';
-import { User } from '../_models/User';
+import { User } from '../_models/user';
 
 @Injectable({
   providedIn: 'root'

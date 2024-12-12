@@ -7,7 +7,7 @@ import { NavBarComponent } from "../nav-bar/nav-bar.component";
 import { HttpClient } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
-import { User } from '../_models/User';
+import { User } from '../_models/user';
 import { AccountService } from '../_services/account.service';
 import { ToastrService } from 'ngx-toastr';
 
