@@ -33,7 +33,8 @@ public class MotherboardController(DataContext context) : BaseApiController
         var motherBoard = new Motherboard
         {
             Name = motherBoardDto.Name,
-            Socket = motherBoardDto.Socket
+            Socket = motherBoardDto.Socket,
+            Type = motherBoardDto.Type
         };
 
         if (motherBoard.Name.Length < 3 )

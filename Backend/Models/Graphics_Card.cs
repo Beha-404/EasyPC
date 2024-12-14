@@ -10,4 +10,6 @@ public class Graphics_Card
     public required string Name { get; set; }
     [MinLength(3)]
     public required string VRAM { get; set; }
+      public  required string Type { get; set; } = "GPU";
+      
 }

@@ -61,7 +61,8 @@ public class ProcessorController(DataContext context) : BaseApiController
             Socket = processor.Socket,
             Price = processor.Price,
             ThreadCount = processor.ThreadCount,
-            CoreCount = processor.CoreCount
+            CoreCount = processor.CoreCount,
+            Type = processor.Type
         };
 
         context.Processors.Add(processor);

@@ -1,10 +1,10 @@
-import { Component, inject, OnInit, output } from '@angular/core';
+import { Component, inject, OnInit,signal} from '@angular/core';
 import { NavBarComponent } from "../nav-bar/nav-bar.component";
 import { RouterModule } from '@angular/router';
-import { ProcessorService } from '../_services/processor.service';
 import { CommonModule } from '@angular/common';
-import { FormsModule, PristineChangeEvent } from '@angular/forms';
-
+import { FormsModule } from '@angular/forms';
+import { ProductsService } from '../_services/pruducts.service';
+import { Products } from '../_models/Products';
 
 @Component({
   selector: 'app-products',
@@ -13,35 +13,85 @@ import { FormsModule, PristineChangeEvent } from '@angular/forms';
   styleUrl: './products.component.css'
 })
 export class ProductsComponent implements OnInit {
-closeForm() {
-  this.selectedAction = "GET";
-}
 
   items: any[] = [];
   model: any = {};
   newModel: any = {};
+  products: Products;
 
-  selectedAction: string = "";
-  selectedComponent: string = "";
+  selectedAction = "";
 
-  processorService = inject(ProcessorService);
+  selectedComponent = signal<string>("");
+  selectedType = signal<string>("");
 
-  selectChanged(event: Event) {
-    const selectedValue = ((event.target as HTMLSelectElement).value);
+  productsService = inject(ProductsService);
 
-    switch (selectedValue) {
+  getComponents() {
+    this.productsService.getItems().subscribe({
+      next: (output) => {
+        this.products = output as Products;
+      }
+    })
+  }
+
+  ngOnInit(): void {
+    this.getComponents();
+  }
+
+  onActionSelectChanged(event: Event) {
+    this.selectedAction=(event.target as HTMLSelectElement).value;
+    console.log("Selected action:", this.selectedAction);
+    switch (this.selectedAction) {
       case "GET":
-        this.getProcessors();
-        this.selectedAction = "GET";
         break;
       case "ADD":
-        this.resetNewModel()
-        this.selectedAction = "ADD";
         break;
       case "UPDATE":
-        this.selectedAction = "UPDATE";
         break;
     }
+  }
+
+  onComponentTypeChange(event: Event) {
+    this.selectedComponent.set((event.target as HTMLSelectElement).value);
+    this.selectedAction="GET";
+
+    console.log("Selected component:", this.selectedComponent());
+    console.log("Selected action:", this.selectedAction);
+
+    switch (this.selectedComponent()) {
+      case "CPU":
+        this.items = this.products.processors;
+        this.selectedType.set("CPU");
+        break;
+      case "GPU":
+        this.items = this.products.graphicsCards;
+        this.selectedType.set("GPU");
+        break;
+      case "Power supply":
+        this.items = this.products.psUs;
+        this.selectedType.set("PSU");
+        break;
+      case "Case":
+        this.items = this.products.cases;
+        this.selectedType.set("Case");
+        break;
+      case "RAM":
+        this.items = this.products.raMs;
+        this.selectedType.set("RAM");
+        break;
+      case "Motherboard":
+        this.items = this.products.motherBoards;
+        this.selectedType.set("MotherBoard");
+        break;
+    }
+  }
+
+  setModel(model: any) {
+    this.newModel = model;
+  }
+
+  closeForm() {
+    this.selectedAction="GET";
   }
 
   resetNewModel() {
@@ -54,60 +104,23 @@ closeForm() {
     }
   }
 
-  onComponentTypeChange(event: Event) {
-    switch ((event.target as HTMLSelectElement).value) {
-      case "CPU":
-        this.getProcessors();
-        this.selectedComponent = "CPU";
-        break;
-      case "GPU":
-        this.selectedComponent = "GPU";
-        break;
-      case "Power supply":
-        this.selectedComponent = "Power supply";
-        break;
-      case "Case":
-        this.selectedComponent = "Case";
-        break;
-      case "RAM":
-        this.selectedComponent = "RAM";
-        break;
-      case "Motherboard":
-        this.selectedComponent = "Motherboard";
-        break;
-      case "Storage":
-        this.selectedComponent = "Storage";
-        break;
+  // addProduct(type:string) {
+  //   this.productsService.addItem(type,this.newModel).subscribe({
+  //     next: () => {
+  //       this.selectedAction.set("GET");
+  //       this.selectedAction.set("ADD");
+  //     },
+  //     error: (error:Error) => {
+  //       alert(JSON.stringify(error))
+  //     }
+  //   })
+  // }
 
-    }
-  }
-
-  getProcessors() {
-    this.processorService.getItems().subscribe({
-      next: (output) => {
-        this.items = output;
-      }
-    });
-  }
-
-  addProcessor() {
-    this.processorService.addItem(this.newModel).subscribe({
-      next: _ => {
-        this.getProcessors();
-        this.selectedAction = "GET";
-        this.selectedAction = "ADD";
-      },
-      error: err => {
-        alert(JSON.stringify(err.error))
-      }
-    })
-  }
-
-  deleteProcessor(name: string) {
-    this.processorService.deleteItem(name).subscribe({
-      next: _ => {
-        this.getProcessors();
-        this.selectedAction = "DELETE";
+  deleteProduct(type:string,name: string):void {
+    this.productsService.deleteItem(type,name).subscribe({
+      next:() => {
+        this.items = this.items.filter(item => item.name !== name);
+        
       },
       error: (err) => {
         alert(JSON.stringify(err.error))
@@ -115,20 +128,17 @@ closeForm() {
     })
   }
 
-  updateProcessor(name: string) {
-    this.selectedAction = "UPDATE"
-    this.processorService.updateItem(name, this.newModel).subscribe({
-      next: _ => {
-        this.getProcessors();
-        this.model.name = this.newModel.name;
-      },
-      error: (err) => {
-        alert(JSON.stringify(err.error))
-      }
-    })
-  }
-
-  ngOnInit(): void {
-    this.getProcessors();
-  }
+  // updateProduct(name: string) {
+  //   this.selectedAction.set("UPDATE");
+  //   this.productsService.updateItem(name, this.newModel).subscribe({
+  //     next: () => {
+  //       this.model.name = this.newModel.name;
+  //     },
+  //     error: (err:Error) => {
+  //       alert(JSON.stringify(err))
+  //     }
+  //   })}
+  
 }
+
+

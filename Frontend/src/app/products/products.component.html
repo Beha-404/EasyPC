@@ -1,3 +1,6 @@
+<div class="navBar">
+    <app-nav-bar></app-nav-bar>
+</div>
 <div class="mainDiv">
     <div class="products" [class.animate-left]="selectedAction === 'UPDATE' || selectedAction === 'ADD'">
         <h2 class="products-title">Select Your Component</h2>
@@ -10,28 +13,33 @@
                     <option value="GPU">GPU</option>
                     <option value="Power supply">Power supply</option>
                     <option value="RAM">RAM</option>
-                    <option value="Storage">Storage</option>
                     <option value="Motherboard">Motherboard</option>
                 </select>
             </div>
-            <select (change)="selectChanged($event)">
+            <select (change)="onActionSelectChanged($event)" name="selectedAction" [(ngModel)]="selectedAction" [disabled]="!selectedComponent()">
                 <option value="GET">Available items</option>
                 <option value="ADD">Add new</option>
             </select>
         </div>
         <div class="info-box">
+            @if (selectedAction === "") {
+            <h1>Nothing has been selected</h1>
+            }
+            @else {
             <div *ngFor="let item of items; let i = index">
                 <div class="processor-item">
-                    <p>{{item.name}} Price:{{item.price}}$</p>
-                    <button (click)="deleteProcessor(item.name)" class="btnDelete">Delete</button>
-                    <button (click)="selectedAction = 'UPDATE';model.name = item.name" class="btnUpdate">Update</button>
+                    <p>{{item.name}} {{item.type}}</p>
+                    <button (click)="deleteProduct(selectedType(),item.name)" class="btnDelete">Delete</button>
+                    <button (click)="selectedAction='UPDATE';setModel(item);model.name = item.name"
+                        class="btnUpdate">Update</button>
                 </div>
             </div>
+            }
         </div>
     </div>
     <div *ngIf="selectedAction === 'ADD'" class="form-box-add animate-right">
-        <h1>Add new processor</h1>
-        <form (submit)="addProcessor()" class="formAddCPU">
+        <h1>Add new {{selectedComponent()}}</h1>
+        <!-- <form (submit)="addProduct(selectedType())" class="formAddCPU" >
             <input type="text" placeholder="Name" name="name" [(ngModel)]="newModel.name">
             <input type="text" placeholder="Socket" name="socket" [(ngModel)]="newModel.socket">
             <input type="text" placeholder="Price" name="price" [(ngModel)]="newModel.price">
@@ -41,11 +49,11 @@
                 <button type="submit">ADD</button>
                 <button type="button" (click)="closeForm()">CLOSE</button>
             </div>
-        </form>
+        </form> -->
     </div>
     <div *ngIf="selectedAction === 'UPDATE'" class="form-box-update animate-right">
         <h1>Update {{model.name}}</h1>
-        <form (submit)="updateProcessor(model.name)">
+        <!-- <form (submit)="updateProduct(model.name)">
             <label>Name</label>
             <input type="text" placeholder="New name" name="name" [(ngModel)]="newModel.name">
             <label>Socket</label>
@@ -60,6 +68,6 @@
                 <button type="submit">UPDATE</button>
                 <button type="button" (click)="closeForm()">CLOSE</button>
             </div>
-        </form>
+        </form> -->
     </div>
 </div>

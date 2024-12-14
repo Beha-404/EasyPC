@@ -14,5 +14,7 @@ public class Motherboard
     public string? Model { get; set; }
     [MinLength(3)]
     public bool SupportsOverclocking { get; set; }
+      public  required string Type { get; set; } = "MotherBoard";
+      
 
 }

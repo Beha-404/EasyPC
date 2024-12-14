@@ -33,7 +33,8 @@ public class GraphicsCardController(DataContext context) : BaseApiController
         var graphicsCard = new Graphics_Card
         {
             Name = graphics_CardDto.Name,
-            VRAM = graphics_CardDto.VRAM
+            VRAM = graphics_CardDto.VRAM,
+            Type = graphics_CardDto.Type
         };
 
         if (graphicsCard.Name!.Length < 3)

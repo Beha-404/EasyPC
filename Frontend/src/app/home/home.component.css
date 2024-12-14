@@ -1,5 +1,5 @@
 .mainDiv{
-    background: linear-gradient(2deg, #2f2626, #3e3e3e); /* Glatki prelaz tamnosmeđe u tamnosivu */
+    background: linear-gradient(120deg, #2f2626, #3e3e3e);
     min-height: 100vh;
 } 
   .grid-item {
@@ -7,8 +7,6 @@
     flex-direction: column;
   }
 
-
-/* Main container */
 .searchform-container {
     display: flex;
     justify-content: center;
@@ -19,7 +17,6 @@
     font-family: Arial, sans-serif;
 }
 
-/* Form content */
 .full-searchform-content {
     width: 100%;
     max-width: 1000px;
@@ -36,7 +33,6 @@
     align-items: center;
 }
 
-/* Grid container for inputs */
 .grid-container {
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 20px;
@@ -49,7 +45,6 @@
     align-items: center;
 }
 
-/* Grid items (each component) */
 .grid-item {
     display: flex;
     flex-direction: column;
@@ -62,7 +57,6 @@
     margin-bottom: 10px;
 }
 
-/* Input styles */
 .searchform-control input {
     width: 100%;
     padding: 10px;
@@ -80,7 +74,6 @@
     box-shadow: 0 0 5px #ffcc00;
 }
 
-/* Autocomplete dropdown */
 .mat-autocomplete-panel {
     background-color: #1f1f1f;
     color: #fff;
@@ -95,12 +88,10 @@
     background-color: #292929;
 }
 
-/* Slider styles */
 .searchform-control mat-slider {
     width: 160%;
 }
 
-/* Buttons */
 .searchform-control-others {
     display: flex;
     justify-content: center;
@@ -136,7 +127,6 @@ button#Reset:hover {
     background-color: #555;
 }
 
-/* Responsive styles */
 @media (max-width: 768px) {
     .grid-container {
         grid-template-columns: 1fr;
