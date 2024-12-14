@@ -256,3 +256,6 @@ label{
 .formBtnUpdateCPU{
     display: flex;
 }
+h1{
+    text-align: center;
+}

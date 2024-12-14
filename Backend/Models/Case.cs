@@ -9,5 +9,6 @@ public class Case
     [MinLength(5)]
     public required string Name { get; set; }
     [MinLength(2)]
-    public required string Type { get; set; }
+    public required string Type { get; set; } = "CASE";
+    
 }

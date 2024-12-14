@@ -38,7 +38,8 @@ public class PSUController(DataContext context) : BaseApiController
         var PSU = new PSU
         {
             Name = psuDto.Name,
-            Power = psuDto.Power
+            Power = psuDto.Power,
+            Type = psuDto.Type!
         };
 
         if (PSU.Name.Length < 3 )
