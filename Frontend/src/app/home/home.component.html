@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="home.component.css">
 
-
+<!--
 <div class="main-page-container">
   <div class="main-page-text">
     <h2>Build the PC of Your Dreams, One Component at a Time</h2>
@@ -12,6 +12,7 @@
     <button class="contact-us-btn" routerLink="/support" routerLinkActive="active">Contact Us</button>
   </div>
 </div>
+-->
 
 <div class="searchform-container">
   <div class="full-searchform-content">
@@ -104,60 +105,3 @@
   </div>
 </div>
 
-
-<!--
-<div class="searchform-container">
-    <div class="searchform-content">
-        <form #searcform class="search">
-            <h2>Select Components</h2>
-            <div class="searchform-control">
-                <label for="budget">Budget</label>
-                <mat-slider min="0" max="2000" step="0.5" discrete showTickMarks>
-                    <input matSliderStartThumb>
-                    <input matSliderEndThumb>
-                </mat-slider>
-            </div>
-            <div class="searchform-control">
-                <label for="cpu">Select CPU</label>
-
-                <input type="text"
-                placeholder="Select CPU"
-                aria-label="CPU"
-                matInput
-                [formControl]="cpuAutoControl"
-                [matAutocomplete]="cpuAuto">
-         <mat-autocomplete #cpuAuto="matAutocomplete">
-           @for (cpuoption of filteredCPUOptions | async; track cpuoption) {
-             <mat-option [value]="cpuoption">{{cpuoption}}</mat-option>
-           }
-         </mat-autocomplete>
-
-            </div>
-            <div class="searchform-control">
-                <label for="gpumanufacturer">Select GPU</label>
-               
-                <input type="text"
-                placeholder="Select GPU"
-                aria-label="GPU"
-                matInput
-                [formControl]="gpuAutoControl"
-                [matAutocomplete]="gpuAuto">
-         <mat-autocomplete #gpuAuto="matAutocomplete">
-           @for (gpuoption of filteredGPUOptions | async; track gpuoption) {
-             <mat-option [value]="gpuoption">{{gpuoption}}</mat-option>
-           }
-         </mat-autocomplete>
-
-            </div>
-            
-
-            <div class="searchform-control-others">
-                <button mat-button id="Search" type="submit">Search</button>
-                <button mat-button id="Reset" type="submit">Reset</button>
-            </div>
-        </form>
-    </div>
-</div>
-</div>
-
--->
