@@ -1,5 +1,67 @@
+<link rel="stylesheet" type="text/css" href="orders.component.css">
+
 <div class="mainDiv">
     <div>
         <app-nav-bar></app-nav-bar>
+    </div>
+    
+    <div class="orders-container">
+        <h1>Your Orders</h1>
+        <div class="search-filter-container">
+            <input type="text" placeholder="Search orders by ID or product name" class="search-bar">
+            <select class="filter-select">
+                <option value="" hidden selected>Filter by Status</option>
+                <option value="all">All</option>
+                <option value="pending">Pending</option>
+                <option value="shipped">Shipped</option>
+                <option value="delivered">Delivered</option>
+            </select>
+        </div>
+        
+        <div class="orders-list">
+            <div class="order-item">
+                <div class="order-summary">
+                    <p><strong>Order ID:</strong> #12345</p>
+                    <p><strong>Date:</strong> Dec 1, 2024</p>
+                    <p><strong>Status:</strong> <span class="status pending">Pending</span></p>
+                    <p><strong>Total:</strong> $150.00</p>
+                </div>
+                <button class="details-btn" onclick="viewOrderDetails('#12345')">View Details</button>
+            </div>
+            
+            <div class="order-item">
+                <div class="order-summary">
+                    <p><strong>Order ID:</strong> #12346</p>
+                    <p><strong>Date:</strong> Nov 20, 2024</p>
+                    <p><strong>Status:</strong> <span class="status shipped">Shipped</span></p>
+                    <p><strong>Total:</strong> $520.00</p>
+                </div>
+                <button class="details-btn" onclick="viewOrderDetails('#12346')">View Details</button>
+            </div>
+
+            <div class="order-item">
+                <div class="order-summary">
+                    <p><strong>Order ID:</strong> #12347</p>
+                    <p><strong>Date:</strong> Nov 20, 2024</p>
+                    <p><strong>Status:</strong> <span class="status delivered">Delivered</span></p>
+                    <p><strong>Total:</strong> $690.00</p>
+                </div>
+                <button class="details-btn" onclick="viewOrderDetails('#12346')">View Details</button>
+            </div>
+            <!-- dodatni orderi -->
+        </div>
+        
+        <div class="order-details" id="orderDetails" hidden>
+            <h2>Order Details</h2>
+            <p><strong>Order ID:</strong> <span id="orderID"></span></p>
+            <p><strong>Items:</strong></p>
+            <ul id="orderItems">
+                <li>Item 1 - $50.00</li>
+                <li>Item 2 - $100.00</li>
+            </ul>
+            <p><strong>Shipping Address:</strong> 123 Main St, San Francisco, CA</p>
+            <p><strong>Total:</strong> $150.00</p>
+            <button class="close-details-btn" onclick="closeOrderDetails()">Close</button>
+        </div>
     </div>
 </div>
