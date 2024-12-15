@@ -132,6 +132,43 @@ button#Reset:hover {
     background-color: #555;
 }
 
+
+.dynamic-html-container {
+  margin: 20px;
+  padding: 20px;
+  background-color: #4a4a4a;
+  border-radius: 10px;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  max-width: 800px;
+}
+
+.dynamic-html-container h2 {
+  color: #ffcc00;
+  font-size: 1.8rem;
+}
+
+.dynamic-html-container p {
+  margin-top: 10px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.dynamic-html-container ul {
+  margin-top: 10px;
+  padding-left: 20px;
+}
+
+.dynamic-html-container li {
+  margin-bottom: 5px;
+  list-style-type: disc;
+}
+
+
+
+
+
 @media (max-width: 768px) {
     .grid-container {
         grid-template-columns: 1fr;

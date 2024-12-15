@@ -75,9 +75,21 @@
 
           <!-- Case -->
           <div class="grid-item">
-            <h2>Select Case</h2>
+            <h2>Select Cases</h2>
             <div class="searchform-control">
-              <input type="text" placeholder="Select Case" />
+              <input
+                type="text"
+                placeholder="Select Case"
+                aria-label="Case"
+                matInput
+                [formControl]="caseAutoControl"
+                [matAutocomplete]="caseAuto"
+              />
+              <mat-autocomplete #caseAuto="matAutocomplete">
+                @for (caseoption of filteredCaseOptions | async; track caseoption) {
+                <mat-option [value]="caseoption">{{caseoption}}</mat-option>
+                }
+              </mat-autocomplete>
             </div>
           </div>
 
@@ -105,6 +117,10 @@
   </div>
 </div>
 
+
+<div *ngIf="dynamicHtml" class="dynamic-html-container">
+  <div [innerHTML]="dynamicHtml"></div>
+</div>
 
 
 </div>
