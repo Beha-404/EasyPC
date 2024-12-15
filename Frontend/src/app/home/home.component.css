@@ -1,7 +1,9 @@
 .mainDiv{
     background: linear-gradient(120deg, #2f2626, #3e3e3e);
     min-height: 100vh;
+    position: relative;
 } 
+
   .grid-item {
     display: flex;
     flex-direction: column;
@@ -9,7 +11,8 @@
 
 .searchform-container {
     display: flex;
-    justify-content: center;
+    position: absolute;
+    justify-content: flex-end;
     align-items: center;
     background: linear-gradient(320deg, #2f2626, #3e3e3e);
     min-height: 100vh;
@@ -18,13 +21,15 @@
 }
 
 .full-searchform-content {
-    width: 100%;
-    max-width: 1000px;
-    background-color: #4a4a4a;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    display: grid;
+    grid-template-rows:8, 2fr;
     padding: 20px;
+    background-color: #4a4a4a;
     color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 500px;
+    padding-right: 50px;
 }
 
 .searchform-content {
@@ -39,7 +44,7 @@
     width: 100%;
     margin-top: 20px;
     display: grid;
-    grid-template-columns: repeat(4, 1fr); 
+    grid-template-columns: repeat(2, 8fr); 
     padding: 20px; 
     justify-content: center;
     align-items: center;
