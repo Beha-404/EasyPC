@@ -9,8 +9,10 @@ export class GraphicsCardService {
   private http = inject(HttpClient);
   baseURL = "http://localhost:5271/api/";
 
-  getItems()
-  {
+  getItems() {
     return this.http.get<GraphicsCard[]>(this.baseURL + "graphicscard/all");
+  }
+  addItem(model: any) {
+    return this.http.post<GraphicsCard>(this.baseURL + "graphicscard/register", model);
   }
 }

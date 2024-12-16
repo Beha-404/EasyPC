@@ -1,10 +1,16 @@
-import { Component, inject, OnInit,signal} from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { NavBarComponent } from "../nav-bar/nav-bar.component";
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ProductsService } from '../_services/pruducts.service';
 import { Products } from '../_models/Products';
+import { ProcessorService } from '../_services/processor.service';
+import { Toast, ToastrService } from 'ngx-toastr';
+import { PSUService } from '../_services/psu.service';
+import { GraphicsCardService } from '../_services/graphics-card.service';
+import { CaseService } from '../_services/case.service';
+import { ServicesContainerService } from '../_services/services-container.service';
 
 @Component({
   selector: 'app-products',
@@ -14,116 +20,127 @@ import { Products } from '../_models/Products';
 })
 export class ProductsComponent implements OnInit {
 
+  constructor(private services:ServicesContainerService){}
+
   items: any[] = [];
   model: any = {};
   newModel: any = {};
   products: Products;
 
-  selectedAction = "";
-
-  selectedComponent = signal<string>("");
+  selectedAction = "GET";
   selectedType = signal<string>("");
 
-  productsService = inject(ProductsService);
-
-  getComponents() {
-    this.productsService.getItems().subscribe({
-      next: (output) => {
-        this.products = output as Products;
-      }
-    })
+  private modelTemplate = {
+    name: "",
+    price: "",
+    socket: "",
+    threadCount: "",
+    coreCount: "",
+    type: ""
   }
 
   ngOnInit(): void {
     this.getComponents();
   }
 
-  onActionSelectChanged(event: Event) {
-    this.selectedAction=(event.target as HTMLSelectElement).value;
-    console.log("Selected action:", this.selectedAction);
+  getComponents() {
+    this.services.productsService.getItems().subscribe({
+      next: (output) => {
+        this.products = output as Products;
+      }
+    })
+  }
+
+  onActionChange(event: Event) {
+    this.selectedAction = (event.target as HTMLSelectElement).value;
     switch (this.selectedAction) {
       case "GET":
         break;
       case "ADD":
+        this.resetModel();
         break;
       case "UPDATE":
+        this.resetModel();
         break;
     }
   }
 
-  onComponentTypeChange(event: Event) {
-    this.selectedComponent.set((event.target as HTMLSelectElement).value);
-    this.selectedAction="GET";
+  onTypeChange(event: Event) {
+    this.selectedType.set((event.target as HTMLSelectElement).value);
 
-    console.log("Selected component:", this.selectedComponent());
-    console.log("Selected action:", this.selectedAction);
-
-    switch (this.selectedComponent()) {
-      case "CPU":
-        this.items = this.products.processors;
-        this.selectedType.set("CPU");
-        break;
-      case "GPU":
-        this.items = this.products.graphicsCards;
-        this.selectedType.set("GPU");
-        break;
-      case "Power supply":
-        this.items = this.products.psUs;
-        this.selectedType.set("PSU");
-        break;
-      case "Case":
-        this.items = this.products.cases;
-        this.selectedType.set("Case");
-        break;
-      case "RAM":
-        this.items = this.products.raMs;
-        this.selectedType.set("RAM");
-        break;
-      case "Motherboard":
-        this.items = this.products.motherBoards;
-        this.selectedType.set("MotherBoard");
-        break;
+    const typeMapping = {
+      "CPU": this.products.processors,
+      "GPU": this.products.graphicsCards,
+      "PSU": this.products.psUs,
+      "RAM": this.products.raMs,
+      "CASE": this.products.cases,
+      "MOTHERBOARD": this.products.motherBoards
     }
+    this.items = typeMapping[this.selectedType().toUpperCase() as keyof typeof typeMapping] || [];
+    this.selectedAction = "GET";
   }
 
   setModel(model: any) {
     this.newModel = model;
   }
 
-  closeForm() {
-    this.selectedAction="GET";
+  resetModel() {
+    this.newModel = { ...this.modelTemplate, type: this.selectedType() };
   }
 
-  resetNewModel() {
-    this.newModel = {
-      name: "",
-      price: "",
-      socket: "",
-      threadCount: "",
-      coreCount: ""
+  closeForm() {
+    this.selectedAction = "GET";
+  }
+
+  addProduct() {
+    switch (this.selectedType()) {
+      case "CPU":
+        this.newModel.type = this.selectedType();
+        this.services.processorService.addItem(this.newModel).subscribe({
+          next: (res) => {
+            this.items.push(res);
+            this.services.toastrService.success("Success");
+          },
+          error: (err) => {
+            this.services.toastrService.error(JSON.stringify(err.error));
+          }
+        })
+        break;
+      case "GPU":
+        this.newModel.type = this.selectedType();
+        this.services.graphicsCardService.addItem(this.newModel).subscribe({
+          next: () => {
+            this.services.toastrService.success("Success");
+          },
+          error: (err) => {
+            this.services.toastrService.error(JSON.stringify(err.error));
+          }
+        });
+        break;
+      case "PSU":
+        this.newModel.type = this.selectedType();
+        this.services.psuService.addItem(this.newModel).subscribe({
+          next: () => {
+            this.services.toastrService.success("Success");
+          },
+          error: (err) => {
+            this.services.toastrService.error(JSON.stringify(err.error));
+          }
+        });
+        break;
     }
   }
 
-  // addProduct(type:string) {
-  //   this.productsService.addItem(type,this.newModel).subscribe({
-  //     next: () => {
-  //       this.selectedAction.set("GET");
-  //       this.selectedAction.set("ADD");
-  //     },
-  //     error: (error:Error) => {
-  //       alert(JSON.stringify(error))
-  //     }
-  //   })
-  // }
-
-  deleteProduct(type:string,name: string):void {
-    this.productsService.deleteItem(type,name).subscribe({
-      next:() => {
+  deleteProduct(type: string, name: string): void {
+    this.services.productsService.deleteItem(type, name).subscribe({
+      next: () => {
         this.items = this.items.filter(item => item.name !== name);
-        
+        this.getComponents();
+        this.selectedAction = "";
+        this.selectedAction = "GET";
       },
       error: (err) => {
-        alert(JSON.stringify(err.error))
+        this.services.toastrService.error(JSON.stringify(err.error));
       }
     })
   }
@@ -138,7 +155,4 @@ export class ProductsComponent implements OnInit {
   //       alert(JSON.stringify(err))
   //     }
   //   })}
-  
 }
-
-

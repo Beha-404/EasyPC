@@ -5,7 +5,6 @@ import { Router, RouterLink, RouterLinkActive, RouterModule } from '@angular/rou
 import { AccountService } from '../_services/account.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { M } from '@angular/cdk/keycodes';
 
 @Component({
   selector: 'app-nav-bar',
@@ -23,9 +22,14 @@ export class NavBarComponent {
   errorMessage: string = "";
   isLoginFormVisible: boolean = false;
   isRegisterFormVisible: boolean = false;
+  isDropDownVisible:boolean = false;
 
   cancel(){
     this.cancelRegister.emit(false);
+  }
+
+  toggleDropDown() {
+    this.isDropDownVisible = !this.isDropDownVisible;
   }
 
   register() {
