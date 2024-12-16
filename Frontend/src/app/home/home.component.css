@@ -132,42 +132,84 @@ button#Reset:hover {
     background-color: #555;
 }
 
+.content-container {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  width: 50%;
+  max-width: 1200px;
+}
 
-.dynamic-html-container {
-  margin: 20px;
-  padding: 20px;
-  background-color: #4a4a4a;
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  min-width: 130%;
+}
+
+.card {
+  position: relative;
+  background: #2f2f2f;
+  border: 2px solid #ffcc00; /* Gold Border */
   border-radius: 10px;
-  color: #fff;
-  font-family: Arial, sans-serif;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  max-width: 800px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  color: #dfdfdf;
+  margin-top: 115px;
+  margin-left: 10px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.3s ease;
 }
 
-.dynamic-html-container h2 {
-  color: #ffcc00;
-  font-size: 1.8rem;
+.card:hover {
+  transform: scale(1.02);
 }
 
-.dynamic-html-container p {
-  margin-top: 10px;
-  font-size: 1rem;
-  line-height: 1.5;
+.ribbon {
+  position: absolute;
+  top: 10px;
+  right: -10px;
+  background-color: #ffcc00; /* Gold Ribbon */
+  color: #2f2f2f;
+  font-size: 0.9rem;
+  padding: 5px 15px;
+  transform: rotate(45deg);
+  font-weight: bold;
 }
 
-.dynamic-html-container ul {
-  margin-top: 10px;
-  padding-left: 20px;
-}
-
-.dynamic-html-container li {
-  margin-bottom: 5px;
-  list-style-type: disc;
+.card-content h3 {
+  font-size: 1.2rem;
+  color: #ffcc00; /* Gold Text */
+  margin: 10px 0;
 }
 
 
+.details {
+  font-size: 0.9rem;
+  margin: 5px 0;
+}
 
+.details-button {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: auto;
+  }
 
+.details-button .details {
+  background: #ffcc00;
+  color: #2b2b2b;
+  border: none;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.details-button .details:hover {
+  background: #d4a600;
+}
 
 @media (max-width: 768px) {
     .grid-container {
