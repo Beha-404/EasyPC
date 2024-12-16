@@ -18,7 +18,7 @@ public class User
     public  string? City { get; set; }
     public  string? State { get; set; }
     public  string? Country { get; set; }
-    public  string? profilePicture { get; set; }
+    public  byte[]? profilePicture { get; set; }
     public  string? PostalCode { get; set; }
     public  string? Address { get; set; }
 }

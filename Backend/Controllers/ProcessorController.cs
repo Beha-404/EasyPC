@@ -62,14 +62,14 @@ public class ProcessorController(DataContext context) : BaseApiController
             Price = processor.Price,
             ThreadCount = processor.ThreadCount,
             CoreCount = processor.CoreCount,
-            Type = processor.Type
+            Type = processor.Type ?? "CPU"
         };
 
-        context.Processors.Add(processor);
+        context.Processors.Add(newProcessor);
 
         await context.SaveChangesAsync();
 
-        return Ok();
+        return newProcessor;
     }
 
     [HttpDelete("{name}")]

@@ -1,10 +1,7 @@
-using System;
-using System.ComponentModel;
-using System.Reflection.Metadata;
-using System.Reflection.Metadata.Ecma335;
+using System.Text.Json;
 using Backend.Data;
+using Backend.Dtos;
 using Backend.Models;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,6 +23,123 @@ public class ProductsController(DataContext context) : BaseApiController
         };
         return Ok(products);
     }
+    [HttpPost("{type}/add")]
+    public async Task<ActionResult<Products>> addProduct(string type, object model)
+    {
+
+        if (model == null)
+        {
+            return BadRequest("Model should not be null");
+        }
+
+        switch (type)
+        {
+            case "CPU":
+
+                var processorDto = JsonSerializer.Deserialize<ProcessorDto>(model.ToString()!);
+                if (processorDto == null) return BadRequest("Invalid data for CPU");
+
+                var newProcessor = new Processor
+                {
+                    Name = processorDto.Name!,
+                    Socket = processorDto.Socket!,
+                    Type = processorDto.Type!,
+                    Price = processorDto.Price ?? 0,
+                    CoreCount = processorDto.CoreCount ?? 0,
+                    ThreadCount = processorDto.ThreadCount ?? 0
+                };
+                context.Processors.Add(newProcessor);
+                break;
+
+            case "GPU":
+                var graphicsCardDto = model as GraphicsCardDto;
+                if (graphicsCardDto is null)
+                {
+                    return BadRequest("Invalid data for GPU");
+                }
+
+                var newGPU = new Graphics_Card
+                {
+                    Name = graphicsCardDto.Name,
+                    VRAM = graphicsCardDto.VRAM,
+                    Type = graphicsCardDto.Type
+                };
+                context.Graphics_Cards.Add(newGPU);
+                break;
+
+            case "PSU":
+                var PsuDto = model as PsuDto;
+                if (PsuDto is null)
+                {
+                    return BadRequest("Invalid data for PSU");
+                }
+
+                var newPSU = new PSU
+                {
+                    Name = PsuDto.Name,
+                    Power = PsuDto.Power,
+                    Type = PsuDto.Type!
+                };
+                context.PSUs.Add(newPSU);
+                break;
+
+            case "Case":
+                var caseDto = model as CaseDto;
+                if (caseDto is null)
+                {
+                    return BadRequest("Invalid data for case");
+                }
+
+                var newCase = new Case
+                {
+                    Name = caseDto.Name,
+                    Type = caseDto.Type!
+                };
+                context.Cases.Add(newCase);
+                break;
+
+            case "MotherBoard":
+                var motherBoardDto = model as MotherBoardDto;
+                if (motherBoardDto is null)
+                {
+                    return BadRequest("Invalid data for MotherBoard");
+                }
+
+                var newMotherBoard = new Motherboard
+                {
+                    Name = motherBoardDto.Name,
+                    Socket = motherBoardDto.Socket,
+                    Type = motherBoardDto.Type,
+                    SupportsOverclocking = motherBoardDto.SupportsOverclocking,
+                    Model = motherBoardDto.Model
+                };
+                context.Motherboards.Add(newMotherBoard);
+                break;
+
+            case "RAM":
+                var ramDto = model as RamDto;
+                if (ramDto is null)
+                {
+                    return BadRequest("Invalid data for RAM");
+                }
+
+                var newRAM = new RAM
+                {
+                    Name = ramDto.Name,
+                    Speed = ramDto.Speed,
+                    Type = ramDto.Type
+                };
+                context.RAMs.Add(newRAM);
+                break;
+
+            default:
+                return BadRequest("Invalid product type");
+        }
+
+        await context.SaveChangesAsync();
+        return Ok("Product added");
+    }
+
     [HttpDelete("{type}/{name}")]
     public async Task<ActionResult<Products>> deleteProduct(string type, string name)
     {
@@ -60,61 +174,7 @@ public class ProductsController(DataContext context) : BaseApiController
         }
         context.Remove(product);
         await context.SaveChangesAsync();
-        return Ok("Product deleted");
+        return Ok(new {message="Product deleted"});
     }
-
-    // [HttpPost("{type}/{name}")]
-    // public async Task<ActionResult<Products>> addProduct(string type, object model)
-    // {
-    //     object? product;
-    //     switch (type)
-    //     {
-    //         case "CPU":
-    //             var cpu = new Processor();
-    //             cpu.Name = ((dynamic)productDetails).Name;
-    //             cpu.Socket = ((dynamic)productDetails).Socket;
-    //             cpu.Price = ((dynamic)productDetails).Price;
-    //             product = cpu;
-    //             break;
-    //         case "GPU":
-    //             var gpu = new GraphicsCard();
-    //             gpu.Name = ((dynamic)productDetails).Name;
-    //             gpu.Memory = ((dynamic)productDetails).Memory;
-    //             product = gpu;
-    //             break;
-    //         case "PSU":
-    //             var psu = new PSU();
-    //             psu.Name = ((dynamic)productDetails).Name;
-    //             psu.Wattage = ((dynamic)productDetails).Wattage;
-    //             product = psu;
-    //             break;
-    //         case "Case":
-    //             var caseItem = new Case();
-    //             caseItem.Name = ((dynamic)productDetails).Name;
-    //             caseItem.Size = ((dynamic)productDetails).Size;
-    //             product = caseItem;
-    //             break;
-    //         case "MotherBoard":
-    //             var motherboard = new Motherboard();
-    //             motherboard.Name = ((dynamic)productDetails).Name;
-    //             motherboard.Socket = ((dynamic)productDetails).Socket;
-    //             product = motherboard;
-    //             break;
-    //         case "RAM":
-    //             var ram = new RAM();
-    //             ram.Name = ((dynamic)productDetails).Name;
-    //             ram.Capacity = ((dynamic)productDetails).Capacity;
-    //             product = ram;
-    //             break;
-    //         default:
-
-    //             if (product == null)
-    //             {
-    //                 return NotFound("Product not found");
-    //             }
-    //             context.Add(product);
-    //             context.SaveChangesAsync();
-    //             return Ok();
-    //     }
-    }
+}
 
