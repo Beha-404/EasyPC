@@ -13,4 +13,7 @@ export class PSUService {
   getItems(){
     return this.http.get<PSU[]>(this.baseURL + "psu/all");
   }
+    addItem(model:any){
+      return this.http.post<PSU>(this.baseURL + "psu/register",model);
+    }
 }

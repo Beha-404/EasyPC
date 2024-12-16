@@ -7,18 +7,21 @@
         <div class="arrow"></div>
         <div>
             <div>
-                <select (change)="onComponentTypeChange($event)">
+                <select (change)="onTypeChange($event)">
                     <option value="" hidden selected>Select Component</option>
-                    <option value="CPU">CPU</option>
-                    <option value="GPU">GPU</option>
-                    <option value="Power supply">Power supply</option>
-                    <option value="RAM">RAM</option>
-                    <option value="Motherboard">Motherboard</option>
+                    <option value="CPU">Processor</option>
+                    <option value="GPU">Graphics card</option>
+                    <option value="PSU">Power supply</option>
+                    <option value="RAM">Ram</option>
+                    <option value="CASE">Case</option>
+                    <option value="MOTHERBOARD">Motherboard</option>
                 </select>
             </div>
-            <select (change)="onActionSelectChanged($event)" name="selectedAction" [(ngModel)]="selectedAction" [disabled]="!selectedComponent()">
+            <select (change)="onActionChange($event)" name="selectedAction" [(ngModel)]="selectedAction"
+                [disabled]="!selectedType()">
                 <option value="GET">Available items</option>
                 <option value="ADD">Add new</option>
+                <option value="UPDATE" hidden>Update</option>
             </select>
         </div>
         <div class="info-box">
@@ -37,23 +40,35 @@
             }
         </div>
     </div>
+
     <div *ngIf="selectedAction === 'ADD'" class="form-box-add animate-right">
-        <h1>Add new {{selectedComponent()}}</h1>
-        <!-- <form (submit)="addProduct(selectedType())" class="formAddCPU" >
+        <h1>Add new {{selectedType()}}</h1>
+        <form class="formAddProduct" (submit)="addProduct()">
             <input type="text" placeholder="Name" name="name" [(ngModel)]="newModel.name">
-            <input type="text" placeholder="Socket" name="socket" [(ngModel)]="newModel.socket">
             <input type="text" placeholder="Price" name="price" [(ngModel)]="newModel.price">
-            <input type="text" placeholder="Thread Count" name="threadCount" [(ngModel)]="newModel.threadCount">
-            <input type="text" placeholder="Core Count" name="coreCount" [(ngModel)]="newModel.coreCount">
+
+            <div *ngIf="selectedType() === 'CPU'">
+                <input type="text" placeholder="Socket" name="socket" [(ngModel)]="newModel.socket">
+                <input type="text" placeholder="Thread Count" name="threadCount" [(ngModel)]="newModel.threadCount">
+                <input type="text" placeholder="Core Count" name="coreCount" [(ngModel)]="newModel.coreCount">
+            </div>
+
+            <div *ngIf="selectedType() === 'GPU'">
+                <input type="text" placeholder="vram" name="vram" [(ngModel)]="newModel.vram">
+            </div>
             <div class="formbtnAddCPU">
                 <button type="submit">ADD</button>
                 <button type="button" (click)="closeForm()">CLOSE</button>
             </div>
-        </form> -->
+        </form>
     </div>
+
+
+
     <div *ngIf="selectedAction === 'UPDATE'" class="form-box-update animate-right">
         <h1>Update {{model.name}}</h1>
-        <!-- <form (submit)="updateProduct(model.name)">
+        <!-- (submit)="updateProduct(model.name)" -->
+        <form>
             <label>Name</label>
             <input type="text" placeholder="New name" name="name" [(ngModel)]="newModel.name">
             <label>Socket</label>
@@ -68,6 +83,6 @@
                 <button type="submit">UPDATE</button>
                 <button type="button" (click)="closeForm()">CLOSE</button>
             </div>
-        </form> -->
+        </form>
     </div>
 </div>

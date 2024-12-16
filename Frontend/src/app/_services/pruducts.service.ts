@@ -9,16 +9,16 @@ export class ProductsService {
   private http = inject(HttpClient);
   url = "http://localhost:5271/api/";
 
-  getItems(){
+  getItems() {
     return this.http.get<Products>(`${this.url}products/all`);
   }
-  deleteItem(type:string,name:string){
-   return this.http.delete(`${this.url}${type}/${name}`);
+  deleteItem(type: string, name: string) {
+    return this.http.delete(this.url + "products/" + type + "/" + name);
   }
-  // addItem(type:string,model:any){
-  //   return this.http.add(`${this.url}${type}/add`,model);
-  // }
-  // updateItem(type:string,model:any){
-  //   return this.http.update(`${this.url}${type}/add`,model);
-  // }
+  addItem(type: string, model: any) {
+    return this.http.post(this.url + "products/" + type + "/add", model);
+  }
+  updateItem(type: string, name: string) {
+    return this.http.put(this.url + type, name);
+  }
 }

@@ -18,11 +18,20 @@
     <ul class="navright">
         @if (!accountService.currentUser()) {
         <li><a mat-button id="loginButton" (click)="openLoginForm()" routerLinkActive="active-link">Login</a></li>
-        <li><a mat-button id="registerButton" (click)="openRegisterForm()" routerLinkActive="active-link">Register</a></li>
+        <li><a mat-button id="registerButton" (click)="openRegisterForm()" routerLinkActive="active-link">Register</a>
+        </li>
         }
         @else {
-        <li><a mat-button routerLink="/edit-profile" routerLinkActive="active-link">Edit profile</a></li>
-        <li><a mat-button routerLink="/" (click)="accountService.logout()">Logout</a></li>
+        <li class="dropdown">
+            <a mat-button id="welcomeUser" (click)="toggleDropDown()" class="dropdown-toggle">
+                <span class="welcome-text">Welcome: </span>
+                <span class="user-text"> {{accountService.currentUser()?.username}}</span> &#9662;
+            </a>
+            <ul class="dropdown-menu" *ngIf="isDropDownVisible">
+                <li><a mat-button routerLink="/edit-profile" routerLinkActive="active-link">Edit profile</a></li>
+                <li><a mat-button routerLink="/" (click)="accountService.logout()">Logout</a></li>
+            </ul>
+        </li>
         }
     </ul>
 </nav>
@@ -60,7 +69,7 @@
         </button>
         <form #registerForm class="register" (ngSubmit)="register()">
             <h2 style="color: #ffcc00;">Sign up</h2>
-            <hr style="width: 50%;"> 
+            <hr style="width: 50%;">
             <div class="registerform-control">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" [(ngModel)]="model.username" required />
