@@ -18,7 +18,7 @@ import { Products } from '../_models/Products';
 
 @Component({
   selector: 'app-home',
-  imports: [NgIf, NgFor, MatSlideToggleModule, MatInputModule,FormsModule, ReactiveFormsModule, MatButtonModule, AsyncPipe, MatAutocompleteModule, MatSelectModule, MatSliderModule, MatIconModule, NavBarComponent,RouterModule],
+  imports: [NgFor, MatSlideToggleModule, MatInputModule,FormsModule, ReactiveFormsModule, MatButtonModule, AsyncPipe, MatAutocompleteModule, MatSelectModule, MatSliderModule, MatIconModule, NavBarComponent,RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -27,7 +27,6 @@ export class HomeComponent implements OnInit{
   users:any;
   selectedCpuManufacturer: string = ''; 
   sanitizer = inject(DomSanitizer);
-  dynamicHtml: SafeHtml;
   
   baseUrl = "http://localhost:5271/api/";
 
@@ -46,7 +45,6 @@ filteredCaseOptions!: Observable<string[]>
   ngOnInit(): void {
     this.getUsers();
     this.fetchCaseNames();
-    this.setDynamicHtml();
 
 
     //za autocomplete
@@ -123,25 +121,6 @@ private _casefilter(value: string): string[] {
   return this.caseOptions.filter(caseOption => caseOption.toLowerCase().includes(filterValue));
 }
 
-
-setDynamicHtml(): void {
-  const htmlContent = `
-<div class="content-container">
-  <div class="card-container">
-    <div class="card">
-      <div class="card-content">
-        <h3 class="header-text">Computer 1</h3>
-        <div class="details-button">
-          <button class="details">See Details</button>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-  `;
-  this.dynamicHtml = this.sanitizer.bypassSecurityTrustHtml(htmlContent);
-  console.log(this.dynamicHtml);
-}
 
 
 }

@@ -1,6 +1,7 @@
 .mainDiv{
     background: linear-gradient(120deg, #2f2626, #3e3e3e);
     min-height: 100vh;
+    background: repeat;
     position: relative;
 } 
 
@@ -137,13 +138,12 @@ button#Reset:hover {
   justify-content: space-between;
   gap: 40px;
   width: 50%;
-  max-width: 1200px;
 }
 
 .card-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  gap: 10px 10px;
   min-width: 130%;
 }
 
@@ -156,7 +156,7 @@ button#Reset:hover {
   color: #dfdfdf;
   margin-top: 115px;
   margin-left: 10px;
-  padding: 20px;
+  padding: 30px 20px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -166,6 +166,15 @@ button#Reset:hover {
 .card:hover {
   transform: scale(1.02);
 }
+
+.card-image {
+  width: 100%; 
+  height: auto; 
+  border-radius: 8px; 
+  margin: 10px 0;
+  object-fit: cover;
+}
+
 
 .ribbon {
   position: absolute;

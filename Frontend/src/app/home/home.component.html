@@ -22,9 +22,9 @@
                 [matAutocomplete]="cpuAuto"
               />
               <mat-autocomplete #cpuAuto="matAutocomplete">
-                @for (cpuOption of filteredCPUOptions | async; track cpuOption) {
-                <mat-option [value]="cpuOption">{{cpuOption}}</mat-option>
-                }
+                <mat-option *ngFor="let cpuOption of filteredCPUOptions | async" [value]="cpuOption">
+                  {{cpuOption}}
+                </mat-option>
               </mat-autocomplete>
             </div>
           </div>
@@ -42,9 +42,9 @@
                 [matAutocomplete]="gpuAuto"
               />
               <mat-autocomplete #gpuAuto="matAutocomplete">
-                @for (gpuOption of filteredGPUOptions | async; track gpuOption) {
-                <mat-option [value]="gpuOption">{{gpuOption}}</mat-option>
-                }
+                <mat-option *ngFor="let gpuOption of filteredGPUOptions | async" [value]="gpuOption">
+                  {{gpuOption}}
+                </mat-option>
               </mat-autocomplete>
             </div>
           </div>
@@ -86,9 +86,9 @@
                 [matAutocomplete]="caseAuto"
               />
               <mat-autocomplete #caseAuto="matAutocomplete">
-                @for (caseOption of filteredCaseOptions | async; track caseOption) {
-                <mat-option *ngFor="let caseOption of filteredCaseOptions | async" [value]="caseOption">{{caseOption}}</mat-option>
-                }
+                <mat-option *ngFor="let caseOption of filteredCaseOptions | async" [value]="caseOption">
+                  {{caseOption}}
+                </mat-option>
               </mat-autocomplete>
             </div>
           </div>
@@ -117,61 +117,13 @@
   </div>
 </div>
 
-
-
-<div *ngIf="dynamicHtml" class="content-container">
-  <div [innerHTML]="dynamicHtml"></div>
-</div>
-
-
-
-<!-- Hardcoded for testing purposes
-
+<!-- example code -->
 <div class="content-container">
   <div class="card-container">
-    <div class="card">
+    <div class="card" *ngFor="let computer of ['Computer 1', 'Computer 2', 'Computer 3', 'PC4', 'PC5']">
       <div class="card-content">
-        <h3 class="header-text">Computer 1</h3>
-        <div class="details-button">
-          <button class="details">See Details</button>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-content">
-        <h3 class="header-text">Computer 2</h3>
-        <div class="details-button">
-          <button class="details">See Details</button>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-content">
-        <h3 class="header-text">Computer 3</h3>
-        <div class="details-button">
-          <button class="details">See Details</button>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-content">
-        <h3 class="header-text">Computer 4</h3>
-        <div class="details-button">
-          <button class="details">See Details</button>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-content">
-        <h3 class="header-text">Computer 5</h3>
-        <div class="details-button">
-          <button class="details">See Details</button>
-        </div>
-      </div>
-    </div>
-    <div class="card">
-      <div class="card-content">
-        <h3 class="header-text">Computer 6</h3>
+        <h3 class="header-text">{{ computer }}</h3>
+        <img src="https://via.placeholder.com/150" alt="Computer Image" class="card-image">
         <div class="details-button">
           <button class="details">See Details</button>
         </div>
@@ -179,7 +131,5 @@
     </div>
   </div>
 </div>
--->
-
 
 </div>
