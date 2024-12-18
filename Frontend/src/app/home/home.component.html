@@ -121,15 +121,13 @@
   </div>
 </div>
 
-
-
 <!-- example code -->
 <div class="content-container">
   <div class="card-container">
     <div class="card" *ngFor="let computer of ['Computer 1', 'Computer 2', 'Computer 3', 'PC4', 'PC5']">
       <div class="card-content">
         <h3 class="header-text">{{ computer }}</h3>
-        <img src="https://gladiatorpc.co.uk//assets/img/configurator/72971Image1.webp" alt="Computer Image" class="card-image">
+        <img src="https://via.placeholder.com/150" alt="Computer Image" class="card-image">
         <div class="details-button">
           <h3 class="header-text">780$</h3>
           <button class="details" (click)="openCardDetailsForm()">See Details</button>
@@ -144,43 +142,15 @@
   <div class="card-details-content">
     <button class="close-button" aria-label="Close alert" type="button" data-close (click)="closeCardDetailsForm()">
       <span aria-hidden="true">&times;</span>
-    </button>
-    <form #cardDetailsForm class="cardDetails">
-      <h2>Computer 1</h2>
-      <h2>Price: 800$</h2>
-      <table class="details-table">
-        <tbody>
-          <tr> <th>Specifications</th></tr>
-          <tr>
-            <td>Processor</td>
-            <td>AMD Ryzen 5 5500 </td>
-          </tr>
-          <tr>
-            <td>Processor Speed</td>
-            <td>4.2Ghz</td>
-          </tr>
-          <tr>
-            <td>Graphics Card</td>
-            <td>Nvidia GeForce RTX 4060</td>
-          </tr>
-          <tr>
-            <td>VRAM</td>
-            <td>8GB</td>
-          </tr>
-          <tr>
-            <td>RAM</td>
-            <td>32GB</td>
-          </tr>
-          <tr>
-            <td>Motherboard</td>
-            <td>Asus Prime B450M-A II</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="order-button">
-      <button mat-button id="order" type="submit">Add To Cart</button>
-    </div>
-    </form>
+  </button>
+  <form #cardDetailsForm class="cardDetails">
+    <h2>Computer 1</h2>
+    <h2>Price: </h2>
+    <img src="../../images/komp1.jpg" alt="">
+    <table>
+      <tbody></tbody>
+    </table>
+  </form>
   </div>
 </div>
 

@@ -1,3 +1,4 @@
+*{box-sizing: border-box;}
 .mainDiv {
     background: linear-gradient(320deg, #2f2626, #3e3e3e);
     height: 100vh;

@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 .support-container {
   display: flex;
   flex-direction: column;
@@ -74,7 +78,7 @@ p {
   border: 1px solid #ccc;
 }
 
-.send-message{
+.send-message {
   background-color: #1f1f1f;
   color: white;
 }
@@ -105,5 +109,7 @@ p {
   align-items: center;
   background: linear-gradient(135deg, #2f2626, #3e3e3e);
   color: #fff;
-  min-height: 100vh;
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
 }

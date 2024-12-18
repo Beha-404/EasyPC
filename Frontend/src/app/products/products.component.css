@@ -1,6 +1,7 @@
+*{box-sizing: border-box;}
 .mainDiv {
     background: linear-gradient(320deg, #2f2626, #3e3e3e);
-    height: 100vh;
+    height: 100%;
     width: 100%;
     color: #fff;
     font-family: 'Arial', sans-serif;
@@ -12,6 +13,7 @@
     height: 56px;
     background-color: #1f1f1f;
     color: #fff;
+    z-index: 1000;
 }
 
 .products {
