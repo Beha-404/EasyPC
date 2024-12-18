@@ -1,5 +1,12 @@
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: #000000;}
+html, body { 
+  height: 100%; 
+  box-sizing: border-box;
+ }
+body { 
+  margin: 0; 
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+  background-color: #000000;
+}
 
 router-outlet ~ * {
     animation: fadeIn 1s ease-in-out;
