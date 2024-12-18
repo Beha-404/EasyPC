@@ -1,11 +1,8 @@
-*{box-sizing: border-box;}
 .mainDiv{
     background: linear-gradient(120deg, #2f2626, #3e3e3e);
+    min-height: 100vh;
     background: repeat;
     position: relative;
-    overflow: hidden;
-    height: 100%;
-    width: 100%;
 } 
 
   .grid-item {
@@ -26,7 +23,7 @@
 
 .full-searchform-content {
     display: grid;
-    grid-template-rows: 8fr 2fr;
+    grid-template-rows:8, 2fr;
     padding: 20px;
     background-color: #4a4a4a;
     color: #fff;
@@ -96,7 +93,7 @@
 }
 
 .searchform-control mat-slider {
-  width: 100%;
+    width: 160%;
 }
 
 
@@ -167,13 +164,11 @@ button#BuildPC:hover {
   width: 48%;
 }
 
-  .card-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-    width: 100%;
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  min-width: 130%;
 }
-
 
 .card {
   position: relative;
@@ -200,7 +195,7 @@ button#BuildPC:hover {
   height: auto; 
   border-radius: 8px; 
   margin: 10px 0;
-  object-fit: contain;
+  object-fit: cover;
 }
 
 
@@ -303,16 +298,16 @@ button#BuildPC:hover {
 
 .close-button {
   position: absolute;
-  top: 10px; 
-  right: 10px;
+  top: 10px;
+  right: 10px; 
   background: none;
   border: none;
   font-size: 1.5rem;
   cursor: pointer;
   color: #ffcc00;
-  z-index: 11;
-}
-
+  z-index: 11; 
+  }
+  
 .detailsImage {
   max-width: 100%;
   margin: 10px 0;
