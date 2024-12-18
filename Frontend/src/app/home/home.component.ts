@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatSelectModule} from '@angular/material/select';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {AsyncPipe, NgIf, NgFor} from '@angular/common';
+import {AsyncPipe, NgIf, NgFor, NgOptimizedImage} from '@angular/common';
 import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
@@ -18,7 +18,7 @@ import { Products } from '../_models/Products';
 
 @Component({
   selector: 'app-home',
-  imports: [NgFor, MatSlideToggleModule, MatInputModule,FormsModule, ReactiveFormsModule, MatButtonModule, AsyncPipe, MatAutocompleteModule, MatSelectModule, MatSliderModule, MatIconModule, NavBarComponent,RouterModule],
+  imports: [NgIf, NgFor, MatSlideToggleModule, MatInputModule,FormsModule, ReactiveFormsModule, MatButtonModule, AsyncPipe, MatAutocompleteModule, MatSelectModule, MatSliderModule, MatIconModule, NavBarComponent,RouterModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -27,7 +27,7 @@ export class HomeComponent implements OnInit{
   users:any;
   selectedCpuManufacturer: string = ''; 
   sanitizer = inject(DomSanitizer);
-  
+  isCardDetailsFormVisible: boolean  = false;
   baseUrl = "http://localhost:5271/api/";
 
 //za autocomplete
@@ -121,6 +121,18 @@ private _casefilter(value: string): string[] {
   return this.caseOptions.filter(caseOption => caseOption.toLowerCase().includes(filterValue));
 }
 
+resetForm() {
+  this.cpuAutoControl.reset();
+  this.gpuAutoControl.reset();
+  this.caseAutoControl.reset();
+}
 
+
+openCardDetailsForm(): void {
+  this.isCardDetailsFormVisible = true;
+}
+closeCardDetailsForm(): void {
+  this.isCardDetailsFormVisible = false;
+}
 
 }

@@ -25,7 +25,8 @@ p {
   width: 100%;
   max-width: 600px;
   height: 400px;
-  background-color: #fff;
+  background-color: #1f1f1f;
+  color: white;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 10px;
@@ -71,6 +72,11 @@ p {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc;
+}
+
+.send-message{
+  background-color: #1f1f1f;
+  color: white;
 }
 
 .message-form button {

@@ -30,7 +30,6 @@
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     max-width: 500px;
-    padding-right: 50px;
 }
 
 .searchform-content {
@@ -98,6 +97,8 @@
     width: 160%;
 }
 
+
+
 .searchform-control-others {
     display: flex;
     justify-content: center;
@@ -118,6 +119,7 @@ button {
 button#Search {
     background-color: #ffcc00;
     color: #333;
+    width: 105px;
 }
 
 button#Search:hover {
@@ -127,23 +129,45 @@ button#Search:hover {
 button#Reset {
     background-color: #777;
     color: #fff;
+    width: 90px;
 }
 
 button#Reset:hover {
     background-color: #555;
 }
 
+.build-pc-button {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+button#BuildPC {
+  padding: 10px 20px;
+  width: 210px;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  background-color: #ffcc00;
+  color: #333;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button#BuildPC:hover {
+  background-color: #e65c00;
+}
+
 .content-container {
   display: flex;
   justify-content: space-between;
-  gap: 40px;
-  width: 50%;
+  width: 48%;
 }
 
 .card-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 10px 10px;
   min-width: 130%;
 }
 
@@ -219,6 +243,8 @@ button#Reset:hover {
 .details-button .details:hover {
   background: #d4a600;
 }
+
+
 
 @media (max-width: 768px) {
     .grid-container {

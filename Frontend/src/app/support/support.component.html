@@ -18,7 +18,7 @@
         </div>
 
         <form (submit)="sendMessage()" class="message-form">
-            <input type="text" name="userMessage"  [(ngModel)]="userMessage" placeholder="Type your message here..." required />
+            <input class="send-message" type="text" name="userMessage"  [(ngModel)]="userMessage" placeholder="Type your message here..." required />
             <button type="submit">Send message</button>
         </form>
     </div>

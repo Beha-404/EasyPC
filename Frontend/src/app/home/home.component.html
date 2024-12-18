@@ -31,7 +31,7 @@
 
           <!-- GPU -->
           <div class="grid-item">
-            <h2>Select Graphics card</h2>
+            <h2>Select Graphics Card</h2>
             <div class="searchform-control">
               <input
                 type="text"
@@ -67,7 +67,7 @@
 
           <!-- PSU -->
           <div class="grid-item">
-            <h2>Select Power supply</h2>
+            <h2>Select Power Supply</h2>
             <div class="searchform-control">
               <input type="text" placeholder="Select PSU" />
             </div>
@@ -97,7 +97,7 @@
           <div class="grid-item slider-full-width">
             <h2>Budget</h2>
             <div class="searchform-control">
-              <mat-slider min="0" max="2000" step="0.5" discrete showTickMarks>
+              <mat-slider min="0" max="2000" step="10" discrete showTickMarks>
                 <input matSliderStartThumb />
                 <input matSliderEndThumb />
               </mat-slider>
@@ -108,7 +108,10 @@
           <div class="grid-item buttons-full-width">
             <div class="searchform-control-others">
               <button mat-button id="Search" type="submit">Search</button>
-              <button mat-button id="Reset" type="button">Reset</button>
+              <button mat-button id="Reset" type="button" (click)="resetForm()">Reset</button>
+            </div>
+            <div class="build-pc-button">
+              <button id="BuildPC" type="button">Build Your Own PC</button>
             </div>
           </div>
         </div>
@@ -116,6 +119,8 @@
     </div>
   </div>
 </div>
+
+
 
 <!-- example code -->
 <div class="content-container">
@@ -131,5 +136,22 @@
     </div>
   </div>
 </div>
+
+<div class="card-details-container" *ngIf="isCardDetailsFormVisible">
+  <div class="card-details-content">
+    <button class="close-button" aria-label="Close alert" type="button" data-close (click)="closeCardDetailsForm()">
+      <span aria-hidden="true">&times;</span>
+  </button>
+  <form #cardDetailsForm class="cardDetails">
+    <h2>Computer 1</h2>
+    <h2>Price: </h2>
+    <img src="../../images/komp1.jpg" alt="">
+    <table>
+      <tbody></tbody>
+    </table>
+  </form>
+  </div>
+</div>
+
 
 </div>
