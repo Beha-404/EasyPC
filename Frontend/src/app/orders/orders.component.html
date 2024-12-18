@@ -4,7 +4,7 @@
     <div>
         <app-nav-bar></app-nav-bar>
     </div>
-    
+
     <div class="orders-container">
         <h1>Your Orders</h1>
         <div class="search-filter-container">
@@ -17,7 +17,7 @@
                 <option value="delivered">Delivered</option>
             </select>
         </div>
-        
+
         <div class="orders-list">
             <div class="order-item">
                 <div class="order-summary">
@@ -26,9 +26,9 @@
                     <p><strong>Status:</strong> <span class="status pending">Pending</span></p>
                     <p><strong>Total:</strong> $150.00</p>
                 </div>
-                <button class="details-btn" onclick="viewOrderDetails('#12345')">View Details</button>
+                <button class="details-btn" type="button" (click)="viewOrderDetails(orderID)">View Details</button>
             </div>
-            
+
             <div class="order-item">
                 <div class="order-summary">
                     <p><strong>Order ID:</strong> #12346</p>
@@ -50,7 +50,7 @@
             </div>
             <!-- dodatni orderi -->
         </div>
-        
+
         <div class="order-details" id="orderDetails" hidden>
             <h2>Order Details</h2>
             <p><strong>Order ID:</strong> <span id="orderID"></span></p>

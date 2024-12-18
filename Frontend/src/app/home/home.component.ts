@@ -97,8 +97,7 @@ cancelRegisterMode(event: boolean){
     .subscribe(
       {
         next: response => this.users = response,
-        error: error => console.log(error),
-        complete: () => console.log("Request has completed")
+        error: error => console.log(error)
       }
     );
 }
