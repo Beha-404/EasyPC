@@ -125,12 +125,68 @@
 <!-- example code -->
 <div class="content-container">
   <div class="card-container">
-    <div class="card" *ngFor="let computer of ['Computer 1', 'Computer 2', 'Computer 3', 'PC4', 'PC5']">
+    <div class="card" >
       <div class="card-content">
-        <h3 class="header-text">{{ computer }}</h3>
+        <div class="available">Available</div>
+        <h3 class="header-text">Gaming PC</h3>
         <img src="/images/pc1.png" alt="PC Picture" class="pcPicture">
         <div class="details-button">
+          <h3 class="header-text">1020$</h3>
+          <button class="details" (click)="openCardDetailsForm()">See Details</button>
+        </div>
+      </div>
+    </div>
+    <div class="card" >
+      <div class="card-content">
+        <div class="available">Available</div>
+        <h3 class="header-text">Streaming PC</h3>
+        <img src="/images/pc2.png" alt="PC Picture" class="pcPicture">
+        <div class="details-button">
+          <h3 class="header-text">950$</h3>
+          <button class="details" (click)="openCardDetailsForm()">See Details</button>
+        </div>
+      </div>
+    </div>
+    <div class="card" >
+      <div class="card-content">
+        <div class="available">Available</div>
+        <h3 class="header-text">Gaming PC</h3>
+        <img src="/images/pc3.png" alt="PC Picture" class="pcPicture">
+        <div class="details-button">
+          <h3 class="header-text">899$</h3>
+          <button class="details" (click)="openCardDetailsForm()">See Details</button>
+        </div>
+      </div>
+    </div>
+    <div class="card" >
+      <div class="card-content">
+        <div class="available">Available</div>
+        <h3 class="header-text">Streaming PC</h3>
+        <img src="/images/pc1.png" alt="PC Picture" class="pcPicture">
+        <div class="details-button">
+          <h3 class="header-text">800$</h3>
+          <button class="details" (click)="openCardDetailsForm()">See Details</button>
+        </div>
+      </div>
+    </div>
+    <div class="card" >
+      <div class="card-content">
+        <div class="unavailable">Unavailable</div>
+        <h3 class="header-text">Work PC</h3>
+        <img src="/images/pc2.png" alt="PC Picture" class="pcPicture">
+        <div class="details-button">
           <h3 class="header-text">780$</h3>
+          <button class="details" (click)="openCardDetailsForm()">See Details</button>
+        </div>
+      </div>
+    </div>
+    <div class="card" >
+      <div class="card-content">
+        <div class="unavailable">Unavailable</div>
+        <h3 class="header-text">Gaming PC</h3>
+        <img src="/images/pc3.png" alt="PC Picture" class="pcPicture">
+        <div class="details-button">
+          <h3 class="header-text">1150$</h3>
           <button class="details" (click)="openCardDetailsForm()">See Details</button>
         </div>
       </div>
