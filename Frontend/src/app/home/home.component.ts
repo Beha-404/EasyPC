@@ -13,8 +13,7 @@ import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {MatInputModule} from '@angular/material/input';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-import { Products } from '../_models/Products';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-home',
