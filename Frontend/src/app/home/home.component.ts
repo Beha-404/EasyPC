@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit{
   selectedCpuManufacturer: string = ''; 
   sanitizer = inject(DomSanitizer);
   isCardDetailsFormVisible: boolean  = false;
+  isSearchFormVisible: boolean  = false;
   baseUrl = "http://localhost:5271/api/";
 
 //za autocomplete
@@ -131,6 +132,13 @@ openCardDetailsForm(): void {
 }
 closeCardDetailsForm(): void {
   this.isCardDetailsFormVisible = false;
+}
+
+openSearchForm(): void {
+  this.isSearchFormVisible = true;
+}
+closeSearchForm(): void {
+  this.isSearchFormVisible = false;
 }
 
 }

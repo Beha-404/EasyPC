@@ -113,7 +113,7 @@
             </div>
             <div class="build-pc-button">
               <div class="cardDetails-form-control-others"></div>
-              <button id="BuildPC" type="button">Build Your Own PC</button>
+              <button id="BuildPC" type="button" (click)="openSearchForm()">Build Your Own PC</button>
             </div>
           </div>
         </div>
@@ -237,6 +237,122 @@
     </form>
   </div>
 </div>
+
+
+
+<div class="popup-searchform-container" *ngIf="isSearchFormVisible">
+  <div class="full-searchform-content">
+    
+    <button class="popup-close-button" aria-label="Close alert" type="button" data-close (click)="closeSearchForm()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+    <div class="searchform-content">
+      <form #searchform class="search">
+        <h1 class="header-text">Custom PC <img src="/images/logoIcon.png" alt="ordersIcon" class="icons"></h1>
+        <div class="grid-container">
+          <!-- CPU -->
+          <div class="grid-item">
+            <h2>Select Processor</h2>
+            <div class="searchform-control">
+              <input
+                type="text"
+                placeholder="CPU"
+                aria-label="CPU"
+                matInput
+                [formControl]="cpuAutoControl"
+                [matAutocomplete]="cpuAuto"
+              />
+              <mat-autocomplete #cpuAuto="matAutocomplete">
+                <mat-option *ngFor="let cpuOption of filteredCPUOptions | async" [value]="cpuOption">
+                  {{cpuOption}}
+                </mat-option>
+              </mat-autocomplete>
+            </div>
+          </div>
+
+          <!-- GPU -->
+          <div class="grid-item">
+            <h2>Select Graphics Card</h2>
+            <div class="searchform-control">
+              <input
+                type="text"
+                placeholder="GPU"
+                aria-label="GPU"
+                matInput
+                [formControl]="gpuAutoControl"
+                [matAutocomplete]="gpuAuto"
+              />
+              <mat-autocomplete #gpuAuto="matAutocomplete">
+                <mat-option *ngFor="let gpuOption of filteredGPUOptions | async" [value]="gpuOption">
+                  {{gpuOption}}
+                </mat-option>
+              </mat-autocomplete>
+            </div>
+          </div>
+
+          <!-- Motherboard -->
+          <div class="grid-item">
+            <h2>Select Motherboard</h2>
+            <div class="searchform-control">
+              <input type="text" placeholder="Motherboard" />
+            </div>
+          </div>
+
+          <!-- RAM -->
+          <div class="grid-item">
+            <h2>Select RAM</h2>
+            <div class="searchform-control">
+              <input type="text" placeholder="RAM" />
+            </div>
+          </div>
+
+          <!-- PSU -->
+          <div class="grid-item">
+            <h2>Select Power Supply</h2>
+            <div class="searchform-control">
+              <input type="text" placeholder="PSU" />
+            </div>
+          </div>
+
+          
+          <!-- Case -->
+          <div class="grid-item">
+            <h2>Select Case</h2>
+            <div class="searchform-control">
+              <input
+                type="text"
+                placeholder="Case"
+                aria-label="Case"
+                matInput
+                [formControl]="caseAutoControl"
+                [matAutocomplete]="caseAuto"
+              />
+              <mat-autocomplete #caseAuto="matAutocomplete">
+                <mat-option *ngFor="let caseOption of filteredCaseOptions | async" [value]="caseOption">
+                  {{caseOption}}
+                </mat-option>
+              </mat-autocomplete>
+            </div>
+          </div>
+
+          <!-- Buttons -->
+          <div class="grid-item">
+            <div class="popupsearchform-control-others">
+              <button mat-button id="Reset-popup" type="button" (click)="resetForm()">Reset</button>
+            </div>
+          </div>
+          <div class="grid-item">
+            <div class="popupsearchform-control-others">
+              <button mat-button id="Search-popup" type="submit">Add To Cart</button>
+                </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
 
 
 </div>
