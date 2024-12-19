@@ -168,13 +168,15 @@ button#BuildPC:hover {
 .content-container {
   display: flex;
   justify-content: space-between;
-  width: 48%;
+  width:50%;
+  padding-left: 50px;
 }
 
 .card-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   min-width: 130%;
+  gap: 0px ;
 }
 
 .card {
@@ -184,7 +186,7 @@ button#BuildPC:hover {
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
   color: #dfdfdf;
-  margin-top: 115px;
+  margin-top: 20px; 
   margin-left: 10px;
   padding: 30px 20px;
   display: flex;
@@ -196,6 +198,7 @@ button#BuildPC:hover {
 .card:hover {
   transform: scale(1.02);
 }
+
 
 .card-image {
   width: 100%;
@@ -222,7 +225,31 @@ button#BuildPC:hover {
   font-size: 1.2rem;
   color: #ffcc00;
   margin: 10px 0;
-  padding-right: 100px;
+  padding-right: 200px;
+}
+
+.available{
+  position: absolute;
+    right: -30px;
+    top: 30px;
+    font-size: large; 
+    color: #2f2f2f;
+    background-color: #27c013;
+    width: 150px;
+    rotate: 45deg;
+    text-align: center;
+}
+
+.unavailable{
+  position: absolute;
+    right: -30px;
+    top: 30px;
+    font-size: large; 
+    color: #2f2f2f;
+    background-color: #c91414;
+    width: 150px;
+    rotate: 45deg;
+    text-align: center;
 }
 
 
