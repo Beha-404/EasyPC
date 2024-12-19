@@ -1,5 +1,5 @@
 <div class="mainDiv">
-<app-nav-bar [usersFromHomeComponent]="users" (cancelRegister)="cancelRegisterMode($event)"></app-nav-bar>
+<app-nav-bar></app-nav-bar>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="home.component.css">
 
@@ -127,7 +127,7 @@
     <div class="card" *ngFor="let computer of ['Computer 1', 'Computer 2', 'Computer 3', 'PC4', 'PC5']">
       <div class="card-content">
         <h3 class="header-text">{{ computer }}</h3>
-        <img src="https://gladiatorpc.co.uk//assets/img/configurator/72971Image1.webp" alt="Computer Image" class="card-image">
+        <img src="/images/pc1.png" alt="PC Picture" class="pcPicture">
         <div class="details-button">
           <h3 class="header-text">780$</h3>
           <button class="details" (click)="openCardDetailsForm()">See Details</button>
