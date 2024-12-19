@@ -6,16 +6,29 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-support',
-  imports: [RouterModule, NavBarComponent,FormsModule,CommonModule],
+  standalone: true,
+  imports: [RouterModule, NavBarComponent, FormsModule, CommonModule],
   templateUrl: './support.component.html',
-  styleUrl: './support.component.css'
+  styleUrls: ['./support.component.css'] 
 })
 export class SupportComponent {
 
-  userMessage:any;
+  userMessage: any[] = [
+    { sender: 'user', text: 'Hello, I need help finding a new PC.' },
+    { sender: 'support', text: 'What are you looking for in a PC?' },
+    { sender: 'user', text: 'I need a PC for gaming.' },
+    { sender: 'support', text: 'Got it! Do you have a budget in mind?' },
+    { sender: 'user', text: 'My budget is around $1000.' },
+    { sender: 'support', text: 'Okey, I’ll suggest a few models that fit your needs.' }
+  ];
 
-sendMessage() {
- alert(this.userMessage);
-}
+  newMessage: string = '';
 
+
+  sendMessage() {
+    if (this.newMessage.trim()) {
+      this.userMessage.push({ sender: 'user', text: this.newMessage });
+      this.newMessage = '';
+    }
+  }
 }
