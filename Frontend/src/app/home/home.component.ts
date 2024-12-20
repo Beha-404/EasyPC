@@ -34,12 +34,15 @@ export class HomeComponent implements OnInit{
 cpuAutoControl = new FormControl('');
 gpuAutoControl = new FormControl('');
 caseAutoControl = new FormControl('');
+categoryAutoControl = new FormControl('');
 cpuOptions: string[] = ['Intel', 'AMD'];
 gpuOptions: string[] = ['Intel', 'AMD', 'Nvidia'];
 caseOptions: string[] = [];
+categoryOptions: string[] = ["Gaming PC", "Streaming PC", "Work PC"];
 filteredCPUOptions: Observable<string[]>;
 filteredGPUOptions: Observable<string[]>
 filteredCaseOptions!: Observable<string[]>
+filteredCategoryOptions: Observable<string[]>
   registerMode = false;
 
   ngOnInit(): void {
@@ -64,7 +67,11 @@ filteredCaseOptions!: Observable<string[]>
       map(value => this._casefilter(value || '')),
     );
 
-    
+    this.filteredCategoryOptions = this.categoryAutoControl.valueChanges.pipe(
+      startWith(''),
+      map(value => this._categoryfilter(value || '')),
+    );
+
     
   }
 
@@ -119,11 +126,17 @@ private _casefilter(value: string): string[] {
 
   return this.caseOptions.filter(caseOption => caseOption.toLowerCase().includes(filterValue));
 }
+private _categoryfilter(value: string): string[] {
+  const filterValue = value.toLowerCase();
+
+  return this.categoryOptions.filter(categoryOption => categoryOption.toLowerCase().includes(filterValue));
+}
 
 resetForm() {
   this.cpuAutoControl.reset();
   this.gpuAutoControl.reset();
   this.caseAutoControl.reset();
+  this.categoryAutoControl.reset();
 }
 
 

@@ -10,6 +10,32 @@
       <form #searchform class="search">
         <div class="grid-container">
           <!-- CPU -->
+          <div class="grid-item full-width">
+            <h2>Select Category</h2>
+            <div class="category-searchform-control">
+              <!--<mat-form-field appearance="fill" class="category-input">
+                <mat-label>Select Category</mat-label>
+                <mat-select>
+                  <mat-option value="gpc">Gaming PC</mat-option>
+                  <mat-option value="spc">Streaming PC</mat-option>
+                  <mat-option value="wpc">Work PC</mat-option>
+                </mat-select>
+              </mat-form-field>-->
+              <input
+                type="text"
+                placeholder="Select Category"
+                aria-label="Category"
+                matInput
+                [formControl]="categoryAutoControl"
+                [matAutocomplete]="categoryAuto"
+              />
+              <mat-autocomplete #categoryAuto="matAutocomplete">
+                <mat-option *ngFor="let categoryOption of filteredCategoryOptions | async" [value]="categoryOption">
+                  {{categoryOption}}
+                </mat-option>
+              </mat-autocomplete>
+            </div>
+          </div>
           <div class="grid-item">
             <h2>Select Processor</h2>
             <div class="searchform-control">
