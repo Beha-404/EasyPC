@@ -263,6 +263,7 @@ button#BuildPC:hover {
   color: #ffcc00;
   margin: 10px 0;
   text-align: left;
+ /* padding-right: 100px;*/
   width: 100%;
 }
 
@@ -290,20 +291,22 @@ button#BuildPC:hover {
   text-align: center;
 }
 
-.details {
+.details .addToCartBtn {
   font-size: 0.9rem;
   margin: 5px 0;
 }
 
-.details-button, .addToCartBtn {
+
+
+.details-button {
+  margin-top: auto;
   display: flex;
   justify-content: flex-end;
-  margin-top: auto;
-  align-items: center;
+  gap: 10px;
+  padding-left: 20px;
 }
 
-.details-button .details,
-.addToCartBtn {
+.details-button .details {
   background: #ffcc00;
   color: #2b2b2b;
   border: none;
