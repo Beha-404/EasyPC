@@ -1,3 +1,4 @@
+/* Global Styles */
 .mainDiv {
   background: linear-gradient(120deg, #2f2626, #3e3e3e);
   min-height: 100vh;
@@ -126,7 +127,6 @@
   width: 160%;
 }
 
-
 .pcPicture {
   width: 250px;
   height: 250px;
@@ -146,7 +146,7 @@
   display: flex;
   justify-content: flex-end;
   gap: 10px;
-  margin-top: auto; /* Push buttons to the bottom */
+  margin-top: auto;
 }
 
 button {
@@ -252,78 +252,58 @@ button#BuildPC:hover {
   transform: scale(1.02);
 }
 
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+}
 
-.card-image {
+.header-text {
+  color: #ffcc00;
+  margin: 10px 0;
+  text-align: left;
   width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin: 10px 0;
-  object-fit: cover;
-}
-
-
-.ribbon {
-  position: absolute;
-  top: 10px;
-  right: -10px;
-  background-color: #ffcc00;
-  color: #2f2f2f;
-  font-size: 0.9rem;
-  padding: 5px 15px;
-  transform: rotate(45deg);
-  font-weight: bold;
-}
-
-.card-content h3 {
-  color: #ffcc00;
-  margin: 10px 0;
-  padding-right: 200px;
-  text-align: center;
-}
-
-.header-text{
-  color: #ffcc00;
-  margin: 10px 0;
-  text-align: center;
 }
 
 .available{
   position: absolute;
-    right: -5px;
-    top: 35px;
-    font-size: large; 
-    color: #2f2f2f;
-    background-color: #27c013;
-    width: 100px;
-    rotate: 45deg;
-    text-align: center;
+  right: -5px;
+  top: 35px;
+  font-size: large; 
+  color: #2f2f2f;
+  background-color: #27c013;
+  width: 100px;
+  rotate: 45deg;
+  text-align: center;
 }
 
 .unavailable{
   position: absolute;
-    right: -5px;
-    top: 35px;
-    font-size: large; 
-    color: #2f2f2f;
-    background-color: #c91414;
-    width: 100px;
-    rotate: 45deg;
-    text-align: center;
+  right: -5px;
+  top: 35px;
+  font-size: large; 
+  color: #2f2f2f;
+  background-color: #c91414;
+  width: 100px;
+  rotate: 45deg;
+  text-align: center;
 }
-
 
 .details {
   font-size: 0.9rem;
   margin: 5px 0;
 }
 
-.details-button {
+.details-button, .addToCartBtn {
   display: flex;
   justify-content: flex-end;
   margin-top: auto;
+  align-items: center;
 }
 
-.details-button .details {
+.details-button .details,
+.addToCartBtn {
   background: #ffcc00;
   color: #2b2b2b;
   border: none;
@@ -333,11 +313,10 @@ button#BuildPC:hover {
   transition: background 0.3s ease;
 }
 
-.details-button .details:hover {
+.details-button .details:hover,
+.addToCartBtn:hover {
   background: #d4a600;
 }
-
-
 
 .card-details-container {
   position: fixed;
@@ -359,18 +338,26 @@ button#BuildPC:hover {
 }
 
 .card-details-content {
-  border-radius: 4px;
+  border-radius: 8px;
   position: relative;
-  background: #1f1f1f;
+  background: #292929;
   color: #ffcc00;
-  padding: 1em;
+  padding: 1.5em;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  gap: 1.5em;
+  max-width: 700px;
+  width: 90%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.6);
 }
 
 .cardDetails {
   height: 100%;
   position: relative;
+  font-family: 'Open Sans', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
 }
 
 .cardDetails h2,
@@ -378,6 +365,7 @@ button#BuildPC:hover {
   text-align: left;
   margin: 10px 0;
   font-family: 'Open Sans', sans-serif;
+  color: #fff;
 }
 
 .cardDetails-form-control-others {
@@ -392,6 +380,8 @@ button#BuildPC:hover {
 
 .close-button {
   position: absolute;
+  top: 15px;
+  right: 15px;
   background: none;
   border: none;
   font-size: 1.5rem;
@@ -427,7 +417,6 @@ button#BuildPC:hover {
 }
 
 .order-button {
-
   display: flex;
   justify-content: flex-end;
   margin-top: auto;
@@ -449,7 +438,6 @@ button#BuildPC:hover {
   background-color: #e65c00;
 }
 
-
 .popup-searchform-container{
   position: fixed;
   top: 0;
@@ -464,7 +452,6 @@ button#BuildPC:hover {
   z-index: 10;
 }
 
-
 @media (max-width: 768px) {
   .grid-container {
     grid-template-columns: 1fr;
@@ -473,4 +460,40 @@ button#BuildPC:hover {
   button {
     width: 100%;
   }
+}
+
+.page-title-container {
+  text-align: center;
+  margin: 5px 0;
+  padding: 10px;
+  background: linear-gradient(90deg, #2d2d2d, #4a4a4a, #2d2d2d);
+  color: #fff;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.page-title {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #ffcc00;
+  margin: 0;
+}
+
+.page-subtitle {
+  font-size: 1.2rem;
+  margin: 10px 0 0 0;
+  color: #d3d3d3;
+}
+
+.addToCartBtn {
+  padding: 5px 10px;
+  font-size: 12px; 
+  border-radius: 4px; 
+  width: auto;      
+  height: auto;     
+  min-width: 80px;   
+  max-width: 100px; 
+  background-color: #ffcc00;
+  color: #333;
+  cursor: pointer;
 }

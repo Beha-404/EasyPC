@@ -3,6 +3,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="home.component.css">
 
+<div class="page-title-container">
+  <h1 class="page-title">
+    Build or Choose Your Dream PC
+  </h1>
+  <p class="page-subtitle">
+    Whether you're gaming, editing, or streaming – we've got you covered.
+  </p>
+</div>
 
 <div class="searchform-container">
   <div class="full-searchform-content">
@@ -157,7 +165,8 @@
         <h3 class="header-text">Gaming PC</h3>
         <img src="/images/pc1.png" alt="PC Picture" class="pcPicture">
         <div class="details-button">
-          <h3 class="header-text">1020$</h3>
+          <h3 class="header-text">Price: 1020$</h3>
+          <button mat-button id="order" class="addToCartBtn" type="submit">Add To Cart</button>
           <button class="details" (click)="openCardDetailsForm()">See Details</button>
         </div>
       </div>
@@ -168,7 +177,8 @@
         <h3 class="header-text">Streaming PC</h3>
         <img src="/images/pc2.png" alt="PC Picture" class="pcPicture">
         <div class="details-button">
-          <h3 class="header-text">950$</h3>
+          <h3 class="header-text">Price: 950$</h3>
+          <button mat-button id="order" class="addToCartBtn" type="submit">Add To Cart</button>
           <button class="details" (click)="openCardDetailsForm()">See Details</button>
         </div>
       </div>
@@ -179,7 +189,8 @@
         <h3 class="header-text">Gaming PC</h3>
         <img src="/images/pc3.png" alt="PC Picture" class="pcPicture">
         <div class="details-button">
-          <h3 class="header-text">899$</h3>
+          <h3 class="header-text">Price: 899$</h3>
+          <button mat-button id="order" class="addToCartBtn" type="submit">Add To Cart</button>
           <button class="details" (click)="openCardDetailsForm()">See Details</button>
         </div>
       </div>
@@ -190,7 +201,8 @@
         <h3 class="header-text">Streaming PC</h3>
         <img src="/images/pc1.png" alt="PC Picture" class="pcPicture">
         <div class="details-button">
-          <h3 class="header-text">800$</h3>
+          <h3 class="header-text">Price: 800$</h3>
+          <button mat-button id="order" class="addToCartBtn" type="submit">Add To Cart</button>
           <button class="details" (click)="openCardDetailsForm()">See Details</button>
         </div>
       </div>
@@ -201,7 +213,8 @@
         <h3 class="header-text">Work PC</h3>
         <img src="/images/pc2.png" alt="PC Picture" class="pcPicture">
         <div class="details-button">
-          <h3 class="header-text">780$</h3>
+          <h3 class="header-text">Price: 780$</h3>
+          <button mat-button id="order" type="submit" class="addToCartBtn" disabled=true style="background-color: red;">Add To Cart</button>
           <button class="details" (click)="openCardDetailsForm()">See Details</button>
         </div>
       </div>
@@ -212,7 +225,8 @@
         <h3 class="header-text">Gaming PC</h3>
         <img src="/images/pc3.png" alt="PC Picture" class="pcPicture">
         <div class="details-button">
-          <h3 class="header-text">1150$</h3>
+          <h3 class="header-text">Price: 1150$</h3>
+          <button mat-button id="order" type="submit" class="addToCartBtn" disabled=true style="background-color: red;">Add To Cart</button>
           <button class="details" (click)="openCardDetailsForm()">See Details</button>
         </div>
       </div>
@@ -226,11 +240,10 @@
       <span aria-hidden="true">&times;</span>
     </button>
     <form #cardDetailsForm class="cardDetails">
-      <h2>Computer 1</h2>
       <h2>Price: 800$</h2>
       <table class="details-table">
         <tbody>
-          <tr> <th>Specifications</th></tr>
+            <h3>Specifications:</h3>
           <tr>
             <td>Processor</td>
             <td>AMD Ryzen 5 5500 </td>
@@ -258,7 +271,7 @@
         </tbody>
       </table>
       <div class="order-button">
-      <button mat-button id="order" type="submit">Add To Cart</button>
+      <button mat-button id="order" class="addToCartDetailsBtn" type="submit">Add To Cart</button>
     </div>
     </form>
   </div>
