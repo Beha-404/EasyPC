@@ -267,24 +267,24 @@ button#BuildPC:hover {
 
 .available{
   position: absolute;
-    right: -30px;
-    top: 30px;
+    right: -5px;
+    top: 35px;
     font-size: large; 
     color: #2f2f2f;
     background-color: #27c013;
-    width: 150px;
+    width: 100px;
     rotate: 45deg;
     text-align: center;
 }
 
 .unavailable{
   position: absolute;
-    right: -30px;
-    top: 30px;
+    right: -5px;
+    top: 35px;
     font-size: large; 
     color: #2f2f2f;
     background-color: #c91414;
-    width: 150px;
+    width: 100px;
     rotate: 45deg;
     text-align: center;
 }
