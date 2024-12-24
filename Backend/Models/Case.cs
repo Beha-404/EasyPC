@@ -10,5 +10,7 @@ public class Case
     public required string Name { get; set; }
     [MinLength(2)]
     public required string Type { get; set; } = "CASE";
-    
+    public required string Price { get; set; }
+    public string? FormFactor { get; set; }
+
 }

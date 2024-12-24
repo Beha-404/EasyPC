@@ -65,7 +65,6 @@ public class UsersController(DataContext context) : BaseApiController
         User.PostalCode = newUser.PostalCode ?? User.PostalCode;
         User.State = newUser.State ?? User.State;
         User.City = newUser.City ?? User.City;
-        User.profilePicture = newUser.profilePicture ?? User.profilePicture;
 
         await context.SaveChangesAsync();
         return Ok();

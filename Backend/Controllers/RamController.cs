@@ -32,7 +32,8 @@ public class RamController(DataContext context) : BaseApiController
         {
             Name = ramDto.Name,
             Type = ramDto.Type,
-            Speed = ramDto.Speed
+            Speed = ramDto.Speed,
+            Price = ramDto.Price
         };
 
         if (ram.Name.Length < 3)
@@ -71,6 +72,7 @@ public class RamController(DataContext context) : BaseApiController
         item.Name = dto.Name ?? item.Name;
         item.Type = dto.Type ?? item.Type;
         item.Speed = dto.Speed ?? item.Speed;
+        item.Price = dto.Price ?? item.Price;
 
 
         await context.SaveChangesAsync();

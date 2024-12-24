@@ -54,30 +54,31 @@
             </div>
 
             <div class="input-container">
-                <label for="address">Address</label>
-                <input class="address" id="address" [(ngModel)]="user.address" name="address" placeholder="Ex. 100 Main St">
-            </div>
-
-            <div class="input-container">
                 <label for="profilePicture">Profile Picture</label>
-                <div 
-                    id="dropArea" 
-                    class="drop-area" 
-                    (click)="triggerFileInput()"
-                    (dragover)="onDragOver($event)"
-                    (dragleave)="onDragLeave()"
-                    (drop)="onDrop($event)">
-                    @if (previewURL) {
-                        <div id="preview">
-                            <img *ngIf="previewURL" [src]="previewURL" alt="Preview" />
-                        </div>
-                    }
-                    @else {
-                        <p>Drag & Drop your image here or <span>click to upload</span></p>
-                        <input type="file" id="profilePicture" (change)="onSelectedFile($event)"  accept="image/*" hidden />
-                    }
+                <div id="profile-container" class="profile-container">
+                    <!-- Trenutna slika sa leve strane -->
+                    <div class="current-profile">
+                        <p>Current</p>
+                        <img *ngIf="user.profilePicture" [src]="'data:image/png;base64,' + user.profilePicture" alt="Profile Picture" />
+                    </div>
+                    
+                    <!-- Box za drag and drop sa desne strane -->
+                    <div id="dropArea" class="drop-area" 
+                        (click)="triggerFileInput()"
+                        (dragover)="onDragOver($event)"
+                        (dragleave)="onDragLeave()"
+                        (drop)="onDrop($event)">
+                        <ng-container *ngIf="previewURL; else noPreview">
+                            <div id="preview">
+                                <img *ngIf="previewURL" [src]="previewURL" alt="Preview" />
+                            </div>
+                        </ng-container>
+                        <ng-template #noPreview>
+                            <p>Drag & Drop your new image here or <span>click to select image</span></p>
+                            <input type="file" id="profilePicture" (change)="onSelectedFile($event)" accept="image/*" hidden />
+                        </ng-template>
+                    </div>
                 </div>
-             
             </div>
 
             <div class="buttons">

@@ -7,7 +7,7 @@ import { GraphicsCardService } from './graphics-card.service';
 import { RAMService } from './ram.service';
 import { PSUService } from './psu.service';
 import { ToastrService } from 'ngx-toastr';
-import { ProductsService } from './pruducts.service';
+import { ProductsService } from './products.service';
 
 @Injectable({
   providedIn: 'root'

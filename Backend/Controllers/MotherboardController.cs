@@ -11,16 +11,16 @@ namespace Backend.Controllers;
 
 public class MotherboardController(DataContext context) : BaseApiController
 {
-       [HttpGet("all")]
-      public async Task<ActionResult<IEnumerable<Motherboard>>> GetMotherBoards()
+    [HttpGet("all")]
+    public async Task<ActionResult<IEnumerable<Motherboard>>> GetMotherBoards()
     {
         var Motherboards = await context.Motherboards.ToListAsync();
-        if(Motherboards.Count() == 0) return NotFound("No Motherboards found");
+        if (Motherboards.Count() == 0) return NotFound("No Motherboards found");
         return Motherboards;
     }
 
-[HttpPost("register")]
- public async Task<ActionResult<Motherboard>> Register(MotherBoardDto motherBoardDto)
+    [HttpPost("register")]
+    public async Task<ActionResult<Motherboard>> Register(MotherBoardDto motherBoardDto)
     {
 
         if (await Exists(motherBoardDto.Name))
@@ -34,13 +34,14 @@ public class MotherboardController(DataContext context) : BaseApiController
         {
             Name = motherBoardDto.Name,
             Socket = motherBoardDto.Socket,
-            Type = motherBoardDto.Type
+            Type = motherBoardDto.Type,
+            Price = motherBoardDto.Price
         };
 
-        if (motherBoard.Name.Length < 3 )
+        if (motherBoard.Name.Length < 3)
             return BadRequest("Name too short");
 
-        else if(motherBoard.Socket.Length < 3)
+        else if (motherBoard.Socket.Length < 3)
             return BadRequest("Socket name too short");
 
         context.Motherboards.Add(motherBoard);
@@ -55,7 +56,7 @@ public class MotherboardController(DataContext context) : BaseApiController
     {
 
         var item = await context.Motherboards.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
-        if(item == null) return NotFound("Cant find product with this name");
+        if (item == null) return NotFound("Cant find product with this name");
 
         context.Motherboards.Remove(item);
         await context.SaveChangesAsync();
@@ -65,15 +66,15 @@ public class MotherboardController(DataContext context) : BaseApiController
 
 
 
-   [HttpPut("{name}")] 
-    public async Task<ActionResult<Motherboard>> Update(string name,MotherBoardDto dto)
+    [HttpPut("{name}")]
+    public async Task<ActionResult<Motherboard>> Update(string name, MotherBoardDto dto)
     {
         var item = await context.Motherboards.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
-        if(item == null) return NotFound("Cant find product with this name");
+        if (item == null) return NotFound("Cant find product with this name");
 
-        item.Name = dto.Name?? item.Name;
-        item.Socket = dto.Socket?? item.Socket;
-        
+        item.Name = dto.Name ?? item.Name;
+        item.Socket = dto.Socket ?? item.Socket;
+        item.Price = dto.Price ?? item.Price;
 
         await context.SaveChangesAsync();
         return Ok();
@@ -84,5 +85,5 @@ public class MotherboardController(DataContext context) : BaseApiController
     {
         return await context.Motherboards.AnyAsync(x => x.Name!.ToLower() == productName.ToLower());
     }
- 
+
 }

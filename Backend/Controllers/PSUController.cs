@@ -19,7 +19,8 @@ public class PSUController(DataContext context) : BaseApiController
 
         var psuDTO = PSUs.Select(x => new PsuDto{
             Name = x.Name,
-            Power = x.Power
+            Power = x.Power,
+            Price = x.Price
         }).ToList();
         return psuDTO;
     }
@@ -39,7 +40,8 @@ public class PSUController(DataContext context) : BaseApiController
         {
             Name = psuDto.Name,
             Power = psuDto.Power,
-            Type = psuDto.Type!
+            Type = psuDto.Type!,
+            Price = psuDto.Price
         };
 
         if (PSU.Name.Length < 3 )
@@ -78,6 +80,7 @@ public class PSUController(DataContext context) : BaseApiController
 
         item.Name = dto.Name ?? item.Name;
         item.Power = dto.Power ?? item.Power;
+        item.Price = dto.Price ?? item.Price;
 
         await context.SaveChangesAsync();
         return Ok();

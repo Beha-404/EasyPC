@@ -5,6 +5,7 @@ using Backend.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 namespace Backend.Controllers;
 
@@ -34,7 +35,8 @@ public class GraphicsCardController(DataContext context) : BaseApiController
         {
             Name = graphics_CardDto.Name,
             VRAM = graphics_CardDto.VRAM,
-            Type = graphics_CardDto.Type
+            Type = graphics_CardDto.Type,
+            Price = graphics_CardDto.Price
         };
 
         if (graphicsCard.Name!.Length < 3)
@@ -71,6 +73,7 @@ public class GraphicsCardController(DataContext context) : BaseApiController
 
         item.Name = dto.Name ?? item.Name;
         item.VRAM = dto.VRAM ?? item.VRAM;
+        item.Price = dto.Price ?? item.Price;
 
         await context.SaveChangesAsync();
         return Ok();

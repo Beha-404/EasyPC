@@ -33,7 +33,9 @@ public class CaseController(DataContext context) : BaseApiController
         var Case = new Case
         {
             Name = caseDto.Name,
-            Type = caseDto.Type
+            Type = caseDto.Type,
+            Price = caseDto.Price,
+            FormFactor = caseDto.FormFactor
         };
 
         if (Case.Name.Length < 3)
@@ -70,6 +72,8 @@ public class CaseController(DataContext context) : BaseApiController
 
         item.Name = dto.Name ?? item.Name;
         item.Type = dto.Type ?? item.Type;
+        item.Price = dto.Price ?? item.Price;
+        item.FormFactor = dto.FormFactor ?? item.FormFactor;
 
         await context.SaveChangesAsync();
         return Ok();

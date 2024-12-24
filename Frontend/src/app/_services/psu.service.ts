@@ -9,11 +9,17 @@ import { PSU } from '../_models/PSU';
 export class PSUService {
   private http = inject(HttpClient);
   baseURL = "http://localhost:5271/api/";
-  
-  getItems(){
+
+  getItems() {
     return this.http.get<PSU[]>(this.baseURL + "psu/all");
   }
-    addItem(model:any){
-      return this.http.post<PSU>(this.baseURL + "psu/register",model);
-    }
+  addItem(model: any) {
+    return this.http.post<PSU>(this.baseURL + "psu/register", model);
+  }
+  deleteItem(name: string) {
+    return this.http.delete<PSU>(this.baseURL + "psu/" + name)
+  }
+  updateItem(model:string,newModel:PSU){
+        return this.http.put<PSU>(this.baseURL + "psu/"+ model,newModel)
+      }
 }

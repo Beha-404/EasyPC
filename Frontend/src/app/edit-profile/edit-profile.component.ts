@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 import { User } from '../_models/user';
 import { AccountService } from '../_services/account.service';
 import { ToastrService } from 'ngx-toastr';
+import { setOriginalNode } from 'typescript';
 
 @Component({
   selector: 'app-edit-profile',
@@ -106,6 +107,7 @@ export class EditProfileComponent implements OnInit {
         const result = e.target?.result;
         if (result !== undefined) {
           this.previewURL = result;
+          this.user.profilePicture = result as string; 
         }
       };
       reader.readAsDataURL(file);
@@ -124,7 +126,7 @@ export class EditProfileComponent implements OnInit {
         },
         error: err => {
           console.error('Eror updating user', err);
-          this.toastrService.error('Failed to save changes. Please try again.' + err.error);
+          this.toastrService.error('Failed to save changes. Please try again.' + this.toastrService.error);
         }
       })
     }
