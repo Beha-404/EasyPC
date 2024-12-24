@@ -62,7 +62,8 @@ public class ProductsController(DataContext context) : BaseApiController
                 {
                     Name = graphicsCardDto.Name,
                     VRAM = graphicsCardDto.VRAM,
-                    Type = graphicsCardDto.Type
+                    Type = graphicsCardDto.Type,
+                    Price =  graphicsCardDto.Price
                 };
                 context.Graphics_Cards.Add(newGPU);
                 break;
@@ -78,7 +79,8 @@ public class ProductsController(DataContext context) : BaseApiController
                 {
                     Name = PsuDto.Name,
                     Power = PsuDto.Power,
-                    Type = PsuDto.Type!
+                    Type = PsuDto.Type!,
+                    Price = PsuDto.Price
                 };
                 context.PSUs.Add(newPSU);
                 break;
@@ -93,7 +95,8 @@ public class ProductsController(DataContext context) : BaseApiController
                 var newCase = new Case
                 {
                     Name = caseDto.Name,
-                    Type = caseDto.Type!
+                    Type = caseDto.Type!,
+                    Price = caseDto.Price
                 };
                 context.Cases.Add(newCase);
                 break;
@@ -111,7 +114,8 @@ public class ProductsController(DataContext context) : BaseApiController
                     Socket = motherBoardDto.Socket,
                     Type = motherBoardDto.Type,
                     SupportsOverclocking = motherBoardDto.SupportsOverclocking,
-                    Model = motherBoardDto.Model
+                    Model = motherBoardDto.Model,
+                    Price = motherBoardDto.Price
                 };
                 context.Motherboards.Add(newMotherBoard);
                 break;
@@ -127,7 +131,8 @@ public class ProductsController(DataContext context) : BaseApiController
                 {
                     Name = ramDto.Name,
                     Speed = ramDto.Speed,
-                    Type = ramDto.Type
+                    Type = ramDto.Type,
+                    Price = ramDto.Price
                 };
                 context.RAMs.Add(newRAM);
                 break;
@@ -156,10 +161,10 @@ public class ProductsController(DataContext context) : BaseApiController
             case "PSU":
                 product = await context.PSUs.FirstOrDefaultAsync(x => x.Name == name);
                 break;
-            case "Case":
+            case "CASE":
                 product = await context.Cases.FirstOrDefaultAsync(x => x.Name == name);
                 break;
-            case "MotherBoard":
+            case "MOTHERBOARD":
                 product = await context.Motherboards.FirstOrDefaultAsync(x => x.Name == name);
                 break;
             case "RAM":

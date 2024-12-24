@@ -1,12 +1,11 @@
 using System;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
-using Azure;
 using Backend.Data;
 using Backend.Dtos;
 using Backend.Interfaces;
 using Backend.Models;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -26,11 +25,21 @@ public class AccountController(DataContext context, ITokenService tokenService) 
 
         using var hmac = new HMACSHA512();
 
+        var defaultProfilePicturePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "userIcon.png");
+
+        if (!System.IO.File.Exists(defaultProfilePicturePath))
+        {
+            return StatusCode(500, "Profile picture not found.");
+        }
+        var defaultProfilePicture = await System.IO.File.ReadAllBytesAsync(defaultProfilePicturePath);
+
+
         var user = new User
         {
             Username = registerDto.Username.ToLower(),
             PasswordHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
-            PasswordSalt = hmac.Key
+            PasswordSalt = hmac.Key,
+            profilePicture = defaultProfilePicture
         };
 
         if (user.Username.Length < 5)

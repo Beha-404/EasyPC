@@ -15,4 +15,11 @@ export class GraphicsCardService {
   addItem(model: any) {
     return this.http.post<GraphicsCard>(this.baseURL + "graphicscard/register", model);
   }
+
+  deleteItem(name: string) {
+    return this.http.delete<GraphicsCard>(this.baseURL + "graphicscard/" + name);
+  }
+  updateItem(model:string,newModel:GraphicsCard){
+        return this.http.put<GraphicsCard>(this.baseURL + "graphicscard/"+ model,newModel)
+      }
 }

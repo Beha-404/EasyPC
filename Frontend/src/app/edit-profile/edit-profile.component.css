@@ -47,7 +47,7 @@ label {
     margin-bottom: 5px;
 }
 
-input{
+input {
     width: 100%;
     padding: 10px;
     font-size: 16px;
@@ -57,7 +57,7 @@ input{
     border-radius: 4px;
 }
 
-.country,.address{
+.country, .address {
     height: 30px;
     width: 98%;
 }
@@ -110,6 +110,21 @@ button:hover {
         margin-bottom: 10px;
     }
 }
+
+.profile-container {
+    display: flex;
+    justify-content: space-between; /* Poravnava sadržaj sa prostora između */
+    align-items: center; /* Poravnava elemente vertikalno na sredinu */
+    gap: 20px; /* Razmak između slika i drop boxa */
+}
+
+.current-profile img {
+    width: 120px; /* Definiše veličinu slike */
+    height: 120px;
+    border-radius: 50%; /* Pravi sliku okruglom */
+    object-fit: cover; /* Obezbeđuje da slika zadrži proporcije */
+}
+
 .drop-area {
     position: relative;
     background-color: #333;
@@ -125,14 +140,17 @@ button:hover {
     cursor: pointer;
     transition: background-color 0.3s;
 }
+
 .drop-area:hover {
     background-color: #555454;
     color: black;
 }
+
 .drop-area.dragover {
     background-color: #d3e9ff;
     border-color: #007bff;
 }
+
 #preview {
     display: flex;
     justify-content: center;
@@ -141,9 +159,9 @@ button:hover {
     height: 100%;
     position: relative;
 }
+
 #preview img {
     max-width: 100%;
     max-height: 100%;
     object-fit: cover;
 }
-

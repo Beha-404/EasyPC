@@ -3,14 +3,10 @@ import { NavBarComponent } from "../nav-bar/nav-bar.component";
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ProductsService } from '../_services/pruducts.service';
 import { Products } from '../_models/Products';
-import { ProcessorService } from '../_services/processor.service';
-import { Toast, ToastrService } from 'ngx-toastr';
-import { PSUService } from '../_services/psu.service';
-import { GraphicsCardService } from '../_services/graphics-card.service';
-import { CaseService } from '../_services/case.service';
 import { ServicesContainerService } from '../_services/services-container.service';
+import { Observable } from 'rxjs';
+import { MatListOptionHarness } from '@angular/material/list/testing';
 
 @Component({
   selector: 'app-products',
@@ -20,7 +16,7 @@ import { ServicesContainerService } from '../_services/services-container.servic
 })
 export class ProductsComponent implements OnInit {
 
-  constructor(private services:ServicesContainerService){}
+  constructor(private services: ServicesContainerService) { }
 
   items: any[] = [];
   model: any = {};
@@ -33,9 +29,6 @@ export class ProductsComponent implements OnInit {
   private modelTemplate = {
     name: "",
     price: "",
-    socket: "",
-    threadCount: "",
-    coreCount: "",
     type: ""
   }
 
@@ -92,44 +85,7 @@ export class ProductsComponent implements OnInit {
     this.selectedAction = "GET";
   }
 
-  addProduct() {
-    switch (this.selectedType()) {
-      case "CPU":
-        this.newModel.type = this.selectedType();
-        this.services.processorService.addItem(this.newModel).subscribe({
-          next: (res) => {
-            this.items.push(res);
-            this.services.toastrService.success("Success");
-          },
-          error: (err) => {
-            this.services.toastrService.error(JSON.stringify(err.error));
-          }
-        })
-        break;
-      case "GPU":
-        this.newModel.type = this.selectedType();
-        this.services.graphicsCardService.addItem(this.newModel).subscribe({
-          next: () => {
-            this.services.toastrService.success("Success");
-          },
-          error: (err) => {
-            this.services.toastrService.error(JSON.stringify(err.error));
-          }
-        });
-        break;
-      case "PSU":
-        this.newModel.type = this.selectedType();
-        this.services.psuService.addItem(this.newModel).subscribe({
-          next: () => {
-            this.services.toastrService.success("Success");
-          },
-          error: (err) => {
-            this.services.toastrService.error(JSON.stringify(err.error));
-          }
-        });
-        break;
-    }
-  }
+ 
 
   deleteProduct(type: string, name: string): void {
     this.services.productsService.deleteItem(type, name).subscribe({
@@ -145,14 +101,63 @@ export class ProductsComponent implements OnInit {
     })
   }
 
-  // updateProduct(name: string) {
-  //   this.selectedAction.set("UPDATE");
-  //   this.productsService.updateItem(name, this.newModel).subscribe({
-  //     next: () => {
-  //       this.model.name = this.newModel.name;
-  //     },
-  //     error: (err:Error) => {
-  //       alert(JSON.stringify(err))
-  //     }
-  //   })}
+  addProduct() {
+    type ServiceType = {
+      addItem: (model: any) => Observable<any>;
+    };
+
+    const servicesMap: Record<string, ServiceType> = {
+      "CPU": this.services.processorService,
+      "PSU": this.services.psuService,
+      "GPU": this.services.graphicsCardService,
+      "CASE": this.services.caseService,
+      "RAM": this.services.ramService,
+      "MOTHERBOARD": this.services.motherBoardService
+    };
+    const selectedType = this.selectedType() as keyof typeof servicesMap;
+    const selectedService = servicesMap[selectedType];
+
+    if (selectedService) {
+      console.log(this.newModel);
+
+      this.newModel.type = selectedType;
+      selectedService.addItem(this.newModel).subscribe({
+        next: (res: any) => {
+          this.items.push(res);
+          this.services.toastrService.success("Success");
+        },
+        error: (err: any) => {
+          this.services.toastrService.error(JSON.stringify(err.error));
+        }
+      });
+    }
+  }
+  updateProduct(name: string) {
+    this.selectedAction = "UPDATE";
+
+    type SelectedService = {
+      updateItem:(name:string,model:any) => Observable<any>;
+    }
+
+    const serviceMap:Record<string,SelectedService> = {
+      "CPU": this.services.processorService,
+      "PSU": this.services.psuService,
+      "GPU": this.services.graphicsCardService,
+      "CASE": this.services.caseService,
+      "RAM": this.services.ramService,
+      "MOTHERBOARD": this.services.motherBoardService
+    }
+
+    const selectedService = serviceMap[this.selectedType()];
+
+    selectedService.updateItem(name, this.newModel).subscribe({
+      next: (res) => {
+       this.services.toastrService.success("Product updated");
+       this.model.name = this.newModel.name;
+      },
+      error: (err: Error) => {
+        alert(JSON.stringify(err))
+      }
+    })
+  }
 }

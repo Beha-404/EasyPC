@@ -95,10 +95,6 @@ public class ProcessorController(DataContext context) : BaseApiController
         var processor = await context.Processors.FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
         if (processor == null) return NotFound("Cant find product with this name");
 
-         if (await ProcessorExists(processor.Name))
-        {
-            return BadRequest("Name is taken");
-        }
 
         processor.Name = dto.Name ?? processor.Name;
         processor.Socket = dto.Socket ?? processor.Socket;

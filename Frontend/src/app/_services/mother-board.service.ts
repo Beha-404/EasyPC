@@ -13,4 +13,14 @@ export class MotherBoardService {
   {
     return this.http.get<MotherBoard[]>(this.baseURL + "motherboard/all");
   }
+    addItem(model: any) {
+      return this.http.post<MotherBoard>(this.baseURL + "motherboard/register", model);
+    }
+  
+    deleteItem(name: string) {
+      return this.http.delete<MotherBoard>(this.baseURL + "motherboard/" + name);
+    }
+    updateItem(model:string,newModel:MotherBoard){
+          return this.http.put<MotherBoard>(this.baseURL + "motherboard/"+ model,newModel)
+        }
 }

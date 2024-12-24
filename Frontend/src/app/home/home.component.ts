@@ -14,6 +14,8 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {MatInputModule} from '@angular/material/input';
 import { DomSanitizer } from '@angular/platform-browser';
+import { UserService } from '../_services/user.service';
+import { User } from '../_models/user';
 
 @Component({
   selector: 'app-home',
@@ -23,6 +25,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 })
 export class HomeComponent implements OnInit{
   http = inject(HttpClient);
+  userService = inject(UserService);
   users:any;
   selectedCpuManufacturer: string = ''; 
   sanitizer = inject(DomSanitizer);

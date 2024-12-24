@@ -1,7 +1,7 @@
 <div class="mainDiv">
-<div class="navBar">
-    <app-nav-bar></app-nav-bar>
-</div>
+    <div class="navBar">
+        <app-nav-bar></app-nav-bar>
+    </div>
 
     <div class="products" [class.animate-left]="selectedAction === 'UPDATE' || selectedAction === 'ADD'">
         <h2 class="products-title">Select Your Component</h2>
@@ -26,18 +26,24 @@
             </select>
         </div>
         <div class="info-box">
-            @if (selectedAction === "") {
+            @if (selectedType() === "") {
             <h1>Nothing has been selected</h1>
             }
             @else {
-            <div *ngFor="let item of items; let i = index">
-                <div class="processor-item">
-                    <p>{{item.name}} {{item.type}}</p>
-                    <button (click)="deleteProduct(selectedType(),item.name)" class="btnDelete">Delete</button>
-                    <button (click)="selectedAction='UPDATE';setModel(item);model.name = item.name"
-                        class="btnUpdate">Update</button>
+            <div *ngIf="items && items.length > 0; else emptyList">
+                <div *ngFor="let item of items; let i = index">
+                    <div class="processor-item">
+                        <p>{{item.name}} {{item.type}}</p>
+                        <button (click)="deleteProduct(selectedType(),item.name)" class="btnDelete">Delete</button>
+                        <button (click)="selectedAction='UPDATE';setModel(item);model.name = item.name"
+                            class="btnUpdate">Update</button>
+                    </div>
                 </div>
             </div>
+
+            <ng-template #emptyList>
+                <p>Empty list of {{selectedType()}}</p>
+            </ng-template>
             }
         </div>
     </div>
@@ -55,8 +61,27 @@
             </div>
 
             <div *ngIf="selectedType() === 'GPU'">
-                <input type="text" placeholder="vram" name="vram" [(ngModel)]="newModel.vram">
+                <input type="text" placeholder="Vram" name="vram" [(ngModel)]="newModel.vram">
             </div>
+
+            <div *ngIf="selectedType() === 'PSU'">
+                <input type="text" placeholder="Power" name="power" [(ngModel)]="newModel.power">
+                <input type="text" placeholder="Vram" name="vram" [(ngModel)]="newModel.vram">
+            </div>
+
+            <div *ngIf="selectedType() === 'CASE'">
+                <input type="text" placeholder="Form factor" name="formFactor" [(ngModel)]="newModel.formFactor">
+            </div>
+
+
+            <div *ngIf="selectedType() === 'MOTHERBOARD'">
+                <input type="text" placeholder="Socket" name="socket" [(ngModel)]="newModel.socket">
+            </div>
+
+            <div *ngIf="selectedType() === 'RAM'">
+                <input type="text" placeholder="Speed" name="speed" [(ngModel)]="newModel.speed">
+            </div>
+
             <div class="formbtnAddCPU">
                 <button type="submit">ADD</button>
                 <button type="button" (click)="closeForm()">CLOSE</button>
@@ -68,22 +93,45 @@
 
     <div *ngIf="selectedAction === 'UPDATE'" class="form-box-update animate-right">
         <h1>Update {{model.name}}</h1>
-        <!-- (submit)="updateProduct(model.name)" -->
-        <form>
+        <form  (submit)="updateProduct(model.name)">
             <label>Name</label>
             <input type="text" placeholder="New name" name="name" [(ngModel)]="newModel.name">
-            <label>Socket</label>
-            <input type="text" placeholder="New Socket" name="socket" [(ngModel)]="newModel.socket">
             <label>Price</label>
             <input type="text" placeholder="New Price" name="price" [(ngModel)]="newModel.price">
-            <label>Thread Count</label>
-            <input type="text" placeholder="New Thread Count" name="threadCount" [(ngModel)]="newModel.threadCount">
-            <label>Core Count</label>
-            <input type="text" placeholder="New Core Count" name="coreCount" [(ngModel)]="newModel.coreCount">
+
+            <div *ngIf="selectedType() === 'CPU'">
+                <input type="text" placeholder="Socket" name="socket" [(ngModel)]="newModel.socket">
+                <input type="text" placeholder="Thread Count" name="threadCount" [(ngModel)]="newModel.threadCount">
+                <input type="text" placeholder="Core Count" name="coreCount" [(ngModel)]="newModel.coreCount">
+            </div>
+
+            <div *ngIf="selectedType() === 'GPU'">
+                <input type="text" placeholder="Vram" name="vram" [(ngModel)]="newModel.vram">
+            </div>
+
+            <div *ngIf="selectedType() === 'PSU'">
+                <input type="text" placeholder="Power" name="power" [(ngModel)]="newModel.power">
+                <input type="text" placeholder="Vram" name="vram" [(ngModel)]="newModel.vram">
+            </div>
+
+            <div *ngIf="selectedType() === 'CASE'">
+                <input type="text" placeholder="Form factor" name="formFactor" [(ngModel)]="newModel.formFactor">
+            </div>
+
+            <div *ngIf="selectedType() === 'MOTHERBOARD'">
+                <input type="text" placeholder="Socket" name="socket" [(ngModel)]="newModel.socket">
+            </div>
+
+            <div *ngIf="selectedType() === 'RAM'">
+                <input type="text" placeholder="Speed" name="speed" [(ngModel)]="newModel.speed">
+            </div>
+
+
             <div class="formBtnUpdateCPU">
                 <button type="submit">UPDATE</button>
                 <button type="button" (click)="closeForm()">CLOSE</button>
             </div>
         </form>
     </div>
+
 </div>
