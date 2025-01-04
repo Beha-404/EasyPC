@@ -15,7 +15,6 @@ import {map, startWith} from 'rxjs/operators';
 import {MatInputModule} from '@angular/material/input';
 import { DomSanitizer } from '@angular/platform-browser';
 import { UserService } from '../_services/user.service';
-import { User } from '../_models/user';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +22,7 @@ import { User } from '../_models/user';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
-export class HomeComponent implements OnInit{
+export default class HomeComponent implements OnInit{
   http = inject(HttpClient);
   userService = inject(UserService);
   users:any;

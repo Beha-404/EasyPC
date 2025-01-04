@@ -14,7 +14,7 @@ import { MatListOptionHarness } from '@angular/material/list/testing';
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
-export class ProductsComponent implements OnInit {
+export default class ProductsComponent implements OnInit {
 
   constructor(private services: ServicesContainerService) { }
 
@@ -151,7 +151,7 @@ export class ProductsComponent implements OnInit {
     const selectedService = serviceMap[this.selectedType()];
 
     selectedService.updateItem(name, this.newModel).subscribe({
-      next: (res) => {
+      next: () => {
        this.services.toastrService.success("Product updated");
        this.model.name = this.newModel.name;
       },

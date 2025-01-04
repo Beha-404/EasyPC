@@ -10,7 +10,6 @@ import { CommonModule } from '@angular/common';
 import { User } from '../_models/user';
 import { AccountService } from '../_services/account.service';
 import { ToastrService } from 'ngx-toastr';
-import { setOriginalNode } from 'typescript';
 
 @Component({
   selector: 'app-edit-profile',
@@ -18,7 +17,7 @@ import { setOriginalNode } from 'typescript';
   templateUrl: './edit-profile.component.html',
   styleUrl: './edit-profile.component.css'
 })
-export class EditProfileComponent implements OnInit {
+export default class EditProfileComponent implements OnInit {
 
   http = inject(HttpClient);
   accountService = inject(AccountService);

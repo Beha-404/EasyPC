@@ -11,7 +11,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './support.component.html',
   styleUrls: ['./support.component.css'] 
 })
-export class SupportComponent {
+export default class SupportComponent {
 
   userMessage: any[] = [
     { sender: 'user', text: 'Hello, I need help finding a new PC.' },
