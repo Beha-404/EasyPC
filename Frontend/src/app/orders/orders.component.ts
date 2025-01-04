@@ -8,7 +8,7 @@ import { RouterModule } from '@angular/router';
   templateUrl: './orders.component.html',
   styleUrl: './orders.component.css'
 })
-export class OrdersComponent {
+export default class OrdersComponent {
 
   orderID: any;
 

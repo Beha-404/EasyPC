@@ -1,19 +1,13 @@
 import { Routes } from '@angular/router';
-import { OrdersComponent } from './orders/orders.component';
-import { SupportComponent } from './support/support.component';
-import { HomeComponent } from './home/home.component';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
-import { ProductsComponent } from './products/products.component';
-import { EditProfileComponent } from './edit-profile/edit-profile.component';
 import { authGuard } from './_guards/auth.guard';
 
 export const routes: Routes = [
-    { path: '', redirectTo: '/home',pathMatch:'full'},
-    { path: 'home',component: HomeComponent },
-    { path: 'orders', component: OrdersComponent ,canActivate:[authGuard]},
-    { path: 'support', component: SupportComponent,canActivate:[authGuard] },
-    { path: 'products', component: ProductsComponent,canActivate:[authGuard] },
-    { path: 'nav-bar', component: NavBarComponent },
-    { path: 'edit-profile', component: EditProfileComponent,canActivate:[authGuard] },
-    { path: '**',redirectTo: '/home', pathMatch: 'full' },
+    { path: '', redirectTo: '/home', pathMatch: 'full' },
+    { path: 'home', loadComponent: () => import('./home/home.component')},
+    { path: 'orders', loadComponent: () => import('./orders/orders.component'), canActivate: [authGuard] },
+    { path: 'support', loadComponent: () => import('./support/support.component'), canActivate: [authGuard] },
+    { path: 'products', loadComponent: () => import('./products/products.component'), canActivate: [authGuard] },
+    { path: 'nav-bar', loadComponent: () => import('./nav-bar/nav-bar.component').then(m => m.NavBarComponent)},
+    { path: 'edit-profile', loadComponent: () => import('./edit-profile/edit-profile.component'), canActivate: [authGuard] },
+    { path: '**', redirectTo: '/home', pathMatch: 'full' },
 ];
