@@ -1,4 +1,4 @@
-import { Component, inject} from '@angular/core';
+import { Component, inject, input, output} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
@@ -14,24 +14,50 @@ import { CommonModule } from '@angular/common';
 })
 export class NavBarComponent {
 
+  cancelRegister = output<boolean>();
+  usersFromHomeComponent = input<any>()
   accountService = inject(AccountService);
 
   model: any = {};
   errorMessage: string = "";
   isLoginFormVisible: boolean = false;
+  isRegisterFormVisible: boolean = false;
   isDropDownVisible:boolean = false;
+
+  cancel(){
+    this.cancelRegister.emit(false);
+  }
 
   toggleDropDown() {
     this.isDropDownVisible = !this.isDropDownVisible;
   }
 
+  register() {
+    this.accountService.register(this.model).subscribe(
+      {
+        next: ()=> {
+          this.closeRegisterForm();
+        },
+        error:error => {
+          console.log(error);
+          this.errorMessage = error.error
+        }
+      }
+    )
+  }
+
+  openRegisterForm(): void {
+    this.isRegisterFormVisible = true;
+  }
+  closeRegisterForm(): void {
+    this.isRegisterFormVisible = false;
+  }
   openLoginForm(): void {
     this.isLoginFormVisible = true;
   }
   closeLoginForm(): void {
     this.isLoginFormVisible = false;
   }
-
   login() {
     this.accountService.login(this.model).subscribe({
       next: _ =>{
