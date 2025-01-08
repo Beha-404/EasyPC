@@ -11,9 +11,13 @@ builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DevConnection"));
 });
 
-builder.Services.AddCors();
 var app = builder.Build();
 
+app.UseStaticFiles();
+
+app.UseCors(x => x.AllowAnyHeader()
+    .AllowAnyMethod()
+    .WithOrigins("http://localhost:4200","https://localhost:4200"));
 
 app.UseHttpsRedirection();
 
