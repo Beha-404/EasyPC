@@ -113,16 +113,16 @@ button:hover {
 
 .profile-container {
     display: flex;
-    justify-content: space-between;
-    align-items: center; 
-    gap: 20px;
+    justify-content: space-between; /* Poravnava sadržaj sa prostora između */
+    align-items: center; /* Poravnava elemente vertikalno na sredinu */
+    gap: 20px; /* Razmak između slika i drop boxa */
 }
 
 .current-profile img {
-    width: 120px; 
+    width: 120px; /* Definiše veličinu slike */
     height: 120px;
-    border-radius: 50%; 
-    object-fit: cover; 
+    border-radius: 50%; /* Pravi sliku okruglom */
+    object-fit: cover; /* Obezbeđuje da slika zadrži proporcije */
 }
 
 .drop-area {
