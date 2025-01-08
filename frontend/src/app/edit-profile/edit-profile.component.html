@@ -7,19 +7,21 @@
         <div>
             <h1>Edit Profile</h1>
         </div>
-        <form class="editProfileForm">
+        <form #editProfileForm="ngForm" class="editProfileForm" (ngSubmit)="submitChanges()">
             <table class="editNameTable">
                 <tr>
                     <td>
                         <div class="input-container">
                             <label for="firstName">First Name</label>
-                            <input type="text" id="firstName"  name="firstName" placeholder="Ex. John" />
+                            <input type="text" id="firstName" [(ngModel)]="user.firstName" name="firstName"
+                                placeholder="Ex. John" />
                         </div>
                     </td>
                     <td>
                         <div class="input-container">
                             <label for="lastName">Last Name</label>
-                            <input type="text" id="lastName"  name="lastName" placeholder="Ex. Doe" />
+                            <input type="text" id="lastName" [(ngModel)]="user.lastName" name="lastName"
+                                placeholder="Ex. Doe" />
                         </div>
                     </td>
                 </tr>
@@ -30,19 +32,22 @@
                     <td>
                         <div class="input-container">
                             <label for="city">City</label>
-                            <input type="text" id="city"  name="city" placeholder="Ex. San Francisco" />
+                            <input type="text" id="city" [(ngModel)]="user.city" name="city"
+                                placeholder="Ex. San Francisco" />
                         </div>
                     </td>
                     <td>
                         <div class="input-container">
                             <label for="state">State</label>
-                            <input type="text" id="state" name="state" placeholder="Ex. California" />
+                            <input type="text" id="state" [(ngModel)]="user.state" name="state"
+                                placeholder="Ex. California" />
                         </div>
                     </td>
                     <td>
                         <div class="input-container">
                             <label for="postalCode">Postal Code</label>
-                            <input type="text" id="postalCode" maxlength="5" name="postalCode" placeholder="Ex. 94105" />
+                            <input type="text" id="postalCode" maxlength="5" [(ngModel)]="user.postalCode"
+                                name="postalCode" placeholder="Ex. 94105" />
                         </div>
                     </td>
                 </tr>
@@ -50,20 +55,22 @@
 
             <div class="input-container">
                 <label for="country">Country</label>
-                <input class="country" name="country" id="country" placeholder="Ex. USA">
+                <input class="country" [(ngModel)]="user.country" name="country" id="country" placeholder="Ex. USA">
             </div>
 
             <div class="input-container">
                 <label for="profilePicture">Profile Picture</label>
                 <div id="profile-container" class="profile-container">
-                   
+
                     <div class="current-profile">
                         <p>Current</p>
-                        <img alt="Profile Picture" />
+                        <img *ngIf="user.profilePicture" [src]="'data:image/png;base64,' + user.profilePicture"
+                            alt="Profile Picture" />
                     </div>
-                    
-                    
-                    <div id="dropArea" class="drop-area" >
+
+
+                    <div id="dropArea" class="drop-area">
+
                         <ng-template #noPreview>
                             <p>Drag & Drop your new image here or <span>click to select image</span></p>
                             <input type="file" id="profilePicture" accept="image/*" hidden />
@@ -71,10 +78,9 @@
                     </div>
                 </div>
             </div>
-
             <div class="buttons">
-                <button class="acceptBtn" type="submit">Accept Changes</button>
-                <button class="cancelBtn" type="reset">Cancel Changes</button>
+                <button class="acceptBtn" type="submit" [disabled]="!editProfileForm.dirty">Accept Changes</button>
+                <button class="cancelBtn" type="button" (click)="resetChanges()">Cancel Changes</button>
             </div>
         </form>
     </div>
