@@ -22,6 +22,9 @@ public class AccountController(DataContext context) : BaseApiController
             return BadRequest("Username is taken");
         }
 
+        if(registerDto.Username == string.Empty)
+            return BadRequest("username too short");
+
         var defaultProfilePicturePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "userIcon.png");
 
         if (!System.IO.File.Exists(defaultProfilePicturePath))

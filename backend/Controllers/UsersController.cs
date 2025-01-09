@@ -35,7 +35,7 @@ public class UsersController(DataContext context) : BaseApiController
         return user;
     }
 
-    [HttpDelete("all")]
+    [HttpDelete("delete/all")]
     public async Task<ActionResult<User>> DeleteAllUsers()
     {
         var users = await context.Users.ToListAsync();
@@ -45,6 +45,8 @@ public class UsersController(DataContext context) : BaseApiController
         return Ok("Done");
     }
 
+
+    
 
     [HttpPut("{name}")]
     public async Task<ActionResult> UpdateUser(string name, User newUser)

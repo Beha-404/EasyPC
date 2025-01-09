@@ -57,20 +57,15 @@
                 <label for="country">Country</label>
                 <input class="country" [(ngModel)]="user.country" name="country" id="country" placeholder="Ex. USA">
             </div>
-
-            <div class="input-container">
-                <label for="profilePicture">Profile Picture</label>
+            <hr>
+            <div class="profile-section">
                 <div id="profile-container" class="profile-container">
-
                     <div class="current-profile">
                         <p>Current</p>
                         <img *ngIf="user.profilePicture" [src]="'data:image/png;base64,' + user.profilePicture"
                             alt="Profile Picture" />
                     </div>
-
-
                     <div id="dropArea" class="drop-area">
-
                         <ng-template #noPreview>
                             <p>Drag & Drop your new image here or <span>click to select image</span></p>
                             <input type="file" id="profilePicture" accept="image/*" hidden />
@@ -79,8 +74,11 @@
                 </div>
             </div>
             <div class="buttons">
-                <button class="acceptBtn" type="submit" [disabled]="!editProfileForm.dirty">Accept Changes</button>
-                <button class="cancelBtn" type="button" (click)="resetChanges()">Cancel Changes</button>
+                <div class="left-buttons">
+                    <button class="acceptBtn" type="submit" [disabled]="!editProfileForm.dirty">Accept Changes</button>
+                    <button class="cancelBtn" type="button" (click)="resetChanges()">Cancel Changes</button>
+                </div>
+                <button class="deleteBtn" type="button" (click)="deleteProfile()">Delete profile</button>
             </div>
         </form>
     </div>
