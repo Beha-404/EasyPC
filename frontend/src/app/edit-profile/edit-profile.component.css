@@ -195,3 +195,9 @@ p{
     max-height: 100%;
     object-fit: cover;
 }
+.confirmationButtons{
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    transition: ease-in 1s;
+}

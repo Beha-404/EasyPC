@@ -1,6 +1,6 @@
-import { Component, inject, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { FormsModule, NgForm } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NavBarComponent } from "../nav-bar/nav-bar.component";
@@ -18,7 +18,6 @@ import { ServicesContainerService } from '../_services/services-container.servic
 export default class EditProfileComponent implements OnInit {
 
   services = inject(ServicesContainerService);
-
   user: User = {
     username: '',
     password: '',
@@ -32,6 +31,8 @@ export default class EditProfileComponent implements OnInit {
     profilePicture: ''
   };
 
+  openDeleteForm = false;
+  isDragging = false;
   file: File | null = null;
   originalUser: User = { ...this.user };
   model: any[] = [];
@@ -67,6 +68,23 @@ export default class EditProfileComponent implements OnInit {
         this.originalUser = { ...this.user };
       }
     });
+  }
+
+  onDrop(event: DragEvent) {
+    event.preventDefault();
+    this.isDragging = false;
+
+    const files = event.dataTransfer?.files;
+    if (files && files.length > 0) {
+      this.fileHandler(files[0]);
+    }
+  }
+  onDragLeave() {
+    this.isDragging = false;
+  }
+  onDragOver(event: DragEvent) {
+    event.preventDefault();
+    this.isDragging = true;
   }
 
   fileHandler(file: File) {
@@ -110,12 +128,12 @@ export default class EditProfileComponent implements OnInit {
       formData.append('postalCode', this.user.postalCode || '');
       formData.append('country', this.user.country || '');
       formData.append('address', this.user.address || '');
-      
-      if (this.file){
-        formData.append('profilePicture',this.file,this.file.name);
+
+      if (this.file) {
+        formData.append('profilePicture', this.file, this.file.name);
       }
-      
-  
+
+
       this.services.httpService.put(this.URL + this.getCurrentUser().username, formData).subscribe({
         next: () => {
           this.services.toastrService.success("Changes saved successfully");
@@ -128,13 +146,15 @@ export default class EditProfileComponent implements OnInit {
       });
     }
   }
-  
 
   resetChanges() {
     this.setParameters();
     this.previewURL = null;
   }
 
+  toggleDeleteForm() {
+    this.openDeleteForm = !this.openDeleteForm;
+  }
 
   deleteProfile() {
     const username: string = this.getCurrentUser().username;
