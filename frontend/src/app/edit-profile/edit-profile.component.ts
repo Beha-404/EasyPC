@@ -1,15 +1,13 @@
-import { Component,inject, OnInit, ViewChild, viewChild } from '@angular/core';
+import { Component,inject, OnInit, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NavBarComponent } from "../nav-bar/nav-bar.component";
-import { HttpClient } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { User } from '../_models/User';
-import { AccountService } from '../_services/account.service';
-import { ToastrService } from 'ngx-toastr';
+import { ServicesContainerService } from '../_services/services-container.service';
 
 @Component({
   selector: 'app-edit-profile',
@@ -20,9 +18,7 @@ import { ToastrService } from 'ngx-toastr';
 export default class EditProfileComponent implements OnInit {
 
   @ViewChild('editProfileForm') editForm?:NgForm;
-  http = inject(HttpClient);
-  accountService = inject(AccountService);
-  toastrService = inject(ToastrService);
+  services = inject(ServicesContainerService);
 
   user: User = {
     username: '',
@@ -45,6 +41,7 @@ export default class EditProfileComponent implements OnInit {
 
   ngOnInit() {
     this.setParameters();
+    this.setCurrentUser();
   }
 
   getCurrentUser() {
@@ -56,8 +53,15 @@ export default class EditProfileComponent implements OnInit {
     }
   }
 
+  setCurrentUser(){
+    const userString = localStorage.getItem('user');
+    if(!userString) return;
+    const user = JSON.parse(userString);
+    this.services.accountService.currentUser.set(user);
+  }
+
   setParameters() {
-    return this.http.get(this.URL + this.getCurrentUser().username).subscribe({
+    return this.services.httpService.get(this.URL + this.getCurrentUser().username).subscribe({
       next: (newUser) => {
         this.user = newUser as User;
         this.originalUser = { ...this.user };
@@ -68,15 +72,15 @@ export default class EditProfileComponent implements OnInit {
 
   submitChanges() {
     if (this.user) {
-      this.http.put(this.URL + this.getCurrentUser().username, this.user).subscribe({
+      this.services.httpService.put(this.URL + this.getCurrentUser().username, this.user).subscribe({
         next: () => {
           console.log('User updated successfully');
-          this.toastrService.success("Changes saved successfully");
+          this.services.toastrService.success("Changes saved successfully");
           this.editForm?.reset(this.user);
         },
         error: err => {
           console.error('Eror updating user', err);
-          this.toastrService.error('Failed to save changes. Please try again.' + this.toastrService.error);
+          this.services.toastrService.error('Failed to save changes. Please try again.' + this.services.toastrService.error);
         }
       })
     }
@@ -86,5 +90,17 @@ export default class EditProfileComponent implements OnInit {
     this.setParameters();
   }
 
+
+  deleteProfile() {
+    const username:string = this.getCurrentUser().username;
+    
+    this.services.httpService.delete('http://localhost:5132/api/users/'+username).subscribe({
+      next: ()=> {
+        this.services.accountService.logout();
+        this.services.toastrService.success('User deleted');
+        this.services.routerService.navigate(['/home']);
+      }
+    })
+    }
 }
 
