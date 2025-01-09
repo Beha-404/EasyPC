@@ -1,4 +1,4 @@
-import { Component,inject, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, OnInit, ViewChild } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule, NgForm } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -17,12 +17,11 @@ import { ServicesContainerService } from '../_services/services-container.servic
 })
 export default class EditProfileComponent implements OnInit {
 
-  @ViewChild('editProfileForm') editForm?:NgForm;
   services = inject(ServicesContainerService);
 
   user: User = {
     username: '',
-    password:'',
+    password: '',
     firstName: '',
     lastName: '',
     city: '',
@@ -33,9 +32,10 @@ export default class EditProfileComponent implements OnInit {
     profilePicture: ''
   };
 
-
+  file: File | null = null;
   originalUser: User = { ...this.user };
   model: any[] = [];
+  previewURL: string | ArrayBuffer | null = null;
   URL = "http://localhost:5132/api/users/";
 
 
@@ -53,9 +53,9 @@ export default class EditProfileComponent implements OnInit {
     }
   }
 
-  setCurrentUser(){
+  setCurrentUser() {
     const userString = localStorage.getItem('user');
-    if(!userString) return;
+    if (!userString) return;
     const user = JSON.parse(userString);
     this.services.accountService.currentUser.set(user);
   }
@@ -65,42 +65,87 @@ export default class EditProfileComponent implements OnInit {
       next: (newUser) => {
         this.user = newUser as User;
         this.originalUser = { ...this.user };
-        console.log(this.user);
       }
     });
   }
 
-  submitChanges() {
-    if (this.user) {
-      this.services.httpService.put(this.URL + this.getCurrentUser().username, this.user).subscribe({
-        next: () => {
-          console.log('User updated successfully');
-          this.services.toastrService.success("Changes saved successfully");
-          this.editForm?.reset(this.user);
-        },
-        error: err => {
-          console.error('Eror updating user', err);
-          this.services.toastrService.error('Failed to save changes. Please try again.' + this.services.toastrService.error);
+  fileHandler(file: File) {
+    if (file.type.startsWith('image/')) {
+      this.file = file;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const result = e.target?.result;
+        if (result !== undefined) {
+          this.previewURL = result;
+          this.user.profilePicture = result as string;
         }
-      })
+      };
+      reader.readAsDataURL(file);
+    }
+    else {
+      alert('Please upload an image file');
     }
   }
 
+  onSelectedFile(event: Event) {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.fileHandler(input.files[0]);
+    }
+  }
+
+
+  triggerFileInput() {
+    const fileInput = document.getElementById('profilePicture') as HTMLInputElement;
+    fileInput.click();
+  }
+
+  submitChanges() {
+    if (this.user) {
+      const formData = new FormData();
+      formData.append('firstName', this.user.firstName || '');
+      formData.append('lastName', this.user.lastName || '');
+      formData.append('city', this.user.city || '');
+      formData.append('state', this.user.state || '');
+      formData.append('postalCode', this.user.postalCode || '');
+      formData.append('country', this.user.country || '');
+      formData.append('address', this.user.address || '');
+      
+      if (this.file){
+        formData.append('profilePicture',this.file,this.file.name);
+      }
+      
+  
+      this.services.httpService.put(this.URL + this.getCurrentUser().username, formData).subscribe({
+        next: () => {
+          this.services.toastrService.success("Changes saved successfully");
+          this.setParameters();
+        },
+        error: err => {
+          console.error('Error updating user', err);
+          this.services.toastrService.error('Failed to save changes. Please try again.');
+        }
+      });
+    }
+  }
+  
+
   resetChanges() {
     this.setParameters();
+    this.previewURL = null;
   }
 
 
   deleteProfile() {
-    const username:string = this.getCurrentUser().username;
-    
-    this.services.httpService.delete('http://localhost:5132/api/users/'+username).subscribe({
-      next: ()=> {
+    const username: string = this.getCurrentUser().username;
+
+    this.services.httpService.delete('http://localhost:5132/api/users/' + username).subscribe({
+      next: () => {
         this.services.accountService.logout();
         this.services.toastrService.success('User deleted');
         this.services.routerService.navigate(['/home']);
       }
     })
-    }
+  }
 }
 
