@@ -64,11 +64,15 @@
             <div id="profile-container" class="profile-container">
                 <div class="current-profile">
                     <p>Current</p>
-                    <img *ngIf="originalUser.profilePicture" [src]="'data:image/;base64,' + originalUser.profilePicture" alt="Profile Picture" />
+                    <img *ngIf="originalUser.profilePicture" [src]="'data:image/;base64,' + originalUser.profilePicture"
+                        alt="Profile Picture" />
                 </div>
-                
-                <div id="dropArea" class="drop-area"
-                (click)="triggerFileInput()">
+
+                <div id="dropArea" class="drop-area" 
+                    (click)="triggerFileInput()"
+                    (dragover)="onDragOver($event)"
+                    (dragleave)="onDragLeave()"
+                    (drop)="onDrop($event)">
                     <ng-container *ngIf="previewURL; else noPreview">
                         <div id="preview">
                             <img *ngIf="previewURL" [src]="previewURL" alt="Preview" />
@@ -76,7 +80,8 @@
                     </ng-container>
                     <ng-template #noPreview>
                         <p>Drag & Drop your new image here or <span>click to select image</span></p>
-                        <input type="file" id="profilePicture" (change)="onSelectedFile($event)" accept="image/*" hidden />
+                        <input type="file" id="profilePicture" (change)="onSelectedFile($event)" accept="image/*"
+                            hidden />
                     </ng-template>
                 </div>
             </div>
@@ -85,8 +90,19 @@
                     <button class="acceptBtn" type="submit">Accept Changes</button>
                     <button class="cancelBtn" type="button" (click)="resetChanges()">Cancel Changes</button>
                 </div>
-                <button class="deleteBtn" type="button" (click)="deleteProfile()">Delete profile</button>
+                <ng-container *ngIf="!openDeleteForm">
+                    <button class="deleteBtn" type="button" (click)="toggleDeleteForm()">Delete profile</button>
+                </ng-container>
             </div>
+            <ng-container *ngIf="openDeleteForm">
+                <div class="delete-form">
+                    <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+                    <div class="confirmationButtons">
+                        <button class="deleteConfirmBtn" type="button" (click)="deleteProfile()">Yes, Delete</button>
+                        <button class="cancelDeleteBtn" type="button" (click)="toggleDeleteForm()">Cancel</button>
+                    </div>
+                </div>
+            </ng-container>            
         </form>
     </div>
 </div>
