@@ -1,12 +1,9 @@
 import { Routes } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
-import EditProfileComponent from './edit-profile/edit-profile.component';
 
 export const routes: Routes = [
    { path: '', redirectTo: '/home', pathMatch: 'full' },
-   { path: 'home', component: HomeComponent },
-   { path: 'nav-bar', component: NavBarComponent },
-   { path: 'edit-profile', component: EditProfileComponent },
+   { path: 'home', loadComponent: () => import('./home/home.component').then(m => m.HomeComponent)},
+   { path: 'nav-bar', loadComponent: () => import('./nav-bar/nav-bar.component').then(m => m.NavBarComponent)},
+   { path: 'edit-profile', loadComponent: () => import('./edit-profile/edit-profile.component'),},
    { path: '**', redirectTo: '/home', pathMatch: 'full' }
 ];
