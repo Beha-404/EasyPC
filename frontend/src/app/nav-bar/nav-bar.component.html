@@ -7,6 +7,15 @@
     <ul class="navhome">
         <li><a mat-button routerLink="/home">EasyPC<img src="/images/logoIcon.png" alt="ordersIcon" class="icons"></a></li>
     </ul>
+    @if (accountService.currentUser()) {
+    <ul class="navcenter">
+        <ng-container *ngIf="userLoginInfo?.role === 1">
+            <li><a mat-button routerLink="/products" routerLinkActive="active">Products<img src="/images/productsIcon.png" alt="ordersIcon" class="icons"></a></li>
+        </ng-container>
+        <li><a mat-button routerLink="/orders" routerLinkActive="active">Orders<img src="/images/ordersIcon.png" alt="ordersIcon" class="icons"></a></li>
+        <li><a mat-button routerLink="/support" routerLinkActive="active">Support<img src="/images/supportIcon.png" alt="supportIcon" class="icons"></a></li>
+    </ul>
+    }
     <ul class="navright">
         @if (!accountService.currentUser()) {
         <li><a mat-button id="loginButton" (click)="openLoginForm()" routerLinkActive="active-link">Login</a></li>

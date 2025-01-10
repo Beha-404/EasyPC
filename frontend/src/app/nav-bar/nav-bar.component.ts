@@ -1,4 +1,4 @@
-import { Component, inject, input, output} from '@angular/core';
+import { Component, inject, input, output,ChangeDetectorRef, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
@@ -12,18 +12,21 @@ import { CommonModule } from '@angular/common';
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css'
 })
-export class NavBarComponent {
+export class NavBarComponent{
 
   cancelRegister = output<boolean>();
   usersFromHomeComponent = input<any>()
   accountService = inject(AccountService);
 
+  userLoginInfo:any ={};
   model: any = {};
   errorMessage: string = "";
   isLoginFormVisible: boolean = false;
   isRegisterFormVisible: boolean = false;
   isDropDownVisible:boolean = false;
 
+  constructor(private cdr: ChangeDetectorRef) {
+  }
   cancel(){
     this.cancelRegister.emit(false);
   }
@@ -60,9 +63,11 @@ export class NavBarComponent {
   }
   login() {
     this.accountService.login(this.model).subscribe({
-      next: _ =>{
+      next: response =>{
         this.errorMessage = "";
         this.closeLoginForm();
+        this.userLoginInfo = response;
+        this.cdr.detectChanges();
       },
       error: error => {
         console.log(error);
