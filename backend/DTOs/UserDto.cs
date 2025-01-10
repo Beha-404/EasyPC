@@ -1,4 +1,5 @@
 using System;
+using Backend.Models;
 
 namespace Backend.Dtos;
 
@@ -15,4 +16,5 @@ public class UserDto
     public string? profilePicture { get; set; }
     public string? PostalCode { get; set; }
     public string? Address { get; set; }
+    public UserRole? Role { get; set; }
 }
