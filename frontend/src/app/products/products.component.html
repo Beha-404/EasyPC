@@ -1,2 +1,137 @@
-<app-nav-bar></app-nav-bar>
-<p>products works!</p>
+<div class="mainDiv">
+    <div class="navBar">
+        <app-nav-bar></app-nav-bar>
+    </div>
+
+    <div class="products" [class.animate-left]="selectedAction === 'UPDATE' || selectedAction === 'ADD'">
+        <h2 class="products-title">Select Your Component</h2>
+        <div class="arrow"></div>
+        <div>
+            <div>
+                <select (change)="onTypeChange($event)">
+                    <option value="" hidden selected>Select Component</option>
+                    <option value="CPU">Processor</option>
+                    <option value="GPU">Graphics card</option>
+                    <option value="PSU">Power supply</option>
+                    <option value="RAM">Ram</option>
+                    <option value="CASE">Case</option>
+                    <option value="MOTHERBOARD">Motherboard</option>
+                </select>
+            </div>
+            <select (change)="onActionChange($event)" name="selectedAction" [(ngModel)]="selectedAction"
+                [disabled]="!selectedType()">
+                <option value="GET">Available items</option>
+                <option value="ADD">Add new</option>
+                <option value="UPDATE" hidden>Update</option>
+            </select>
+        </div>
+        <div class="info-box">
+            @if (selectedType() === "") {
+            <h1>Nothing has been selected</h1>
+            }
+            @else {
+            <div *ngIf="items && items.length > 0; else emptyList">
+                <div *ngFor="let item of items; let i = index">
+                    <div class="processor-item">
+                        <p>{{item.name}}</p>
+                        <button (click)="deleteProduct(selectedType(),item.name)" class="btnDelete">Delete</button>
+                        <button (click)="selectedAction='UPDATE';setModel(item);model.name = item.name"
+                            class="btnUpdate">Update</button>
+                    </div>
+                </div>
+            </div>
+
+            <ng-template #emptyList>
+                <p>Empty list of {{selectedType()}}</p>
+            </ng-template>
+            }
+        </div>
+    </div>
+
+    <div *ngIf="selectedAction === 'ADD'" class="form-box-add animate-right">
+        <h1>Add new {{selectedType()}}</h1>
+        <form class="formAddProduct" (submit)="addProduct()">
+            <input type="text" placeholder="Name" required name="name" [(ngModel)]="newModel.name">
+            <input type="text" placeholder="Price"  required name="price" [(ngModel)]="newModel.price">
+
+            <div *ngIf="selectedType() === 'CPU'">
+                <input type="text" placeholder="Socket" required name="socket" [(ngModel)]="newModel.socket">
+                <input type="text" placeholder="Thread Count" required name="threadCount" [(ngModel)]="newModel.threadCount">
+                <input type="text" placeholder="Core Count" required name="coreCount" [(ngModel)]="newModel.coreCount">
+            </div>
+
+            <div *ngIf="selectedType() === 'GPU'">
+                <input type="text" placeholder="Vram" required name="vram" [(ngModel)]="newModel.vram">
+            </div>
+
+            <div *ngIf="selectedType() === 'PSU'">
+                <input type="text" placeholder="Power" required name="power" [(ngModel)]="newModel.power">
+                <input type="text" placeholder="Vram" required name="vram" [(ngModel)]="newModel.vram">
+            </div>
+
+            <div *ngIf="selectedType() === 'CASE'">
+                <input type="text" placeholder="Form factor" required name="formFactor" [(ngModel)]="newModel.formFactor">
+            </div>
+
+
+            <div *ngIf="selectedType() === 'MOTHERBOARD'">
+                <input type="text" placeholder="Socket" required name="socket" [(ngModel)]="newModel.socket">
+            </div>
+
+            <div *ngIf="selectedType() === 'RAM'">
+                <input type="text" placeholder="Speed" required name="speed" [(ngModel)]="newModel.speed">
+            </div>
+
+            <div class="formbtnAddCPU">
+                <button type="submit">ADD</button>
+                <button type="button" (click)="closeForm()">CLOSE</button>
+            </div>
+        </form>
+    </div>
+
+
+
+    <div *ngIf="selectedAction === 'UPDATE'" class="form-box-update animate-right">
+        <h1>Update {{model.name}}</h1>
+        <form  (submit)="updateProduct(model.name)">
+            <label>Name</label>
+            <input type="text" placeholder="New name" name="name" [(ngModel)]="newModel.name">
+            <label>Price</label>
+            <input type="text" placeholder="New Price" name="price" [(ngModel)]="newModel.price">
+
+            <div *ngIf="selectedType() === 'CPU'">
+                <input type="text" placeholder="Socket" name="socket" [(ngModel)]="newModel.socket">
+                <input type="text" placeholder="Thread Count" name="threadCount" [(ngModel)]="newModel.threadCount">
+                <input type="text" placeholder="Core Count" name="coreCount" [(ngModel)]="newModel.coreCount">
+            </div>
+
+            <div *ngIf="selectedType() === 'GPU'">
+                <input type="text" placeholder="Vram" name="vram" [(ngModel)]="newModel.vram">
+            </div>
+
+            <div *ngIf="selectedType() === 'PSU'">
+                <input type="text" placeholder="Power" name="power" [(ngModel)]="newModel.power">
+                <input type="text" placeholder="Vram" name="vram" [(ngModel)]="newModel.vram">
+            </div>
+
+            <div *ngIf="selectedType() === 'CASE'">
+                <input type="text" placeholder="Form factor" name="formFactor" [(ngModel)]="newModel.formFactor">
+            </div>
+
+            <div *ngIf="selectedType() === 'MOTHERBOARD'">
+                <input type="text" placeholder="Socket" name="socket" [(ngModel)]="newModel.socket">
+            </div>
+
+            <div *ngIf="selectedType() === 'RAM'">
+                <input type="text" placeholder="Speed" name="speed" [(ngModel)]="newModel.speed">
+            </div>
+
+
+            <div class="formBtnUpdateCPU">
+                <button type="submit">UPDATE</button>
+                <button type="button" (click)="closeForm()">CLOSE</button>
+            </div>
+        </form>
+    </div>
+
+</div>

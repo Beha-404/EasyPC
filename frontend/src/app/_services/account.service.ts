@@ -12,6 +12,13 @@ export class AccountService
   baseURL = "http://localhost:5132/api/";
   currentUser = signal<User | null>(null);
 
+  constructor() {
+    const user = localStorage.getItem('user');
+    if (user) {
+      this.currentUser.set(JSON.parse(user) as User);
+    }
+  }
+
   login(model: any)
   {
     return this.http.post<User>(this.baseURL + "account/login",model).pipe(

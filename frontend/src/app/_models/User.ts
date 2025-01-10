@@ -9,4 +9,5 @@ export interface User{
     profilePicture: string;
     postalCode: string;
     address: string;
+    role?:number
 }

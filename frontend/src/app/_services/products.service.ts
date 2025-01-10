@@ -7,7 +7,7 @@ import { Products } from '../_models/Products';
 })
 export class ProductsService {
   private http = inject(HttpClient);
-  url = "http://localhost:5271/api/";
+  url = "http://localhost:5132/api/";
 
   getItems() {
     return this.http.get<Products>(`${this.url}products/all`);

@@ -7,7 +7,7 @@ import { Processor } from '../_models/Processor';
 })
 export class ProcessorService {
   private http = inject(HttpClient);
-  baseURL = "http://localhost:5271/api/";
+  baseURL = "http://localhost:5132/api/";
 
   getItems()
   {

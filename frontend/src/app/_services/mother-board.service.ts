@@ -7,7 +7,7 @@ import { MotherBoard } from '../_models/MotherBoard';
 })
 export class MotherBoardService {
   private http = inject(HttpClient);
-  baseURL = "http://localhost:5271/api/";
+  baseURL = "http://localhost:5132/api/";
 
   getItems()
   {
