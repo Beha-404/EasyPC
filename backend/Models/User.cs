@@ -15,7 +15,6 @@ public class User
     public  byte[]? profilePicture { get; set; }
     public  string? PostalCode { get; set; }
     public  string? Address { get; set; }
-
     public UserRole Role { get; set; } = UserRole.User;
 }
 

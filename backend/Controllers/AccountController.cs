@@ -22,7 +22,7 @@ public class AccountController(DataContext context) : BaseApiController
             return BadRequest("Username is taken");
         }
 
-        if(registerDto.Username == string.Empty)
+        if (registerDto.Username == string.Empty)
             return BadRequest("username too short");
 
         var defaultProfilePicturePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "Images", "userIcon.png");
@@ -50,7 +50,8 @@ public class AccountController(DataContext context) : BaseApiController
         return new UserDto
         {
             Username = user.Username,
-            Password = user.Password
+            Password = user.Password,
+            Role = user.Role
         };
     }
 
@@ -61,12 +62,13 @@ public class AccountController(DataContext context) : BaseApiController
 
         if (user == null) return Unauthorized("User not found (invalid username)");
 
-        if(user.Password != loginDto.Password) return BadRequest("Wrong password try again");
+        if (user.Password != loginDto.Password) return BadRequest("Wrong password try again");
 
         return new UserDto
         {
             Username = user.Username,
-            Password = user.Password
+            Password = user.Password,
+            Role = user.Role
         };
     }
 
