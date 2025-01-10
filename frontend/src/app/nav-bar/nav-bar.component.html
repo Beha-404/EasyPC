@@ -9,7 +9,7 @@
     </ul>
     @if (accountService.currentUser()) {
     <ul class="navcenter">
-        <ng-container *ngIf="userLoginInfo?.role === 1">
+        <ng-container *ngIf="accountService.currentUser()?.role === 1">
             <li><a mat-button routerLink="/products" routerLinkActive="active">Products<img src="/images/productsIcon.png" alt="ordersIcon" class="icons"></a></li>
         </ng-container>
         <li><a mat-button routerLink="/orders" routerLinkActive="active">Orders<img src="/images/ordersIcon.png" alt="ordersIcon" class="icons"></a></li>

@@ -8,7 +8,7 @@ import { PSU } from '../_models/PSU';
 })
 export class PSUService {
   private http = inject(HttpClient);
-  baseURL = "http://localhost:5271/api/";
+  baseURL = "http://localhost:5132/api/";
 
   getItems() {
     return this.http.get<PSU[]>(this.baseURL + "psu/all");

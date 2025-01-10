@@ -7,8 +7,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class RAMService {
   private http = inject(HttpClient);
-  baseURL = "http://localhost:5271/api/";
-
+  baseURL = "http://localhost:5132/api/";
   getItems() {
     return this.http.get<RAM[]>(this.baseURL + "ram/all");
   }
