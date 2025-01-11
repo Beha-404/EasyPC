@@ -8,6 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { CommonModule } from '@angular/common';
 import { User } from '../_models/User';
 import { ServicesContainerService } from '../_services/services-container.service';
+import { NgxImageCompressService } from 'ngx-image-compress';
 
 @Component({
   selector: 'app-edit-profile',
@@ -39,6 +40,8 @@ export default class EditProfileComponent implements OnInit {
   previewURL: string | ArrayBuffer | null = null;
   URL = "http://localhost:5132/api/users/";
 
+  constructor(private imageCompress: NgxImageCompressService) {
+  }
 
   ngOnInit() {
     this.setParameters();
@@ -90,24 +93,28 @@ export default class EditProfileComponent implements OnInit {
   fileHandler(file: File) {
     if (file.type.startsWith('image/')) {
       this.file = file;
+
       const reader = new FileReader();
-      reader.onload = (e) => {
-        const result = e.target?.result;
-        if (result !== undefined) {
-          this.previewURL = result;
-          this.user.profilePicture = result as string;
-        }
+      reader.onload = () => {
+        const base64Image = reader.result as string;
+        this.imageCompress.compressFile(base64Image, -1, 50, 50).then((compressedImage) => {
+          this.previewURL = compressedImage;
+          this.user.profilePicture = compressedImage;
+        });
       };
+
       reader.readAsDataURL(file);
-    }
-    else {
+    } else {
       alert('Please upload an image file');
     }
   }
 
+
   onSelectedFile(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
+      this.previewURL = null;
+
       this.fileHandler(input.files[0]);
     }
   }
@@ -138,6 +145,7 @@ export default class EditProfileComponent implements OnInit {
         next: () => {
           this.services.toastrService.success("Changes saved successfully");
           this.setParameters();
+          this.previewURL = null;
         },
         error: err => {
           console.error('Error updating user', err);
