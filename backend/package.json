@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "ngx-image-compress": "^18.1.5"
+  }
+}
