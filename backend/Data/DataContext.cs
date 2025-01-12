@@ -17,6 +17,22 @@ public class DataContext(DbContextOptions options) : DbContext(options)
 
      protected override void OnModelCreating(ModelBuilder builder)
     {
+         builder.Entity<User>().HasData(
+            new User
+            {
+                Id = 1,
+                Username ="admin",
+                Password = "123123",
+                Role = UserRole.Admin
+            },
+             new User
+             {
+                 Id = 2,
+                Username ="user",
+                Password = "123123",
+                Role = UserRole.User
+             }
+        );
 
         builder.Entity<Processor>().HasData(
             new Processor
