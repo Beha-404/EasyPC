@@ -13,6 +13,10 @@ export class CaseService {
   getItems() {
     return this.http.get<Case[]>(this.baseURL + "case/all");
   }
+  getById(id: number) {
+    return this.http.get<Case>(this.baseURL + 'case/id/' + id);
+  }
+
   addItem(model: Case) {
     return this.http.post<Case>(this.baseURL + "case/register", model);
   }

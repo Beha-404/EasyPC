@@ -63,7 +63,7 @@ public class ProductsController(DataContext context) : BaseApiController
                     Name = graphicsCardDto.Name,
                     VRAM = graphicsCardDto.VRAM,
                     Type = graphicsCardDto.Type,
-                    Price =  graphicsCardDto.Price
+                    Price = graphicsCardDto.Price
                 };
                 context.Graphics_Cards.Add(newGPU);
                 break;
@@ -120,6 +120,25 @@ public class ProductsController(DataContext context) : BaseApiController
                 context.Motherboards.Add(newMotherBoard);
                 break;
 
+            case "PC":
+                var pcDto = model as PC;
+                if (pcDto is null)
+                {
+                    return BadRequest("Invalid data for PC");
+                }
+
+                var newpc = new PC
+                {
+                    ProcessorId = pcDto.ProcessorId,
+                    CaseId = pcDto.CaseId,
+                    PsuId = pcDto.PsuId,
+                    GraphicsCardId = pcDto.GraphicsCardId,
+                    RamId = pcDto.RamId,
+                    MotherBoardId = pcDto.MotherBoardId
+                };
+                context.Pcs.Add(newpc);
+                break;
+
             case "RAM":
                 var ramDto = model as RamDto;
                 if (ramDto is null)
@@ -145,30 +164,33 @@ public class ProductsController(DataContext context) : BaseApiController
         return Ok("Product added");
     }
 
-    [HttpDelete("{type}/{name}")]
-    public async Task<ActionResult<Products>> deleteProduct(string type, string name)
+    [HttpDelete("{type}/{id}")]
+    public async Task<ActionResult<Products>> deleteProduct(string type, int id)
     {
         object? product;
 
         switch (type)
         {
             case "CPU":
-                product = await context.Processors.FirstOrDefaultAsync(x => x.Name == name);
+                product = await context.Processors.FirstOrDefaultAsync(x => x.Id == id);
                 break;
             case "GPU":
-                product = await context.Graphics_Cards.FirstOrDefaultAsync(x => x.Name == name);
+                product = await context.Graphics_Cards.FirstOrDefaultAsync(x => x.Id == id);
                 break;
             case "PSU":
-                product = await context.PSUs.FirstOrDefaultAsync(x => x.Name == name);
+                product = await context.PSUs.FirstOrDefaultAsync(x => x.Id == id);
                 break;
             case "CASE":
-                product = await context.Cases.FirstOrDefaultAsync(x => x.Name == name);
+                product = await context.Cases.FirstOrDefaultAsync(x => x.Id == id);
                 break;
             case "MOTHERBOARD":
-                product = await context.Motherboards.FirstOrDefaultAsync(x => x.Name == name);
+                product = await context.Motherboards.FirstOrDefaultAsync(x => x.Id == id);
                 break;
             case "RAM":
-                product = await context.RAMs.FirstOrDefaultAsync(x => x.Name == name);
+                product = await context.RAMs.FirstOrDefaultAsync(x => x.Id == id);
+                break;
+            case "PC":
+                product = await context.Pcs.FirstOrDefaultAsync(x => x.Id == id);
                 break;
             default:
                 return BadRequest("Invalid product type");
@@ -179,7 +201,7 @@ public class ProductsController(DataContext context) : BaseApiController
         }
         context.Remove(product);
         await context.SaveChangesAsync();
-        return Ok(new {message="Product deleted"});
+        return Ok(new { message = "Product deleted" });
     }
 }
 

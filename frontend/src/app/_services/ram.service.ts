@@ -11,13 +11,16 @@ export class RAMService {
   getItems() {
     return this.http.get<RAM[]>(this.baseURL + "ram/all");
   }
+  getById(id: number) {
+    return this.http.get<RAM>(this.baseURL + 'ram/id/' + id);
+  }
   addItem(model: any) {
     return this.http.post<RAM>(this.baseURL + "ram/register", model);
   }
   deleteItem(name: string) {
     return this.http.delete<RAM>(this.baseURL + "ram/" + name)
   }
-  updateItem(model:string,newModel:RAM){
-        return this.http.put<RAM>(this.baseURL + "ram/"+ model,newModel)
-      }
+  updateItem(model: string, newModel: RAM) {
+    return this.http.put<RAM>(this.baseURL + "ram/" + model, newModel)
+  }
 }

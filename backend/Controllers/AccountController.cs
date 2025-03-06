@@ -38,7 +38,8 @@ public class AccountController(DataContext context) : BaseApiController
         {
             Username = registerDto.Username.ToLower(),
             profilePicture = defaultProfilePicture,
-            Password = registerDto.Password
+            Password = registerDto.Password,
+            Email = registerDto.Email
         };
 
         if (user.Username.Length < 5)
@@ -51,7 +52,8 @@ public class AccountController(DataContext context) : BaseApiController
         {
             Username = user.Username,
             Password = user.Password,
-            Role = user.Role
+            Role = user.Role,
+            Email = user.Email
         };
     }
 
@@ -68,7 +70,8 @@ public class AccountController(DataContext context) : BaseApiController
         {
             Username = user.Username,
             Password = user.Password,
-            Role = user.Role
+            Role = user.Role,
+            Id = user.Id
         };
     }
 

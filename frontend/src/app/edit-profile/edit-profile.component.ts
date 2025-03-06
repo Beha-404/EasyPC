@@ -32,6 +32,7 @@ export default class EditProfileComponent implements OnInit {
     profilePicture: ''
   };
 
+  userData:any;
   openDeleteForm = false;
   isDragging = false;
   file: File | null = null;
@@ -44,8 +45,13 @@ export default class EditProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.setParameters();
     this.setCurrentUser();
+    this.getUserData();
+    this.setParameters();
+  }
+  getUserData() {
+    const username = this.services.accountService.currentUser()?.username;
+   // this.services.userService.getUserByUsername(username)
   }
 
   getCurrentUser() {

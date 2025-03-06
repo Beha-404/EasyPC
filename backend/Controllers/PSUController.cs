@@ -11,13 +11,14 @@ namespace Backend.Controllers;
 
 public class PSUController(DataContext context) : BaseApiController
 {
-       [HttpGet("all")]
-      public async Task<ActionResult<IEnumerable<PsuDto>>> GetPSU()
+    [HttpGet("all")]
+    public async Task<ActionResult<IEnumerable<PsuDto>>> GetPSU()
     {
-        var PSUs= await context.PSUs.ToListAsync();
-        if(PSUs.Count() == 0) return NotFound("No PSU found");
+        var PSUs = await context.PSUs.ToListAsync();
+        if (PSUs.Count() == 0) return NotFound("No PSU found");
 
-        var psuDTO = PSUs.Select(x => new PsuDto{
+        var psuDTO = PSUs.Select(x => new PsuDto
+        {
             Name = x.Name,
             Power = x.Power,
             Price = x.Price
@@ -25,8 +26,16 @@ public class PSUController(DataContext context) : BaseApiController
         return psuDTO;
     }
 
-[HttpPost("register")]
- public async Task<ActionResult<PSU>> Register(PsuDto psuDto)
+    [HttpGet("id/{id}")]
+    public async Task<ActionResult<PSU>> GetByID(int id)
+    {
+        var product = await context.PSUs.FirstOrDefaultAsync(x => x.Id == id);
+        if (product == null) return NotFound("No power supply found");
+        return product;
+    }
+
+    [HttpPost("register")]
+    public async Task<ActionResult<PSU>> Register(PsuDto psuDto)
     {
 
         if (await Exists(psuDto.Name))
@@ -44,10 +53,10 @@ public class PSUController(DataContext context) : BaseApiController
             Price = psuDto.Price
         };
 
-        if (PSU.Name.Length < 3 )
+        if (PSU.Name.Length < 3)
             return BadRequest("Name too short");
 
-        else if(PSU.Power.Length < 3)
+        else if (PSU.Power.Length < 3)
             return BadRequest("Power not valid");
 
         context.PSUs.Add(PSU);
@@ -57,8 +66,8 @@ public class PSUController(DataContext context) : BaseApiController
         return PSU;
     }
 
-    
-     [HttpDelete("{name}")]
+
+    [HttpDelete("{name}")]
     public async Task<ActionResult<PSU>> Delete(string name)
     {
 
@@ -80,7 +89,7 @@ public class PSUController(DataContext context) : BaseApiController
 
         item.Name = dto.Name ?? item.Name;
         item.Power = dto.Power ?? item.Power;
-        item.Price = dto.Price ?? item.Price;
+        item.Price = dto.Price;
 
         await context.SaveChangesAsync();
         return Ok();
@@ -90,5 +99,5 @@ public class PSUController(DataContext context) : BaseApiController
     {
         return await context.PSUs.AnyAsync(x => x.Name!.ToLower() == productName.ToLower());
     }
- 
+
 }

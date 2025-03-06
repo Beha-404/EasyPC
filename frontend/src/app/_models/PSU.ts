@@ -1,5 +1,6 @@
 export interface PSU {
-    Name: string;
-    Power: string;
-    Price:number;
+    name: string;
+    power: string;
+    price:number;
+    id:number;
 }

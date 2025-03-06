@@ -12,8 +12,8 @@ export class ProductsService {
   getItems() {
     return this.http.get<Products>(`${this.url}products/all`);
   }
-  deleteItem(type: string, name: string) {
-    return this.http.delete(this.url + "products/" + type + "/" + name);
+  deleteItem(type: string, id: number) {
+    return this.http.delete(this.url + "products/" + type + "/" + id);
   }
   addItem(type: string, model: any) {
     return this.http.post(this.url + "products/" + type + "/add", model);

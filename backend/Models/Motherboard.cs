@@ -10,7 +10,7 @@ public class Motherboard
   public required string Name { get; set; }
   [MinLength(3)]
   public required string Socket { get; set; }
-  public required string Price { get; set; }
+  public required int Price { get; set; }
   [MinLength(3)]
   public string? Model { get; set; }
   [MinLength(3)]

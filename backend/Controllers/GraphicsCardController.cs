@@ -20,6 +20,14 @@ public class GraphicsCardController(DataContext context) : BaseApiController
         return graphics_Cards;
     }
 
+    [HttpGet("id/{id}")]
+    public async Task<ActionResult<Graphics_Card>> GetByID(int id)
+    {
+        var product = await context.Graphics_Cards.FirstOrDefaultAsync(x => x.Id == id);
+        if (product == null) return NotFound("No graphics cards found");
+        return product;
+    }
+
     [HttpPost("register")]
     public async Task<ActionResult<Graphics_Card>> Register(Graphics_Card graphics_CardDto)
     {
@@ -42,8 +50,8 @@ public class GraphicsCardController(DataContext context) : BaseApiController
         if (graphicsCard.Name!.Length < 3)
             return BadRequest("Name too short");
 
-        else if (graphicsCard.VRAM!.Length < 3)
-            return BadRequest("Input not valid");
+        else if (graphicsCard.VRAM!.Length < 1)
+            return BadRequest("VRAM LENGH TOO SHORT");
 
         context.Graphics_Cards.Add(graphicsCard);
 
@@ -73,7 +81,7 @@ public class GraphicsCardController(DataContext context) : BaseApiController
 
         item.Name = dto.Name ?? item.Name;
         item.VRAM = dto.VRAM ?? item.VRAM;
-        item.Price = dto.Price ?? item.Price;
+        item.Price = dto.Price;
 
         await context.SaveChangesAsync();
         return Ok();

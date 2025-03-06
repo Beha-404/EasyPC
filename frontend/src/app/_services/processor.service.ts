@@ -9,18 +9,20 @@ export class ProcessorService {
   private http = inject(HttpClient);
   baseURL = "http://localhost:5132/api/";
 
-  getItems()
-  {
+  getItems() {
     return this.http.get<Processor[]>(this.baseURL + "processor/all");
   }
-  addItem(model:any){
-    return this.http.post<Processor>(this.baseURL + "processor/register",model);
+  getById(id: number) {
+    return this.http.get<Processor>(this.baseURL + 'processor/id/' + id);
+  }
+  addItem(model: any) {
+    return this.http.post<Processor>(this.baseURL + "processor/register", model);
   }
 
-  deleteItem(name:string){
-    return this.http.delete<Processor>(this.baseURL + "processor/"+ name)
+  deleteItem(name: string) {
+    return this.http.delete<Processor>(this.baseURL + "processor/" + name)
   }
-  updateItem(model:string,newModel:Processor){
-    return this.http.put<Processor>(this.baseURL + "processor/"+ model,newModel)
+  updateItem(model: string, newModel: Processor) {
+    return this.http.put<Processor>(this.baseURL + "processor/" + model, newModel)
   }
 }

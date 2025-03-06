@@ -91,6 +91,36 @@ select option {
     background-color: #1f1f1f;
     color: #fff;
 }
+.PCform{
+    display: flex;
+    flex-flow: column;
+}
+mat-form-field {
+    color: #fff !important;
+  }
+  
+  mat-label {
+    color: #ffcc00 !important;
+  }
+  
+  .mat-form-field-label {
+    color: #ffcc00 !important;
+  }
+  
+  .mat-select-value {
+    color: #fff !important;
+  }
+  
+  .mat-option {
+    color: #fff !important;
+  }
+  
+  .mat-select-arrow {
+    color: #ffcc00 !important;
+  }
+  mat-select {
+    color: #fff !important;
+  }
 
 .arrow {
     width: 0;

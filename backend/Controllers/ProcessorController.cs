@@ -29,6 +29,14 @@ public class ProcessorController(DataContext context) : BaseApiController
         return processorsDto;
     }
 
+    [HttpGet("id/{id}")]
+    public async Task<ActionResult<Processor>> GetByID(int id)
+    {
+        var product = await context.Processors.FirstOrDefaultAsync(x => x.Id == id);
+        if (product == null) return NotFound("No processors found");
+        return product;
+    }
+
 
     [HttpGet("{name}")]
     public async Task<ActionResult<Processor>> GetProcessorByName(string name)

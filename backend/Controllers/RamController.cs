@@ -17,6 +17,14 @@ public class RamController(DataContext context) : BaseApiController
         return RAMs;
     }
 
+    [HttpGet("id/{id}")]
+    public async Task<ActionResult<RAM>> GetByID(int id)
+    {
+        var product = await context.RAMs.FirstOrDefaultAsync(x => x.Id == id);
+        if (product == null) return NotFound("No ram found");
+        return product;
+    }
+
     [HttpPost("register")]
     public async Task<ActionResult<RAM>> Register(RamDto ramDto)
     {
@@ -72,7 +80,7 @@ public class RamController(DataContext context) : BaseApiController
         item.Name = dto.Name ?? item.Name;
         item.Type = dto.Type ?? item.Type;
         item.Speed = dto.Speed ?? item.Speed;
-        item.Price = dto.Price ?? item.Price;
+        item.Price = dto.Price;
 
 
         await context.SaveChangesAsync();

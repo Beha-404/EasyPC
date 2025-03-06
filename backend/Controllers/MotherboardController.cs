@@ -19,6 +19,14 @@ public class MotherboardController(DataContext context) : BaseApiController
         return Motherboards;
     }
 
+    [HttpGet("id/{id}")]
+    public async Task<ActionResult<Motherboard>> GetByID(int id)
+    {
+        var product = await context.Motherboards.FirstOrDefaultAsync(x => x.Id == id);
+        if (product == null) return NotFound("No motherBoards found");
+        return product;
+    }
+
     [HttpPost("register")]
     public async Task<ActionResult<Motherboard>> Register(MotherBoardDto motherBoardDto)
     {
@@ -74,7 +82,7 @@ public class MotherboardController(DataContext context) : BaseApiController
 
         item.Name = dto.Name ?? item.Name;
         item.Socket = dto.Socket ?? item.Socket;
-        item.Price = dto.Price ?? item.Price;
+        item.Price = dto.Price;
 
         await context.SaveChangesAsync();
         return Ok();

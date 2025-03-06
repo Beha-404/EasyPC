@@ -14,4 +14,12 @@ export class UserService {
     deleteUser(name:any){
       this.http.delete<User>(this.baseURL+'users/'+name)
     }
+
+    getUserById(id:number){
+      this.http.get<User>(this.baseURL+'users/id/'+id)
+    }
+
+    getUserByUsername(username:string){
+      this.http.get<User>(this.baseURL+'users/'+ username)
+    }
 }

@@ -1,7 +1,8 @@
 export interface Processor {
-    Name: string;
-    Socket: string;
-    Price:number;
-    ThreadCount: number;
-    CoreCount:number;
+    name: string;
+    socket: string;
+    price:number;
+    threadCount: number;
+    coreCount:number;
+    id:number;
 }

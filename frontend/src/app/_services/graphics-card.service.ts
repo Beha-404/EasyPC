@@ -12,6 +12,10 @@ export class GraphicsCardService {
   getItems() {
     return this.http.get<GraphicsCard[]>(this.baseURL + "graphicscard/all");
   }
+  getById(id: number) {
+    return this.http.get<GraphicsCard>(this.baseURL + 'graphicscard/id/' + id);
+  }
+
   addItem(model: any) {
     return this.http.post<GraphicsCard>(this.baseURL + "graphicscard/register", model);
   }
@@ -19,7 +23,7 @@ export class GraphicsCardService {
   deleteItem(name: string) {
     return this.http.delete<GraphicsCard>(this.baseURL + "graphicscard/" + name);
   }
-  updateItem(model:string,newModel:GraphicsCard){
-        return this.http.put<GraphicsCard>(this.baseURL + "graphicscard/"+ model,newModel)
-      }
+  updateItem(model: string, newModel: GraphicsCard) {
+    return this.http.put<GraphicsCard>(this.baseURL + "graphicscard/" + model, newModel)
+  }
 }

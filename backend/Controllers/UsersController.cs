@@ -18,9 +18,17 @@ public class UsersController(DataContext context) : BaseApiController
     }
 
     [HttpGet("{name}")]
-    public async Task<ActionResult<User>> GetUser(string name)
+    public async Task<ActionResult<User>> GetUserByName(string name)
     {
         var user = await context.Users.FirstOrDefaultAsync(x => x.Username.ToLower() == name.ToLower());
+        if (user == null) return NotFound("No user with this name");
+        return user;
+    }
+
+    [HttpGet("id/{id}")]
+    public async Task<ActionResult<User>> GetUserById(int id)
+    {
+        var user = await context.Users.FirstOrDefaultAsync(x => x.Id == id);
         if (user == null) return NotFound("No user with this name");
         return user;
     }

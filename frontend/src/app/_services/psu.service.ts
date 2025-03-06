@@ -13,13 +13,16 @@ export class PSUService {
   getItems() {
     return this.http.get<PSU[]>(this.baseURL + "psu/all");
   }
+  getById(id: number) {
+    return this.http.get<PSU>(this.baseURL + 'psu/id/' + id);
+  }
   addItem(model: any) {
     return this.http.post<PSU>(this.baseURL + "psu/register", model);
   }
   deleteItem(name: string) {
     return this.http.delete<PSU>(this.baseURL + "psu/" + name)
   }
-  updateItem(model:string,newModel:PSU){
-        return this.http.put<PSU>(this.baseURL + "psu/"+ model,newModel)
-      }
+  updateItem(model: string, newModel: PSU) {
+    return this.http.put<PSU>(this.baseURL + "psu/" + model, newModel)
+  }
 }

@@ -1,5 +1,6 @@
 export interface MotherBoard {
-    Name: string;
-    Socket: string;
-    Price:number;
+    name: string;
+    socket: string;
+    price:number;
+    id:number;
 }

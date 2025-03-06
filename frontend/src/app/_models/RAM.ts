@@ -1,6 +1,7 @@
 export interface RAM {
-    Name: string;
-    Type: string;
-    Speed:string; 
-    Price:number;
+    name: string;
+    type: string;
+    speed:string; 
+    price:number;
+    id:number;
 }

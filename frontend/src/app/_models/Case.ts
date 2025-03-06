@@ -1,6 +1,7 @@
 export interface Case {
-    Name: string;
-    Type: string;
-    Price:number;
-    FormFactor:string
+    id:number;
+    name: string;
+    type: string;
+    price:number;
+    formFactor:string
 }

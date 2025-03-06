@@ -1,5 +1,6 @@
 export interface GraphicsCard {
-    Name: string;
-    VRAM: string;
-    Price:number;
+    name: string;
+    vRAM: string;
+    price:number;
+    id:number;
 }

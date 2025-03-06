@@ -19,6 +19,14 @@ public class CaseController(DataContext context) : BaseApiController
         return Cases;
     }
 
+      [HttpGet("id/{id}")]
+    public async Task<ActionResult<Case>> GetByID(int id)
+    {
+        var product = await context.Cases.FirstOrDefaultAsync(x => x.Id == id);
+        if (product == null) return NotFound("No cases found");
+        return product;
+    }
+
     [HttpPost("register")]
     public async Task<ActionResult<Case>> Register(CaseDto caseDto)
     {
@@ -72,7 +80,7 @@ public class CaseController(DataContext context) : BaseApiController
 
         item.Name = dto.Name ?? item.Name;
         item.Type = dto.Type ?? item.Type;
-        item.Price = dto.Price ?? item.Price;
+        item.Price = dto.Price;
         item.FormFactor = dto.FormFactor ?? item.FormFactor;
 
         await context.SaveChangesAsync();

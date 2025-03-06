@@ -12,7 +12,7 @@ import { CommonModule } from '@angular/common';
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.css'
 })
-export class NavBarComponent{
+export class NavBarComponent {
 
   cancelRegister = output<boolean>();
   usersFromHomeComponent = input<any>()
@@ -23,6 +23,12 @@ export class NavBarComponent{
   isLoginFormVisible: boolean = false;
   isRegisterFormVisible: boolean = false;
   isDropDownVisible: boolean = false;
+
+  constructor(
+    private router:Router
+  ) {
+
+  }
 
   cancel() {
     this.cancelRegister.emit(false);
@@ -46,17 +52,23 @@ export class NavBarComponent{
     )
   }
 
-  openRegisterForm(): void {
-    this.isRegisterFormVisible = true;
+  checkLoginStatus() {
+    if (!this.accountService.currentUser()) {
+      this.router.navigateByUrl("/login");
+    }
+  }
+
+  RegisterForm(): void {
+    this.router.navigateByUrl("/register");
   }
   closeRegisterForm(): void {
-    this.isRegisterFormVisible = false;
+    this.router.navigateByUrl("/home");
   }
-  openLoginForm(): void {
-    this.isLoginFormVisible = true;
+  LoginForm(): void {
+    this.router.navigateByUrl("/login");
   }
   closeLoginForm(): void {
-    this.isLoginFormVisible = false;
+    this.router.navigateByUrl("/home");
   }
   login() {
     this.accountService.login(this.model).subscribe({

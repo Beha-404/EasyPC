@@ -2,33 +2,53 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { NavBarComponent } from "../nav-bar/nav-bar.component";
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatRadioModule } from '@angular/material/radio';
 import { Products } from '../_models/Products';
 import { ServicesContainerService } from '../_services/services-container.service';
 import { Observable } from 'rxjs';
-
+import { MatTabsModule } from '@angular/material/tabs';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-products',
-  imports: [RouterModule, NavBarComponent, CommonModule, FormsModule],
+  standalone: true,
+  imports: [
+    RouterModule,
+    NavBarComponent,
+    CommonModule,
+    FormsModule,
+    MatSelectModule,
+    MatButtonModule, 
+    MatFormFieldModule,
+    MatInputModule,    
+    MatCardModule,    
+    MatIconModule,
+    MatRadioModule,
+    MatTabsModule,
+    ReactiveFormsModule
+  ],
   templateUrl: './products.component.html',
   styleUrl: './products.component.css'
 })
-export  class ProductsComponent implements OnInit {
+export class ProductsComponent implements OnInit {
+  constructor(
+    private services: ServicesContainerService,
+    private fb:FormBuilder
+  ) { }
 
-  constructor(private services: ServicesContainerService) { }
-
-  items: any[] = [];
+  items: any | null = null;
   model: any = {};
   newModel: any = {};
-  products: Products = {
-    processors: [],
-    graphicsCards: [],
-    psUs: [],
-    raMs: [],
-    cases: [],
-    motherBoards: []
-  };
+  products: Products | null = null;
+  pcs:any;
+  pcForm!:FormGroup;
   
   selectedAction = "GET";
   selectedType = signal<string>("");
@@ -41,12 +61,37 @@ export  class ProductsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getComponents();
+    this.getPCs();
+    this.createPcForm();
+  }
+
+  createPcForm() {
+    this.pcForm = this.fb.group({
+      name: ['', Validators.required],
+      price: ['', [Validators.required, Validators.min(1)]],
+      processorId: ['', Validators.required],
+      ramId: ['', Validators.required],
+      graphicsCardId: ['', Validators.required],
+      caseId: ['', Validators.required],
+      motherBoardId: ['', Validators.required],
+      psuId: ['', Validators.required]
+    });
+  }
+
+  getPCs() {
+    this.services.pcService.getAll().subscribe({
+      next: (res) => {
+        this.pcs = res;
+       // console.log(this.pcs);
+      }
+    })
   }
 
   getComponents() {
     this.services.productsService.getItems().subscribe({
       next: (output) => {
-        this.products = output as Products;
+        this.products = output;
+       // console.log("Proizvodi: ",this.products);
       }
     })
   }
@@ -69,12 +114,13 @@ export  class ProductsComponent implements OnInit {
     this.selectedType.set((event.target as HTMLSelectElement).value);
 
     const typeMapping = {
-      "CPU": this.products.processors,
-      "GPU": this.products.graphicsCards,
-      "PSU": this.products.psUs,
-      "RAM": this.products.raMs,
-      "CASE": this.products.cases,
-      "MOTHERBOARD": this.products.motherBoards
+      "CPU": this.products?.processors,
+      "GPU": this.products?.graphicsCards,
+      "PSU": this.products?.psUs,
+      "RAM": this.products?.raMs,
+      "CASE": this.products?.cases,
+      "MOTHERBOARD": this.products?.motherBoards,
+      "PC": this.pcs
     }
     this.items = typeMapping[this.selectedType().toUpperCase() as keyof typeof typeMapping] || [];
     this.selectedAction = "GET";
@@ -92,12 +138,10 @@ export  class ProductsComponent implements OnInit {
     this.selectedAction = "GET";
   }
 
- 
-
-  deleteProduct(type: string, name: string): void {
-    this.services.productsService.deleteItem(type, name).subscribe({
+  deleteProduct(type: string, id: number): void {
+    this.services.productsService.deleteItem(type, id).subscribe({
       next: () => {
-        this.items = this.items.filter(item => item.name !== name);
+        this.items = this.items.filter((item:any) => item.id !== id);
         this.getComponents();
         this.selectedAction = "";
         this.selectedAction = "GET";
@@ -119,15 +163,18 @@ export  class ProductsComponent implements OnInit {
       "GPU": this.services.graphicsCardService,
       "CASE": this.services.caseService,
       "RAM": this.services.ramService,
-      "MOTHERBOARD": this.services.motherBoardService
+      "MOTHERBOARD": this.services.motherBoardService,
+      "PC": this.services.pcService
     };
+
     const selectedType = this.selectedType() as keyof typeof servicesMap;
     const selectedService = servicesMap[selectedType];
-
+    
     if (selectedService) {
-      console.log(this.newModel);
-
       this.newModel.type = selectedType;
+      if(this.selectedType() == 'PC')
+          this.newModel.price = 0;
+        
       selectedService.addItem(this.newModel).subscribe({
         next: (res: any) => {
           this.items.push(res);
@@ -139,6 +186,7 @@ export  class ProductsComponent implements OnInit {
       });
     }
   }
+  
   updateProduct(name: string) {
     this.selectedAction = "UPDATE";
 
@@ -152,7 +200,8 @@ export  class ProductsComponent implements OnInit {
       "GPU": this.services.graphicsCardService,
       "CASE": this.services.caseService,
       "RAM": this.services.ramService,
-      "MOTHERBOARD": this.services.motherBoardService
+      "MOTHERBOARD": this.services.motherBoardService,
+      "PC": this.services.pcService
     }
 
     const selectedService = serviceMap[this.selectedType()];
@@ -162,9 +211,9 @@ export  class ProductsComponent implements OnInit {
        this.services.toastrService.success("Product updated");
        this.model.name = this.newModel.name;
       },
-      error: (err: Error) => {
-        alert(JSON.stringify(err))
-      }
     })
+  
+
+
   }
 }
