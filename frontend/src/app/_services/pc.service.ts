@@ -23,7 +23,8 @@ export class PcService {
   }
   deleteItem(id: number) {
     return this.http.delete<PC>(this.baseURL + "pc/" + id);
-  }
+  }  
+  
   updateItem(model: string, newModel: PC) {
     return this.http.put<PC>(this.baseURL + "pc/" + model, newModel)
   }
