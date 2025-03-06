@@ -1,0 +1,118 @@
+/* 🔹 Global reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 🔹 Container centriranje */
+.register-container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #2f2f2f, #3e3e3e);
+  font-family: 'Open Sans', sans-serif;
+}
+
+/* 🔹 Kartica za registraciju */
+.register-card {
+  background: #1f1f1f;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  position: relative;
+  width: 100%;
+  max-width: 30%;
+  color: #fff;
+}
+
+/* 🔹 Dugme za zatvaranje */
+.close-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: #ffcc00;
+  cursor: pointer;
+}
+
+/* 🔹 Naslov */
+.register-title {
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #ffcc00;
+}
+
+/* 🔹 Input polja */
+.input-group {
+  margin-bottom: 1.2rem;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: #ffcc00;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ffcc00;
+  border-radius: 5px;
+  background: #292929;
+  color: #fff;
+  font-size: 1rem;
+}
+
+/* 🔹 Dugmad */
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+}
+
+.btn {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  margin: 0 0.5rem;
+}
+
+/* 🔹 Stilizacija dugmadi */
+.register-btn {
+  background: #ffcc00;
+  color: #333;
+}
+
+.register-btn:hover {
+  background: #e6b800;
+}
+
+.cancel-btn {
+  background: #777;
+  color: #fff;
+}
+
+.cancel-btn:hover {
+  background: #555;
+}
+
+/* 🔹 Error poruka */
+.error-message {
+  background: #c91414;
+  padding: 0.5rem;
+  border-radius: 5px;
+  text-align: center;
+  margin-bottom: 1rem;
+  font-size: 0.9rem;
+  color: #fff;
+}

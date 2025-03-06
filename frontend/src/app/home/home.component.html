@@ -1,0 +1,401 @@
+<div class="mainDiv">
+  <app-nav-bar></app-nav-bar>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="home.component.css">
+
+  <div class="page-title-container">
+    <h1 class="page-title">Build or Choose Your Dream PC</h1>
+    <p class="page-subtitle">Whether you're gaming, editing, or streaming – we've got you covered.</p>
+  </div>
+
+  <div class="search-and-content-container">
+    
+    <div class="content-container">
+      
+      <div class="card-container">
+        <div class="card"
+             *ngFor="let pc of filteredPCs | paginate: { itemsPerPage: itemsPerPage, currentPage: currentPage }; let i = index">
+          <div class="card-content">
+            <div [ngClass]="pc.available ? 'available' : 'unavailable'">
+              {{ pc.available ? 'Available' : 'Unavailable' }}
+            </div>
+            <h3 class="header-text">{{ pc.name }}</h3>
+            <img [src]="pc.picture" alt="PC Picture" class="pcPicture" />
+            <div class="details-button">
+              <h3 class="header-text">Price: {{ pc.price }}$</h3>
+              <button mat-button id="order" class="addToCartBtn" type="submit" (click)="addToCartRegularPC(pc)">
+                Add To Cart
+              </button>
+              <button class="details" (click)="openCardDetailsForm(pc.id)">See Details</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card-details-container" *ngIf="isCardDetailsFormVisible">
+        <div class="card-details-content">
+          <button class="close-button" aria-label="Close alert" type="button" data-close (click)="closeCardDetailsForm()">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <form #cardDetailsForm class="cardDetails">
+            <h2>Price: {{ selectedPC?.price }}$</h2>
+            <table class="details-table">
+              <tbody>
+                <h3>Specifications:</h3>
+                <tr>
+                  <td>Processor</td>
+                  <td>{{ selectedPC?.processor }}</td>
+                </tr>
+                <tr>
+                  <td>Graphics Card</td>
+                  <td>{{ selectedPC?.graphicsCard }}</td>
+                </tr>
+                <tr>
+                  <td>RAM</td>
+                  <td>{{ selectedPC?.ram }}</td>
+                </tr>
+                <tr>
+                  <td>Motherboard</td>
+                  <td>{{ selectedPC?.motherBoard }}</td>
+                </tr>
+                <tr>
+                  <td>Case</td>
+                  <td>{{ selectedPC?.case }}</td>
+                </tr>
+                <tr>
+                  <td>Power supply</td>
+                  <td>{{ selectedPC?.psu }}</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="order-button">
+              <button
+                mat-button
+                id="order"
+                class="addToCartDetailsBtn"
+                type="button"
+                (click)="addToCartRegularPC(selectedPC)"
+              >
+                Add To Cart
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="popup-searchform-container" *ngIf="isSearchFormVisible">
+        <div class="full-searchform-content">
+          <button
+            class="popup-close-button"
+            aria-label="Close alert"
+            type="button"
+            data-close
+            (click)="closeSearchForm()"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <div class="searchform-content">
+            <form #searchform class="search" [formGroup]="customPCForm">
+              <h1 class="header-text">
+                Custom PC
+                <img src="/images/logoIcon.png" alt="ordersIcon" class="icons" />
+              </h1>
+              <div class="grid-container">
+                <div class="grid-item">
+                  <div class="searchform-control">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Select CPU</mat-label>
+                      <mat-select formControlName="processor">
+                        <mat-option
+                          *ngFor="let item of products?.processors"
+                          [value]="item"
+                        >
+                          {{ item.name }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="grid-item">
+                  <div class="searchform-control">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Select GPU</mat-label>
+                      <mat-select formControlName="graphicsCard">
+                        <mat-option
+                          *ngFor="let item of products?.graphicsCards"
+                          [value]="item"
+                        >
+                          {{ item.name }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="grid-item">
+                  <div class="searchform-control">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Select PSU</mat-label>
+                      <mat-select formControlName="psu">
+                        <mat-option
+                          *ngFor="let item of products?.psUs"
+                          [value]="item"
+                        >
+                          {{ item.name }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="grid-item">
+                  <div class="searchform-control">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Select MotherBoard</mat-label>
+                      <mat-select formControlName="motherBoard">
+                        <mat-option
+                          *ngFor="let item of products?.motherBoards"
+                          [value]="item"
+                        >
+                          {{ item.name }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="grid-item">
+                  <div class="searchform-control">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Select RAM</mat-label>
+                      <mat-select formControlName="ram">
+                        <mat-option
+                          *ngFor="let item of products?.raMs"
+                          [value]="item"
+                        >
+                          {{ item.name }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="grid-item">
+                  <div class="searchform-control">
+                    <mat-form-field appearance="outline">
+                      <mat-label>Select Case</mat-label>
+                      <mat-select formControlName="case">
+                        <mat-option
+                          *ngFor="let item of products?.cases"
+                          [value]="item"
+                        >
+                          {{ item.name }}
+                        </mat-option>
+                      </mat-select>
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="grid-item">
+                  <div class="popupsearchform-control-others">
+                    <button
+                      mat-button
+                      id="Reset-popup"
+                      type="button"
+                      (click)="resetCustomPCForm()"
+                    >
+                      Reset
+                    </button>
+                  </div>
+                </div>
+                <div class="grid-item">
+                  <div class="popupsearchform-control-others">
+                    <button
+                      mat-button
+                      id="Search-popup"
+                      type="submit"
+                      (click)="addToCartCustomPC()"
+                    >
+                      Add To Cart
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="pagination-container">
+        <pagination-controls (pageChange)="currentPage = $event"></pagination-controls>
+      </div>
+    </div>
+
+    <div class="searchform-container">
+      <div class="full-searchform-content">
+        <div class="searchform-content">
+          <form #searchform class="search">
+            <div class="grid-container">
+              <!-- CATEGORY -->
+              <div class="grid-item">
+                <div class="category-searchform-control">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Select Category</mat-label>
+                    <mat-select [(value)]="selectedCategory">
+                      <mat-option
+                        *ngFor="let item of categoryOptions"
+                        [value]="item"
+                      >
+                        {{ item }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <!-- CPU -->
+              <div class="grid-item">
+                <div class="searchform-control">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Select CPU</mat-label>
+                    <mat-select [(value)]="selectedCPU">
+                      <mat-option
+                        *ngFor="let item of cpuOptions"
+                        [value]="item"
+                      >
+                        {{ item }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <!-- GPU -->
+              <div class="grid-item">
+                <div class="searchform-control">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Select GPU</mat-label>
+                    <mat-select [(value)]="selectedGPU">
+                      <mat-option
+                        *ngFor="let item of gpuOptions"
+                        [value]="item"
+                      >
+                        {{ item }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <!-- Motherboard -->
+              <div class="grid-item">
+                <div class="searchform-control">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Select MotherBoard</mat-label>
+                    <mat-select [(value)]="selectedMotherBoard">
+                      <mat-option
+                        *ngFor="let item of motherBoardOptions"
+                        [value]="item"
+                      >
+                        {{ item }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <!-- RAM -->
+              <div class="grid-item">
+                <div class="searchform-control">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Select RAM</mat-label>
+                    <mat-select [(value)]="selectedRam">
+                      <mat-option
+                        *ngFor="let item of ramOptions"
+                        [value]="item"
+                      >
+                        {{ item }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <!-- PSU -->
+              <div class="grid-item">
+                <div class="searchform-control">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Select PSU</mat-label>
+                    <mat-select [(value)]="selectedPsu">
+                      <mat-option
+                        *ngFor="let item of psuOptions"
+                        [value]="item"
+                      >
+                        {{ item }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <!-- Case -->
+              <div class="grid-item">
+                <div class="searchform-control">
+                  <mat-form-field appearance="outline">
+                    <mat-label>Select Case</mat-label>
+                    <mat-select [(value)]="selectedCase">
+                      <mat-option
+                        *ngFor="let item of caseOptions"
+                        [value]="item"
+                      >
+                        {{ item }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+              </div>
+              <!-- Budget Slider -->
+              <div class="grid-item slider-full-width">
+                <h2>Budget</h2>
+                <div class="searchform-control">
+                  <mat-slider
+                    (change)="onSliderChange()"
+                    min="0"
+                    max="5000"
+                    step="10"
+                    discrete
+                    showTickMarks
+                  >
+                    <input
+                      matSliderStartThumb
+                      [(ngModel)]="minBudget"
+                      name="minBudget"
+                    />
+                    <input
+                      matSliderEndThumb
+                      [(ngModel)]="maxBudget"
+                      name="maxBudget"
+                    />
+                  </mat-slider>
+                </div>
+              </div>
+              <!-- Buttons -->
+              <div class="grid-item buttons-full-width">
+                <div class="searchform-control-others">
+                  <button mat-button id="Search" type="button" (click)="filterPCs()">
+                    Search
+                  </button>
+                  <button mat-button id="Reset" type="button" (click)="resetForm()">
+                    Reset
+                  </button>
+                </div>
+                <div class="build-pc-button">
+                  <div class="cardDetails-form-control-others"></div>
+                  <button id="BuildPC" type="button" (click)="openSearchForm()">
+                    Build Your Own PC
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</div>

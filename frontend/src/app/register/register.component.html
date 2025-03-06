@@ -1,0 +1,32 @@
+<app-nav-bar></app-nav-bar>
+<div class="register-container">
+  <div class="register-card">
+    <button class="close-button" aria-label="Close" type="button" (click)="closeRegisterForm()">&times;</button>
+    <h2 class="register-title">Create an Account</h2>
+    <form #registerForm (ngSubmit)="register()">
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" [(ngModel)]="model.username" required />
+      </div>
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" [(ngModel)]="model.email" required />
+      </div>
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" [(ngModel)]="model.password" required />
+      </div>
+      <div class="input-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="model.confirmPassword" required />
+      </div>
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+      <div class="button-group">
+        <button type="submit" class="btn register-btn">Register</button>
+        <button type="button" class="btn cancel-btn" (click)="closeRegisterForm()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

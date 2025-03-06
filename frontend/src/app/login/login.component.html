@@ -1,0 +1,24 @@
+<app-nav-bar></app-nav-bar>
+<div class="login-container">
+  <div class="login-card">
+    <button class="close-button" aria-label="Close" type="button" (click)="closeLoginForm()">&times;</button>
+    <h2 class="login-title">Welcome to EasyPC</h2>
+    <form #loginForm (ngSubmit)="login()">
+      <div class="input-group">
+        <label for="username">Username</label>
+        <input type="text" id="username" name="username" [(ngModel)]="model.username" required />
+      </div>
+      <div class="input-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" [(ngModel)]="model.password" required />
+      </div>
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+      <div class="button-group">
+        <button type="submit" class="btn login-btn">Login</button>
+        <button type="button" class="btn cancel-btn" (click)="closeLoginForm()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>

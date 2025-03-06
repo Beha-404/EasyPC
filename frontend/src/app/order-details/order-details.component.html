@@ -1,0 +1,12 @@
+<div class="mainDiv">
+    <app-nav-bar></app-nav-bar>
+    <div class="orders-container">
+        <div class="order-item">
+            <div class="order-summary">
+                <p><strong>Order ID:</strong> #{{ order?.id }}</p>
+                <p><strong>Order details:</strong><div [innerHTML]="order?.details"></div>
+                <p><strong>Total:</strong> ${{ order?.total }}</p>
+            </div>
+        </div>
+    </div>
+</div>

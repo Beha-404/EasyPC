@@ -1,0 +1,107 @@
+<div class="mainDiv">
+    <div class="navBar">
+        <app-nav-bar></app-nav-bar>
+    </div>
+
+    <div class="editProfile">
+        <div>
+            <h1>Edit Profile</h1>
+        </div>
+        <form #editProfileForm="ngForm" class="editProfileForm" (ngSubmit)="submitChanges()">
+            <table class="editNameTable">
+                <tr>
+                    <td>
+                        <div class="input-container">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" [(ngModel)]="user.firstName" name="firstName"
+                                placeholder="Ex. John" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-container">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" [(ngModel)]="user.lastName" name="lastName"
+                                placeholder="Ex. Doe" />
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <table class="editResidenceTable">
+                <tr>
+                    <td>
+                        <div class="input-container">
+                            <label for="city">City</label>
+                            <input type="text" id="city" [(ngModel)]="user.city" name="city"
+                                placeholder="Ex. San Francisco" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-container">
+                            <label for="state">State</label>
+                            <input type="text" id="state" [(ngModel)]="user.state" name="state"
+                                placeholder="Ex. California" />
+                        </div>
+                    </td>
+                    <td>
+                        <div class="input-container">
+                            <label for="postalCode">Postal Code</label>
+                            <input type="text" id="postalCode" maxlength="5" [(ngModel)]="user.postalCode"
+                                name="postalCode" placeholder="Ex. 94105" />
+                        </div>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="input-container">
+                <label for="country">Country</label>
+                <input class="country" [(ngModel)]="user.country" name="country" id="country" placeholder="Ex. USA">
+            </div>
+            <hr>
+            <div>
+                <p>Profile picture</p>
+            </div>
+            <div id="profile-container" class="profile-container">
+                <div class="current-profile">
+                    <p>Current</p>
+                    <img *ngIf="originalUser.profilePicture" [src]="'data:image/;base64,' + originalUser.profilePicture"/>
+                </div>
+
+                <div id="dropArea" class="drop-area" 
+                    (click)="triggerFileInput()"
+                    (dragover)="onDragOver($event)"
+                    (dragleave)="onDragLeave()"
+                    (drop)="onDrop($event)">
+                    <ng-container *ngIf="previewURL; else noPreview">
+                        <div id="preview">
+                            <img *ngIf="previewURL" [src]="previewURL" alt="Preview" />
+                        </div>
+                    </ng-container>
+                    <ng-template #noPreview>
+                        <p>Drag & Drop your new image here or <span>click to select image</span></p>
+                        <input type="file" id="profilePicture" (change)="onSelectedFile($event)" accept="image/*"
+                            hidden />
+                    </ng-template>
+                </div>
+            </div>
+            <div class="buttons">
+                <div class="left-buttons">
+                    <button class="acceptBtn" type="submit">Accept Changes</button>
+                    <button class="cancelBtn" type="button" (click)="resetChanges()">Cancel Changes</button>
+                </div>
+                <ng-container *ngIf="!openDeleteForm">
+                    <button class="deleteBtn" type="button" (click)="toggleDeleteForm()">Delete profile</button>
+                </ng-container>
+            </div>
+            <ng-container *ngIf="openDeleteForm">
+                <div class="delete-form">
+                    <p>Are you sure you want to delete your account? This action cannot be undone.</p>
+                    <div class="confirmationButtons">
+                        <button class="deleteConfirmBtn" type="button" (click)="deleteProfile()">Yes, Delete</button>
+                        <button class="cancelDeleteBtn" type="button" (click)="toggleDeleteForm()">Cancel</button>
+                    </div>
+                </div>
+            </ng-container>            
+        </form>
+    </div>
+</div>

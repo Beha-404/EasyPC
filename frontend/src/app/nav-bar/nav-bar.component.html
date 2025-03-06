@@ -1,0 +1,43 @@
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+
+<nav class="nav-bar">
+    <ul class="navhome">
+        <li><a mat-button routerLink="/home">EasyPC<img src="/images/logoIcon.png" alt="ordersIcon" class="icons"></a></li>
+    </ul>
+    @if (accountService.currentUser()) {
+    <ul class="navcenter">
+        <ng-container *ngIf="accountService.currentUser()?.role === 1">
+            <li><a mat-button routerLink="/products" routerLinkActive="active">Products<img src="/images/productsIcon.png" alt="ordersIcon" class="icons"></a></li>
+        </ng-container>
+        <li><a mat-button routerLink="/support" routerLinkActive="active">Support<img src="/images/supportIcon.png" alt="supportIcon" class="icons"></a></li>
+        <li><a mat-button (click)="checkLoginStatus()" routerLink="/orders" routerLinkActive="active">Orders<img src="/images/ordersIcon.png" alt="ordersIcon" class="icons"></a></li>
+    </ul>
+    }
+    @else {
+        <ul class="navcenter">
+            <li><a mat-button (click)="checkLoginStatus()" routerLink="/orders" routerLinkActive="active">Orders<img src="/images/ordersIcon.png" alt="ordersIcon" class="icons"></a></li>
+        </ul>
+    }
+    <ul class="navright">
+        @if (!accountService.currentUser()) {
+        <li><a mat-button id="loginButton" (click)="LoginForm()" routerLinkActive="active-link">Login</a></li>
+        <li><a mat-button id="registerButton" (click)="RegisterForm()" routerLinkActive="active-link">Register</a>
+        </li>
+        }
+        @else {
+        <li class="dropdown">
+            <a mat-button id="welcomeUser" (click)="toggleDropDown()" class="dropdown-toggle">
+                <span class="welcome-text"><img src="/images/userIcon.png" alt="ordersIcon" class="icons">User: </span>
+                <span class="user-text"> {{accountService.currentUser()?.username}}</span> &#9662;
+            </a>
+            <ul class="dropdown-menu" *ngIf="isDropDownVisible">
+                <li><a mat-button routerLink="/edit-profile" routerLinkActive="active-link">Edit profile</a></li>
+                <li><a mat-button routerLink="/" (click)="accountService.logout()">Logout</a></li>
+            </ul>
+        </li>
+        }
+    </ul>
+</nav>
