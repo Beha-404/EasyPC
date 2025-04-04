@@ -1,0 +1,26 @@
+<div class="mainDiv">
+  <app-nav-bar></app-nav-bar>
+    <div class="support-container">
+      <h1>Support Center</h1>
+      <p>Need help finding the right PC? Ask our support team!</p>
+  
+      <div class="chat-box">
+        <div class="messages" *ngFor="let Message of userMessage">
+          <div class="user-message" *ngIf="Message.sender === 'user'">
+            <p class="message-sender-user">User:</p>
+            <p>{{ Message.text }}</p>
+          </div>
+          <div class="support-message" *ngIf="Message.sender === 'support'">
+            <p class="message-sender-admin">Admin:</p>
+            <p>{{ Message.text }}</p>
+          </div>
+        </div>
+      </div>
+  
+      <form (submit)="sendMessage()" class="message-form">
+        <input class="send-message" type="text" name="userMessage" [(ngModel)]="newMessage" placeholder="Type your message here..." required />
+        <button type="submit">Send message</button>
+      </form>
+    </div>
+  </div>
+  

@@ -1,0 +1,233 @@
+*{box-sizing: border-box;}
+.mainDiv {
+    background: linear-gradient(360deg, #2f2626, #3e3e3e);
+    height: 100vh;
+    width: 100%;
+}
+
+.orders-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.orders-container h1 {
+    font-size: 2rem;
+    color: #ffcc00;
+    margin-bottom: 20px;
+}
+
+.search-filter-container {
+    display: flex;
+    gap: 20px;
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 20px;
+}
+
+.search-bar {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #555;
+    border-radius: 5px;
+    background-color: #333;
+    color: white;
+    font-size: 16px;
+}
+
+.filter-select {
+    padding: 10px;
+    border: 1px solid #ffcc00;
+    border-radius: 5px;
+    background-color: #292929;
+    color: white;
+    font-size: 16px;
+}
+
+.orders-list {
+    width: 100%;
+    max-width: 800px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px;
+    background-color: #292929;
+    border: 1px solid #ffcc00;
+    border-radius: 5px;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin: 10px;
+    width: 40%;
+}
+
+.order-item:hover {
+    transform: scale(1.015);
+    box-shadow: 0 4px 8px rgba(255, 204, 0, 0.5);
+}
+
+.order-summary p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.status.delivered {
+    background-color: #00cc66;
+    color: #fff;
+}
+
+.status.pending {
+    background-color: #ffa500;
+    color: #333;
+}
+
+.status.waiting {
+    background-color: white;
+    color: #333;
+}
+
+.status.shipped {
+    background-color: #00aaff;
+    color: #fff;
+}
+
+.details-btn {
+    background-color: #ffcc00;
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.details-btn:hover {
+    background-color: #ebdb00;
+}
+
+.order-details {
+    width: 90%;
+    max-width: 800px;
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #4a4a4a;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.order-details h2 {
+    font-size: 1.5rem;
+    color: #ffcc00;
+    margin-bottom: 10px;
+}
+
+.order-details ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.order-details ul li {
+    margin-bottom: 5px;
+}
+
+.close-details-btn {
+    background-color: #777;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+}
+
+.close-details-btn:hover {
+    background-color: #555;
+}
+
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+    width: auto;
+}
+
+.details-btn {
+    width: auto;
+    min-width: 120px;
+}
+
+@media (max-width: 768px) {
+    .search-filter-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .orders-list {
+        gap: 10px;
+    }
+
+    .details-btn, .close-details-btn {
+        width: 100%;
+    }
+}
+
+:host ::ng-deep .ngx-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+:host ::ng-deep .ngx-pagination li {
+    cursor: pointer;
+}
+
+:host ::ng-deep .ngx-pagination li a {
+    display: block;
+    padding: 8px 12px;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+:host ::ng-deep .ngx-pagination li a:hover {
+    background-color: #88813a;
+}
+
+:host ::ng-deep .ngx-pagination .current a {
+    color: white;
+    background-color: white;
+}
+
+:host ::ng-deep .ngx-pagination .pagination-next a {
+    color: white;
+    font-weight: bold;
+}
+
+:host ::ng-deep .ngx-pagination .pagination-previous a {
+    color: white;
+}
+
+:host ::ng-deep .ngx-pagination .pagination-next{
+    color: white;
+}
+:host ::ng-deep .ngx-pagination .pagination-previous a {
+    color: white;
+}
