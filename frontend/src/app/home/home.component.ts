@@ -182,12 +182,12 @@ export class HomeComponent implements OnInit {
   addNewOrder(pcData: any) {
     const description =
       `
-        <strong> Processor:  </strong> ${pcData.processor} <br>
-        <strong> Graphics Card:  </strong>${pcData.graphicsCard} <br>
-        <strong> RAM:  </strong> ${pcData.ram} <br>
-        <strong> Motherboard:  </strong> ${pcData.motherBoard} <br>
-        <strong> Case: </strong> ${pcData.case} <br>
-        <strong> Power Supply:  </strong> ${pcData.psu} <br>
+        <strong> Processor:  </strong> ${pcData.processor.name} <br>
+        <strong> Graphics Card:  </strong>${pcData.graphicsCard.name} <br>
+        <strong> RAM:  </strong> ${pcData.ram.name} <br>
+        <strong> Motherboard:  </strong> ${pcData.motherBoard.name} <br>
+        <strong> Case: </strong> ${pcData.case.name} <br>
+        <strong> Power Supply:  </strong> ${pcData.psu.name} <br>
 
         `
 

@@ -39,8 +39,6 @@ export class LoginComponent {
     this.router.navigateByUrl("/home");
   }
   login() {
-    console.log(this.model);
-    
     this.services.accountService.login(this.model).subscribe({
       next: () => {
         this.errorMessage = "";

@@ -121,7 +121,7 @@ public class DataContext(DbContextOptions options) : DbContext(options)
             new RAM
             {
                 Id = 2,
-                Name = "Corsair 16GB 2x8GB 3200MHz DDR4 Vengeance LPX",
+                Name = "Corsair 16GB 3200MHz DDR4 Vengeance LPX",
                 Type = "RAM",
                 Price = 100,
                 Speed = "3200"
@@ -129,7 +129,7 @@ public class DataContext(DbContextOptions options) : DbContext(options)
              new RAM
              {
                  Id = 1,
-                 Name = "Corsair Vengeance DDR5 6000MHz 32GB 2x16GB RGB",
+                 Name = "Corsair Vengeance DDR5 6000MHz 32GBRGB",
                  Type = "RAM",
                  Price = 200,
                  Speed = "6000"
