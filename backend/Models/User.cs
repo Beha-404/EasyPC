@@ -7,7 +7,9 @@ public class User
     public int Id { get; set; }
     public required string Username { get; set; }
     public required string Password { get; set; }
-    public  string? FirstName { get; set; }
+    public  required byte[] Hash { get; set; }
+    public  required byte[] Salt { get; set; }
+    public string? FirstName { get; set; }
     public  string? Email { get; set; }
     public  string? LastName { get; set; }
     public  string? City { get; set; }

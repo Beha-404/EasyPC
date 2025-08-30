@@ -1,5 +1,6 @@
 {
   "APP": {
+    "LANGUAGE": "English",
     "TITLE": "Welcome to our app",
     "DESCRIPTION": "This is an example of localization."
   },
@@ -11,5 +12,26 @@
     "PASSWORD_PLACEHOLDER": "Enter password",
     "SAVE_LOGIN": "Save login",
     "BUTTON": "Login"
+  },
+  "EDIT_PROFILE": {
+    "TITLE": "Edit Profile",
+    "FIRST_NAME": "First Name:",
+    "LAST_NAME": "Last Name:",
+    "CITY": "City:",
+    "STATE": "State:",
+    "POSTAL_CODE": "Postal Code:",
+    "COUNTRY": "Country:",
+    "ADDRESS": "Address:",
+    "PROFILE_PICTURE": "Profile Picture:",
+    "CURRENT": "CURRENT PROFILE PICTURE",
+    "DELETE_PROFILE": "Delete Profile",
+    "ACCEPT_CHANGES": "Accept Changes",
+    "CANCEL_CHANGES": "Cancel Changes",
+    "DELETE_CONFIRMATION": "Are you sure you want to delete your profile? This action cannot be undone.",
+    "DELETE_CONFIRM": "Yes, Delete",
+    "CANCEL": "Cancel",
+    "ERROR_MINLENGTH": "Minimum length is 2 characters.",
+    "ERROR_MAXLENGTH": "Maximum length is 40 characters.",
+    "ERROR_REQUIRED": "This field is required."
   }
 }

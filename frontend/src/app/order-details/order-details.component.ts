@@ -6,18 +6,18 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-order-details',
-  imports: [NavBarComponent,CommonModule],
+  imports: [NavBarComponent, CommonModule],
   templateUrl: './order-details.component.html',
   styleUrl: './order-details.component.css'
 })
 export class OrderDetailsComponent implements OnInit {
 
-  order:any;
-  orderId:number;
+  order: any;
+  orderId: number;
 
   constructor(
-    private services:ServicesContainerService,
-    private route:ActivatedRoute
+    private services: ServicesContainerService,
+    private route: ActivatedRoute
   ) {
     this.orderId = Number(this.route.snapshot.paramMap.get("id"));
   }
@@ -25,7 +25,11 @@ export class OrderDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.getOrder();
   }
-  
+
+  goBack() {
+    this.services.routerService.navigateByUrl('/orders');
+  }
+
   getOrder() {
     this.services.orderService.getByOrderId(this.orderId).subscribe({
       next: (res) => {

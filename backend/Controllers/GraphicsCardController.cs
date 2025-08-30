@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 namespace Backend.Controllers;
 
-
+[Authorize]
 public class GraphicsCardController(DataContext context) : BaseApiController
 {
     [HttpGet("all")]

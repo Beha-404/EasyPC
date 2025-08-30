@@ -56,47 +56,47 @@
         <h1>Add new {{selectedType()}}</h1>
         <form class="formAddProduct" (submit)="addProduct()">
             <label>Name</label>
-            <input type="text" placeholder="Name" required name="name" [(ngModel)]="newModel.name">
+            <input type="text" required name="name" [(ngModel)]="newModel.name">
             <div *ngIf="selectedType() !== 'PC'">
               <label>Price</label>
-              <input type="text" placeholder="Price" required name="price" [(ngModel)]="newModel.price">
+              <input type="text" required name="price" [(ngModel)]="newModel.price">
             </div>
            
             <div *ngIf="selectedType() === 'CPU'">
                 <label>Socket</label>
-                <input type="text" placeholder="Socket" required name="socket" [(ngModel)]="newModel.socket">
+                <input type="text" required name="socket" [(ngModel)]="newModel.socket">
                 <label>Thread Count</label>
-                <input type="text" placeholder="Thread Count" required name="threadCount"
+                <input type="text" required name="threadCount"
                     [(ngModel)]="newModel.threadCount">
                 <label>Core Count</label>
-                <input type="text" placeholder="Core Count" required name="coreCount" [(ngModel)]="newModel.coreCount">
+                <input type="text" required name="coreCount" [(ngModel)]="newModel.coreCount">
             </div>
 
             <div *ngIf="selectedType() === 'GPU'">
                 <label>Vram</label>
-                <input type="text" placeholder="Vram" required name="vram" [(ngModel)]="newModel.vram">
+                <input type="text" required name="vram" [(ngModel)]="newModel.vram">
             </div>
 
             <div *ngIf="selectedType() === 'PSU'">
                 <label>Power</label>
-                <input type="text" placeholder="Power" required name="power" [(ngModel)]="newModel.power">
+                <input type="text" required name="power" [(ngModel)]="newModel.power">
             </div>
 
             <div *ngIf="selectedType() === 'CASE'">
                 <label>Form factor</label>
-                <input type="text" placeholder="Form factor" required name="formFactor"
+                <input type="text" required name="formFactor"
                     [(ngModel)]="newModel.formFactor">
             </div>
 
 
             <div *ngIf="selectedType() === 'MOTHERBOARD'">
                 <label>Socket</label>
-                <input type="text" placeholder="Socket" required name="socket" [(ngModel)]="newModel.socket">
+                <input type="text" required name="socket" [(ngModel)]="newModel.socket">
             </div>
 
             <div *ngIf="selectedType() === 'RAM'">
                 <label>Speed</label>
-                <input type="text" placeholder="Speed" required name="speed" [(ngModel)]="newModel.speed">
+                <input type="text" required name="speed" [(ngModel)]="newModel.speed">
             </div>
 
             <div *ngIf="selectedType() === 'PC'">

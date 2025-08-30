@@ -1,6 +1,7 @@
 using System;
 using Backend.Models;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
 
 namespace Backend.Data;
 
@@ -19,24 +20,7 @@ public class DataContext(DbContextOptions options) : DbContext(options)
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
-        builder.Entity<User>().HasData(
-           new User
-           {
-               Id = 1,
-               Username = "admin",
-               Password = "123123",
-               Role = UserRole.Admin,
-               Email = "admin@gmail.com"
-           },
-            new User
-            {
-                Id = 2,
-                Username = "user",
-                Password = "123123",
-                Role = UserRole.User,
-                Email = "user@gmail.com"
-            }
-       );
+
 
         builder.Entity<Processor>().HasData(
             new Processor
@@ -152,25 +136,5 @@ public class DataContext(DbContextOptions options) : DbContext(options)
                  Price = 100,
              }
         );
-        builder.Entity<Order>().HasData(
-    new Order
-    {
-        Id = 1,
-        Details = "Empty",
-        Status = "Shipped",
-        UserId = 1,
-        Date = new DateTime(2025,2,2),
-        Total = 200,
-    },
-    new Order
-    {
-        Id = 2,
-        Details = "Empty",
-        Status = "Waiting",
-        UserId = 2,
-        Date = new DateTime(2025,2,2),
-        Total = 400,
-    }
-    );
     }
 }

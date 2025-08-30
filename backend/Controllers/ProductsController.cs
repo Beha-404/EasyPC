@@ -4,11 +4,14 @@ using Backend.Dtos;
 using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Backend.Controllers;
 
+[Authorize]
 public class ProductsController(DataContext context) : BaseApiController
 {
+    [AllowAnonymous]
     [HttpGet("all")]
     public async Task<ActionResult<Products>> getProducts()
     {

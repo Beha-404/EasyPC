@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace backend.Migrations
 {
     /// <inheritdoc />
-    public partial class inital : Migration
+    public partial class AuthV10 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -121,6 +121,8 @@ namespace backend.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Hash = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    Salt = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -269,26 +271,8 @@ namespace backend.Migrations
                 columns: new[] { "Id", "Name", "Price", "Speed", "Type" },
                 values: new object[,]
                 {
-                    { 1, "Corsair Vengeance DDR5 6000MHz 32GB 2x16GB RGB", 200, "6000", "RAM" },
-                    { 2, "Corsair 16GB 2x8GB 3200MHz DDR4 Vengeance LPX", 100, "3200", "RAM" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "Id", "Address", "City", "Country", "Email", "FirstName", "LastName", "Password", "PostalCode", "Role", "State", "Username", "profilePicture" },
-                values: new object[,]
-                {
-                    { 1, null, null, null, "admin@gmail.com", null, null, "123123", null, 1, null, "admin", null },
-                    { 2, null, null, null, "user@gmail.com", null, null, "123123", null, 0, null, "user", null }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Orders",
-                columns: new[] { "Id", "Date", "Details", "Status", "Total", "UserId" },
-                values: new object[,]
-                {
-                    { 1, new DateTime(2025, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "Empty", "Shipped", 200, 1 },
-                    { 2, new DateTime(2025, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), "Empty", "Waiting", 400, 2 }
+                    { 1, "Corsair Vengeance DDR5 6000MHz 32GBRGB", 200, "6000", "RAM" },
+                    { 2, "Corsair 16GB 3200MHz DDR4 Vengeance LPX", 100, "3200", "RAM" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
   currentPage:number = 1;
   itemsPerPage:number = 3;
   pcs: any;
-  filteredPCs: any;
+  filteredPCs: any[] = [];
   selectedPC: any;
   localPC: any
   customPCForm!: FormGroup
@@ -72,6 +72,7 @@ export class HomeComponent implements OnInit {
     public fb: FormBuilder
   ) {
     this.userData = this.services.accountService.currentUser();
+    
   }
 
   ngOnInit(): void {
@@ -198,6 +199,7 @@ export class HomeComponent implements OnInit {
       details: description,
       date: new Date().toISOString()
     };
+    
     this.services.orderService.addItem(orderData).subscribe({
       next: () => {
         this.services.toastrService.success("Success");

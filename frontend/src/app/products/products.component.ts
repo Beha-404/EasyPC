@@ -82,7 +82,6 @@ export class ProductsComponent implements OnInit {
     this.services.pcService.getAll().subscribe({
       next: (res) => {
         this.pcs = res;
-       // console.log(this.pcs);
       }
     })
   }
@@ -91,7 +90,6 @@ export class ProductsComponent implements OnInit {
     this.services.productsService.getItems().subscribe({
       next: (output) => {
         this.products = output;
-       // console.log("Proizvodi: ",this.products);
       }
     })
   }
@@ -153,6 +151,7 @@ export class ProductsComponent implements OnInit {
   }
 
   addProduct() {
+
     type ServiceType = {
       addItem: (model: any) => Observable<any>;
     };

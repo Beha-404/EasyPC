@@ -6,10 +6,12 @@ using Backend.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
-namespace backend.Controllers
-{
-    public class OrderController(DataContext db) : BaseApiController
+namespace backend.Controllers;
+
+[Authorize]
+public class OrderController(DataContext db) : BaseApiController
     {
         [HttpGet("all")]
         public async Task<ActionResult> GetAll()
@@ -104,9 +106,9 @@ namespace backend.Controllers
             if (order == null) return NotFound("No orders with this ID found");
 
             order.Status = "Shipped";
-                
+
             await db.SaveChangesAsync();
             return Ok();
         }
     }
-}
+

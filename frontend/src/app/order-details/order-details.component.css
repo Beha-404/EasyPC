@@ -5,6 +5,7 @@
 .mainDiv {
     background: linear-gradient(360deg, #2f2626, #3e3e3e);
     height: 100vh;
+    overflow: hidden;
     width: 100%;
     font-family: Arial, sans-serif;
 }
@@ -42,17 +43,27 @@
 }
 
 .waiting {
-    background-color: #FFA500; /* narandžasta */
+    background-color: #FFA500; 
 }
 
 .pending {
-    background-color: #1E90FF; /* dodgerblue */
+    background-color: #1E90FF; 
 }
 
 .delivered {
-    background-color: #32CD32; /* limegreen */
+    background-color: #32CD32; 
 }
 
 .shipped {
-    background-color: #8A2BE2; /* blueviolet */
+    background-color: #8A2BE2; 
+}
+
+.btn{
+    background-color: #473b3b;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 20px;
 }

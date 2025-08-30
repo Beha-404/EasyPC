@@ -1,25 +1,34 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { User } from '../_models/User';
+import { AuthHeaderService } from './auth-header.service';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-    private http = inject(HttpClient);
-    baseURL = "http://localhost:5132/api/";
-    currentUser = signal<User | null>(null);
-  
-    deleteUser(name:any){
-      this.http.delete<User>(this.baseURL+'users/'+name)
-    }
+  private http = inject(HttpClient);
+  private authHeaderService = inject(AuthHeaderService);
+  baseURL = "http://localhost:5132/api/";
 
-    getUserById(id:number){
-      this.http.get<User>(this.baseURL+'users/id/'+id)
-    }
+  getUserById(id: number) {
+    return this.http.get<User>(this.baseURL + 'users/id/' + id, this.authHeaderService.getAuthHeaders());
+  }
 
-    getUserByUsername(username:string){
-      this.http.get<User>(this.baseURL+'users/'+ username)
-    }
+  getUserByUsername(username: string) {
+    return this.http.get<User>(this.baseURL + 'users/' + username, this.authHeaderService.getAuthHeaders());
+  }
+
+  deleteUser(name: any) {
+    return this.http.delete<User>(this.baseURL + 'users/' + name, this.authHeaderService.getAuthHeaders());
+  }
+
+  updateUser(name: any, data: any) {
+    return this.http.put<User>(this.baseURL + 'users/' + name, data, this.authHeaderService.getAuthHeaders());
+  }
+
+
+
 }

@@ -26,7 +26,6 @@ closeRegisterForm() {
 }
 
 register() {
-  console.log(this.model);
   
   this.services.accountService.register(this.model).subscribe(
     {

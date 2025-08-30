@@ -1,5 +1,6 @@
 {
   "APP": {
+    "LANGUAGE": "Bosanski",
     "TITLE": "Dobrodošli u našu aplikaciju",
     "DESCRIPTION": "Ovo je primjer lokalizacije."
   },
@@ -11,6 +12,26 @@
     "PASSWORD_PLACEHOLDER": "Unesite šifru",
     "SAVE_LOGIN": "Sačuvaj prijavu",
     "BUTTON": "Prijavi se"
+  },
+  "EDIT_PROFILE": {
+    "TITLE": "Uredi profil",
+    "FIRST_NAME": "Korisničko ime:",
+    "LAST_NAME": "Korisničko prezime:",
+    "CITY": "Grad:",
+    "STATE": "Država:",
+    "POSTAL_CODE": "Poštanski broj:",
+    "COUNTRY": "Zemlja:",
+    "ADDRESS": "Adresa:",
+    "PROFILE_PICTURE": "Profilna slika:",
+    "CURRENT": "TRENUTNA PROFILNA SLIKA",
+    "DELETE_PROFILE": "Obriši profil",
+    "ACCEPT_CHANGES": "Prihvati promjene",
+    "CANCEL_CHANGES": "Otkaži promjene",
+    "DELETE_CONFIRMATION": "Da li ste sigurni da želite obrisati svoj profil? Ova radnja se ne može poništiti.",
+    "DELETE_CONFIRM": "Da, obriši",
+    "CANCEL": "Otkaži",
+    "ERROR_MINLENGTH": "Minimalna dužina je 2 karaktera.",
+    "ERROR_MAXLENGTH": "Maksimalna dužina je 40 karaktera.",
+    "ERROR_REQUIRED": "Ovo polje je obavezno."
   }
 }
-

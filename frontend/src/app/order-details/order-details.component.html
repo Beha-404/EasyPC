@@ -4,9 +4,14 @@
         <div class="order-item">
             <div class="order-summary">
                 <p><strong>Order ID:</strong> #{{ order?.id }}</p>
-                <p><strong>Order details:</strong><div [innerHTML]="order?.details"></div>
+                <p><strong>Order details:</strong>
+                <div [innerHTML]="order?.details"></div>
                 <p><strong>Total:</strong> ${{ order?.total }}</p>
             </div>
+        </div>
+
+        <div>
+            <button type="button" class="btn" (click)="goBack()">Go back</button>
         </div>
     </div>
 </div>

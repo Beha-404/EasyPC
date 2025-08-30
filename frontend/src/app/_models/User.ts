@@ -11,4 +11,5 @@ export interface User{
     postalCode: string;
     address: string;
     role?:number;
+    token?: string;
 }

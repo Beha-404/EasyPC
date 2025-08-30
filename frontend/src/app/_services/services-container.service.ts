@@ -13,6 +13,7 @@ import { ProductsService } from './products.service';
 import { PcService } from './pc.service';
 import { OrderService } from './order.service';
 import { UserService } from './user.service';
+import { AuthHeaderService } from './auth-header.service';
 
 @Injectable({
   providedIn: 'root'
@@ -33,6 +34,7 @@ export class ServicesContainerService {
     public productsService:ProductsService,
     public pcService:PcService,
     public orderService:OrderService,
-    public userService:UserService
+    public userService:UserService,
+    public authHeaderService:AuthHeaderService
   ) { }
 }

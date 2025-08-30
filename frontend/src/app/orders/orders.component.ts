@@ -23,7 +23,7 @@ export class OrdersComponent implements OnInit {
   orders: Orders[] = [];
   filteredOrders: Orders[] = [];
   searchFilter = '';
-  statusFilter = '';
+  statusFilter = 'all';
 
   constructor(
     public services: ServicesContainerService,
@@ -37,7 +37,8 @@ export class OrdersComponent implements OnInit {
   }
 
   getOrders() {
-    if (this.services.accountService.currentUser()?.role === 1) {
+    var user = this.services.accountService.currentUser();
+    if (user?.role === 1) {
       this.services.orderService.getAll().subscribe({
         next: (res) => {
           this.orders = res;
@@ -45,7 +46,7 @@ export class OrdersComponent implements OnInit {
         }
       })
     }
-    else {
+    else if (user?.id) {
       this.services.orderService.getByUserId(Number(this.userData.id)).subscribe({
         next: (res) => {
           this.orders = res;

@@ -4,13 +4,14 @@ using System.Security.Cryptography;
 using System.Text;
 using Backend.Data;
 using Backend.Dtos;
+using Backend.Interfaces;
 using Backend.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Backend.Controllers;
-
-public class AccountController(DataContext context) : BaseApiController
+public class AccountController(DataContext context, ITokenService tokenService) : BaseApiController
 {
 
     [HttpPost("Register")]
@@ -33,16 +34,19 @@ public class AccountController(DataContext context) : BaseApiController
         }
         var defaultProfilePicture = await System.IO.File.ReadAllBytesAsync(defaultProfilePicturePath);
 
+        var hmac = new HMACSHA512();
 
         var user = new User
         {
             Username = registerDto.Username.ToLower(),
             profilePicture = defaultProfilePicture,
             Password = registerDto.Password,
+            Hash = hmac.ComputeHash(Encoding.UTF8.GetBytes(registerDto.Password)),
+            Salt = hmac.Key,
             Email = registerDto.Email
         };
 
-        if (user.Username.Length < 5)
+        if (user.Username.Length < 3)
             return BadRequest("Username too short");
 
         context.Users.Add(user);
@@ -50,10 +54,10 @@ public class AccountController(DataContext context) : BaseApiController
 
         return new UserDto
         {
+            ID = user.Id,
             Username = user.Username,
-            Password = user.Password,
-            Role = user.Role,
-            Email = user.Email
+            Token = tokenService.CreateToken(user),
+            Role = user.Role
         };
     }
 
@@ -62,16 +66,23 @@ public class AccountController(DataContext context) : BaseApiController
     {
         var user = await context.Users.FirstOrDefaultAsync(x => x.Username == loginDto.Username.ToLower());
 
-        if (user == null) return Unauthorized("User not found (invalid username)");
+        if (user == null) return Unauthorized("User not found");
 
-        if (user.Password != loginDto.Password) return BadRequest("Wrong password try again");
+        var hmac = new HMACSHA512(user.Salt);
+
+        var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
+
+        for (int i = 0; i < computedHash.Length; i++)
+        {
+            if (computedHash[i] != user.Hash[i]) return Unauthorized("Invalid password");
+        }
 
         return new UserDto
         {
+            ID = user.Id,
             Username = user.Username,
-            Password = user.Password,
-            Role = user.Role,
-            Id = user.Id
+            Token = tokenService.CreateToken(user),
+            Role = user.Role
         };
     }
 

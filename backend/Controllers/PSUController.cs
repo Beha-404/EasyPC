@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers;
 
-
+[Authorize]
 public class PSUController(DataContext context) : BaseApiController
 {
     [HttpGet("all")]

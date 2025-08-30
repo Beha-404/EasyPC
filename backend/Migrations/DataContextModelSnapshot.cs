@@ -193,26 +193,6 @@ namespace backend.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Orders");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Date = new DateTime(2025, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Details = "Empty",
-                            Status = "Shipped",
-                            Total = 200,
-                            UserId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Date = new DateTime(2025, 2, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Details = "Empty",
-                            Status = "Waiting",
-                            Total = 400,
-                            UserId = 2
-                        });
                 });
 
             modelBuilder.Entity("Backend.Models.PC", b =>
@@ -445,6 +425,10 @@ namespace backend.Migrations
                     b.Property<string>("FirstName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<byte[]>("Hash")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
                     b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
@@ -457,6 +441,10 @@ namespace backend.Migrations
 
                     b.Property<int>("Role")
                         .HasColumnType("int");
+
+                    b.Property<byte[]>("Salt")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<string>("State")
                         .HasColumnType("nvarchar(max)");
@@ -471,24 +459,6 @@ namespace backend.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Email = "admin@gmail.com",
-                            Password = "123123",
-                            Role = 1,
-                            Username = "admin"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Email = "user@gmail.com",
-                            Password = "123123",
-                            Role = 0,
-                            Username = "user"
-                        });
                 });
 
             modelBuilder.Entity("Backend.Models.Order", b =>

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers;
 
-
+[Authorize]
 public class CaseController(DataContext context) : BaseApiController
 {
     [HttpGet("all")]

@@ -5,11 +5,13 @@ using Backend.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
 
 namespace backend.Controllers
 {
     public class PcController(DataContext context) : BaseApiController
     {
+        [AllowAnonymous]
         [HttpGet("all")]
         public async Task<ActionResult<PC>> GetAll()
         {
@@ -25,12 +27,12 @@ namespace backend.Controllers
             return Ok(PCs);
         }
 
-
+        [AllowAnonymous]
         [HttpGet("id/{id}")]
         public async Task<ActionResult> GetByID(int id)
         {
             var pc = await context.Pcs.FirstOrDefaultAsync(x => x.Id == id);
-            if (pc == null) return NotFound("No pcs found");
+            if (pc == null) return NotFound("Cant find PC with this ID");
 
             var dto = new PcDto
             {
@@ -50,6 +52,7 @@ namespace backend.Controllers
             return Ok(dto);
         }
 
+        [Authorize]
         [HttpPost("register")]
         public async Task<ActionResult<PcDto>> Register(PC pc)
         {
@@ -101,6 +104,7 @@ namespace backend.Controllers
             return newPC;
         }
 
+        [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult<PC>> Delete(int id)
         {
@@ -115,7 +119,7 @@ namespace backend.Controllers
         }
 
 
-
+        [Authorize]
         [HttpPut("{name}")]
         public async Task<ActionResult<PC>> Update(string name, PC pc)
         {

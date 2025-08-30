@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend.Controllers;
+[Authorize]
 public class ProcessorController(DataContext context) : BaseApiController
 {
     [HttpGet("all")]

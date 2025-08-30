@@ -10,7 +10,6 @@ export const routes: Routes = [
   { path: 'login', loadComponent: () => import('./login/login.component').then(m => m.LoginComponent) },
   { path: 'register', loadComponent: () => import('./register/register.component').then(m => m.RegisterComponent)},
   { path: 'order-details/:id', loadComponent: () => import('./order-details/order-details.component').then(m => m.OrderDetailsComponent)},
-  { path: 'edit-student/:id', loadComponent: () => import('./edit-student/edit-student.component').then(m => m.EditStudentComponent) },
-  { path: 'edit-profile', loadComponent: () => import('./edit-profile/edit-profile.component') },
+  { path: 'edit-profile', loadComponent: () => import('./edit-profile/edit-profile.component').then(m => m.EditProfileComponent) },
   { path: '**', redirectTo: '/home', pathMatch: 'full' },
 ];

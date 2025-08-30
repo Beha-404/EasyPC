@@ -9,14 +9,17 @@ import { CommonModule } from '@angular/common';
 import { User } from '../_models/User';
 import { ServicesContainerService } from '../_services/services-container.service';
 import { NgxImageCompressService } from 'ngx-image-compress';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ViewChild } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-profile',
-  imports: [RouterModule, FormsModule, MatButtonModule, MatFormFieldModule, CommonModule, MatInputModule, NavBarComponent],
+  imports: [RouterModule, FormsModule, MatButtonModule,TranslateModule, MatFormFieldModule, CommonModule, MatInputModule, NavBarComponent],
   templateUrl: './edit-profile.component.html',
   styleUrl: './edit-profile.component.css'
 })
-export default class EditProfileComponent implements OnInit {
+export class EditProfileComponent implements OnInit {
 
   services = inject(ServicesContainerService);
   user: User = {
@@ -40,8 +43,11 @@ export default class EditProfileComponent implements OnInit {
   model: any[] = [];
   previewURL: string | ArrayBuffer | null = null;
   URL = "http://localhost:5132/api/users/";
+  @ViewChild('editProfileForm') editProfileForm!: NgForm;
 
-  constructor(private imageCompress: NgxImageCompressService) {
+  constructor(private imageCompress: NgxImageCompressService, public translateService: TranslateService) {
+    this.translateService.setDefaultLang('en');
+    this.translateService.use('en');
   }
 
   ngOnInit() {
@@ -49,14 +55,21 @@ export default class EditProfileComponent implements OnInit {
     this.getUserData();
     this.setParameters();
   }
+  changeLanguage() {
+    if (this.translateService.currentLang === 'en') {
+      this.translateService.use('bs');
+    } else {
+      this.translateService.use('en');
+    }
+  }
   getUserData() {
-    const username = this.services.accountService.currentUser()?.username;
+    const user = this.services.accountService.currentUser()?.username;
    // this.services.userService.getUserByUsername(username)
   }
 
   getCurrentUser() {
     const userString = localStorage.getItem('user');
-
+    
     if (userString) {
       const userObject = JSON.parse(userString);
       return userObject;
@@ -71,8 +84,9 @@ export default class EditProfileComponent implements OnInit {
   }
 
   setParameters() {
-    return this.services.httpService.get(this.URL + this.getCurrentUser().username).subscribe({
+    return this.services.userService.getUserByUsername(this.getCurrentUser().username).subscribe({
       next: (newUser) => {
+        
         this.user = newUser as User;
         this.originalUser = { ...this.user };
       }
@@ -132,6 +146,10 @@ export default class EditProfileComponent implements OnInit {
   }
 
   submitChanges() {
+    if (!this.editProfileForm.valid) {
+      this.services.toastrService.error('Please fill out all required fields correctly.');
+      return;
+    }
     if (this.user) {
       const formData = new FormData();
       formData.append('firstName', this.user.firstName || '');
@@ -140,14 +158,13 @@ export default class EditProfileComponent implements OnInit {
       formData.append('state', this.user.state || '');
       formData.append('postalCode', this.user.postalCode || '');
       formData.append('country', this.user.country || '');
-      formData.append('address', this.user.address || '');
 
       if (this.file) {
         formData.append('profilePicture', this.file, this.file.name);
       }
 
 
-      this.services.httpService.put(this.URL + this.getCurrentUser().username, formData).subscribe({
+      this.services.userService.updateUser(this.getCurrentUser().username, formData).subscribe({
         next: () => {
           this.services.toastrService.success("Changes saved successfully");
           this.setParameters();
@@ -173,7 +190,7 @@ export default class EditProfileComponent implements OnInit {
   deleteProfile() {
     const username: string = this.getCurrentUser().username;
 
-    this.services.httpService.delete('http://localhost:5132/api/users/' + username).subscribe({
+    this.services.userService.deleteUser(username).subscribe({
       next: () => {
         this.services.accountService.logout();
         this.services.toastrService.success('User deleted');
